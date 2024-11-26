@@ -22,7 +22,7 @@ const Login = () => {
                 <h3>Or Sign Up Using</h3>
             </div>
             <div className="register-link">
-                <p>Not a member? <a href="#"> Signup now</a></p>
+                <p>Not a member? <a href="/register"> Signup now</a></p>
                 
             </div>
 
