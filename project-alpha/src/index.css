@@ -33,6 +33,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  justify-content: center;
+  background-color: hsl(234, 47%, 45%);
 }
 
 h1 {
