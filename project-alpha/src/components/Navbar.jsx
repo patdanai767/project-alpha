@@ -9,18 +9,18 @@ const Navbar = () => {
           PROJECT ALPHA
         </p>
         <div className="hidden sm:flex gap-8 cursor-pointer">
-          <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+          <a href="/search" className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
             Choose trainers
-          </p>
+          </a>
           <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
             Become a trainer
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 border-2 rounded-xl cursor-pointer px-4 py-1 hover:text-cyan-300 hover:border-cyan-300 transition duration-200 ease-in-out">
+      <a href="/login" className="flex items-center gap-2 border-2 rounded-xl cursor-pointer px-4 py-1 hover:text-cyan-300 hover:border-cyan-300 transition duration-200 ease-in-out">
         <LogIn />
-        <p className="font-semibold ">Login</p>
-      </div>
+        <div className="font-semibold ">Login</div>
+      </a>
     </div>
   );
 };
