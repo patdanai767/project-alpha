@@ -1,25 +1,28 @@
-import React from 'react'
+import React from "react";
+import { LogIn } from "lucide-react";
 
-function navbar() {
+const Navbar = () => {
   return (
-    <nav className='bg-blue-500 p-4 '>
-      <div className='containar mx-auto flex justify-between items-center'>
-        <ul className='flex space-x-20'>
-          <li><a href="#" className='text-white text-xl hover:text-gray-700'>Home</a></li>
-          <li><a href="#" className='text-white text-xl hover:text-gray-700'>Find a Trainer</a></li>
-          <li><a href="#" className='text-white text-xl hover:text-gray-700'>Chat</a></li>
-          <li><a href="#" className='text-white text-xl hover:text-gray-700'>Calendar</a></li>
-        </ul>
-        <div>
-        <a href="#" className='text-white text-2xl font-semibold hover:text-gray-700'>projectA</a>
+    <div className="bg-blue-800 text-white w-full flex items-center justify-between p-6">
+      <div className="flex items-center gap-8">
+        <p className="text-lg font-bold cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+          PROJECT ALPHA
+        </p>
+        <div className="hidden sm:flex gap-8 cursor-pointer">
+          <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+            Choose trainers
+          </p>
+          <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+            Become a trainer
+          </p>
         </div>
       </div>
-    </nav>
-   
-    
-    
-    
-  )
-}
+      <div className="flex items-center gap-2 border-2 rounded-xl cursor-pointer px-4 py-1 hover:text-cyan-300 hover:border-cyan-300 transition duration-200 ease-in-out">
+        <LogIn />
+        <p className="font-semibold ">Login</p>
+      </div>
+    </div>
+  );
+};
 
-export default navbar
+export default Navbar;
