@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   ArrowRight,
@@ -13,6 +13,7 @@ import {
   Monitor,
   UserRoundPlus,
 } from "lucide-react";
+import Homecard from "../../components/Homecard";
 
 const Home = () => {
   const scrollToTop = () => {
@@ -24,34 +25,42 @@ const Home = () => {
 
   return (
     <>
-      <div className="h-full flex flex-col relative">
+      <div className="h-full flex flex-wrap flex-col relative overflow-hidden">
         {/* header */}
         <div className="w-full bg-yellow-50">
-          <div className="max-w-[1920px] mx-auto flex items-center justify-between font-bold px-32 py-64">
-            <div>
-              <p className="text-6xl mb-4">Do you have a Trainer ?</p>
-              <p className="text-4xl mb-8">Let's started from here</p>
-              <button className="flex items-center gap-4 bg-blue-800 text-white text-2xl font-semibold border-none rounded-xl px-40 py-4 cursor-pointer hover:bg-blue-500 transition duration-200 ease-in-out">
-                <p>Start</p>
-                <ArrowRight />
-              </button>
+          <div className="max-w-[1920px] mx-auto flex flex-col-reverse lg:flex-row items-center justify-between font-bold px-8 lg:px-16 py-32 lg:py-64 gap-0 lg:gap-8 ">
+            <div className="flex flex-col items-start text-left">
+              <p className="text-4xl sm:text-5xl lg:text-6xl mb-4">
+                Do you have a Trainer ?
+              </p>
+              <p className="text-3xl lg:text-4xl mb-8">
+                Let's started from here
+              </p>
+              <div>
+                <button className="flex mx-auto items-center gap-4 bg-blue-800 text-white text-2xl font-semibold border-none rounded-xl px-40 py-4 cursor-pointer hover:bg-blue-500 transition duration-200 ease-in-out">
+                  <p>Start</p>
+                  <ArrowRight />
+                </button>
+              </div>
             </div>
             <div>
-              <p className="bg-blue-800 text-blue-800 rounded px-64 py-32">.</p>
+              <p className="bg-blue-800 text-blue-800 rounded px-56 sm:px-64 py-28 sm:py-32 mb-8 lg:mb-0">
+                .
+              </p>
             </div>
           </div>
         </div>
         {/* description */}
         <div className="w-full bg-blue-800 ">
-          <div className="max-w-[1920px] mx-auto text-white text-center px-32 p-16">
-            <p className="text-4xl font-bold mb-8">
+          <div className="max-w-[1920px] mx-auto text-white text-center px-8 lg:px-16 py-16">
+            <p className="text-3xl sm:text-4xl font-bold mb-8">
               Find the right trainer for you
             </p>
-            <p className="text-xl mb-8">
+            <p className="text-xl mb-12">
               Personal trainer will ensure you for performing exercises
               correctly and efficiently
             </p>
-            <div className="flex items-center justify-between text-xl font-bold px-32">
+            <div className="grid grid-cols-2 md:grid-cols-4 mx-auto text-xl gap-16 font-bold">
               <div className="flex flex-col items-center gap-4 hover:text-cyan-300 transition duration-200 ease-in-out">
                 <Dumbbell size={48} />
                 <p>Exercise</p>
@@ -73,43 +82,52 @@ const Home = () => {
         </div>
         {/* choose trainer */}
         <div className="w-full bg-yellow-50">
-          <div className="max-w-[1920px] mx-auto flex-cols text-center font-bold p-32">
-            <p className="text-4xl mb-16">Trainers for you are here</p>
+          <div className="max-w-[1920px] mx-auto flex-cols text-center px-8 lg:px-32 py-32">
+            <p className="text-3xl sm:text-4xl font-bold mb-16">
+              Trainers for you are here
+            </p>
             <div className="flex items-center justify-center gap-16">
               <ChevronLeft className="cursor-pointer" />
-              <p className="bg-blue-800 text-blue-800 rounded px-36 py-48">.</p>
-              <p className="bg-blue-800 text-blue-800 rounded px-36 py-48">.</p>
-              <p className="bg-blue-800 text-blue-800 rounded px-36 py-48">.</p>
+
+              <div className="grid grid-cols-3 gap-8">
+                <Homecard />
+                <Homecard className="" />
+                <Homecard className="" />
+              </div>
               <ChevronRight className="cursor-pointer" />
             </div>
           </div>
         </div>
         {/* become a trainer */}
         <div className="bg-blue-800 text-white">
-          <div className="max-w-[1920px] mx-auto flex items-center justify-between px-32 py-32">
-            <div className="border-cyan-300 border-4 p-8 rounded-xl">
-              <div className="flex items-center text-4xl gap-8 pb-4">
+          <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 py-16 lg:py-32 gap-0 lg:gap-8">
+            <div className="border-cyan-300 border-2 sm:border-4 p-8 rounded-xl">
+              <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 mb-4 hover:text-cyan-300 transition duration-200">
                 <UserRoundPlus size={36} />
                 <p>Find new customer</p>
               </div>
-              <div className="flex items-center text-4xl gap-8 pb-4">
+              <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 mb-4 hover:text-cyan-300 transition duration-200">
                 <Building2 size={36} />
                 <p>Grow your business</p>
               </div>
-              <div className="flex items-center text-4xl gap-8">
+              <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 hover:text-cyan-300 transition duration-200">
                 <HandCoins size={36} />
                 <p>Earn income securely</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-6xl mb-4 font-bold">Are you a Trainer ?</p>
-              <p className="text-xl mb-8 ">
+            <div className="flex flex-col items-start text-left lg:text-right">
+              <p className="text-right lg:text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4 font-bold">
+                Are you a Trainer ?
+              </p>
+              <p className="text-xl mb-8">
                 Sign up to start training online with Project Alpha
               </p>
-              <button className="flex items-center gap-4 bg-white text-black text-2xl font-semibold border-none rounded-xl px-40 py-4 cursor-pointer hover:bg-cyan-300 transition duration-200 ease-in-out">
-                <p>Become a trainer</p>
-                <ArrowRight />
-              </button>
+              <div>
+                <button className="flex mx-auto items-center gap-4 bg-white text-black text-2xl font-semibold border-none rounded-xl px-20 sm:px-28 lg:px-24 py-4 cursor-pointer hover:bg-cyan-300 transition duration-200 ease-in-out">
+                  <p>Become a trainer</p>
+                  <ArrowRight />
+                </button>
+              </div>
             </div>
           </div>
 
