@@ -57,4 +57,4 @@ function Contence() {
   )
 }
 
-export default Contence
+export default Contence;
