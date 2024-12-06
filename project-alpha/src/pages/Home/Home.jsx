@@ -13,8 +13,8 @@ import {
   Monitor,
   UserRoundPlus,
 } from "lucide-react";
-import Homecard from "../../components/Homecard";
-import { trainersData } from "../../assets/assets";
+import Homecard from "../../components/Card/Homecard";
+import {trainersData} from "../../constants/assets"
 
 const Home = () => {
   const scrollToTop = () => {
@@ -24,7 +24,11 @@ const Home = () => {
     });
   };
 
+  console.log(trainersData)
+
   const [index, setIndex] = useState(0);
+
+  console.log(index)
 
   const next = () => {
     setIndex((prev) => (prev + 1) % trainersData.length);
@@ -116,13 +120,15 @@ const Home = () => {
               <div onClick={previous} className="flex cursor-pointer">
                 <ChevronLeft />
               </div>
-              <div className="flex cursor-pointer">
+              <div className="flex cursor-pointer gap-8">
+                {trainersData.slice(index,(index+3)).map((val) => 
                 <Homecard
-                  key={trainersData[index].id}
-                  name={trainersData[index].name}
-                  image={trainersData[index].image}
-                  category={trainersData[index].category}
+                  key={val.id}
+                  name={val.name}
+                  image={val.image}
+                  category={val.category}
                 />
+                )}
               </div>
               <div onClick={next} className="flex cursor-pointer">
                 <ChevronRight />
