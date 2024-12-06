@@ -4,9 +4,13 @@ import Contence from '../../components/Contence'
 
 export default function Search() {
   return (
-    <div>
+    <div className='flex'>
       <Sidebar/>
-      <Contence/>
+      <div>
+        <Contence/>
+        <Contence/>
+      </div>
+      
     </div>
   )
 }

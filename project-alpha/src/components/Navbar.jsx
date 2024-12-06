@@ -5,15 +5,18 @@ const Navbar = () => {
   return (
     <div className="bg-blue-800 text-white w-full flex items-center justify-between p-6">
       <div className="flex items-center gap-8">
-        <p className="text-lg font-bold cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+        <a href="/" className="text-lg font-bold cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
           PROJECT ALPHA
-        </p>
+        </a>
         <div className="hidden sm:flex gap-8 cursor-pointer">
           <a href="/search" className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
             Choose trainers
           </a>
           <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
             Become a trainer
+          </p>
+          <p className="cursor-pointer hover:text-cyan-300 transition duration-200 ease-in-out">
+            Message
           </p>
         </div>
       </div>

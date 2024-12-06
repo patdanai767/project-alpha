@@ -31,10 +31,12 @@ const Home = () => {
             <div>
               <p className="text-6xl mb-4">Do you have a Trainer ?</p>
               <p className="text-4xl mb-8">Let's started from here</p>
+              <a href="/search">
               <button className="flex items-center gap-4 bg-blue-800 text-white text-2xl font-semibold border-none rounded-xl px-40 py-4 cursor-pointer hover:bg-blue-500 transition duration-200 ease-in-out">
                 <p>Start</p>
                 <ArrowRight />
               </button>
+              </a>
             </div>
             <div>
               <p className="bg-blue-800 text-blue-800 rounded px-64 py-32">.</p>
