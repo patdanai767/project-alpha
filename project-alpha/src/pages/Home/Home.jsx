@@ -13,8 +13,8 @@ import {
   Monitor,
   UserRoundPlus,
 } from "lucide-react";
-import Homecard from "../../components/Homecard";
-import { trainersData } from "../../assets/assets";
+import Homecard from "../../components/Card/Homecard";
+import {trainersData} from "../../constants/assets"
 
 const Home = () => {
   const scrollToTop = () => {

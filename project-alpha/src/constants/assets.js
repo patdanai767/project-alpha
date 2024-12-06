@@ -1,8 +1,8 @@
-import patrick_profile from './patrick.jpg'
-import shinchan_profile from './shinchan.jpg'
-import shiro_profile from './shiro.jpg'
-import spongebob_profile from './spongebob.jpg'
-import squidward_profile from './squidward.jpg'
+import patrick_profile from '../assets/patrick.jpg'
+import shinchan_profile from '../assets/shinchan.jpg'
+import shiro_profile from '../assets/shiro.jpg'
+import spongebob_profile from '../assets/spongebob.jpg'
+import squidward_profile from '../assets/squidward.jpg'
 
 export const profile = {
     patrick_profile,
