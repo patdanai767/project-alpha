@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import HeartButton from './HeartButton'
-import Starbutton from '../assets/Starbutton.svg'
 import Star from '../assets/Starbutton.jsx'
 import VerifySym from '../assets/VerifySymbol.svg'
 import PeopleLogo from '../assets/PeopleLogo.svg'
