@@ -1,3 +1,7 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import Navbar from './components/Navbar'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
@@ -9,7 +13,7 @@ import Payment from "./pages/Payment/Payment";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes> 
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search/>}/>
