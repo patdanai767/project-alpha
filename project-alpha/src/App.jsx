@@ -12,7 +12,7 @@ import Search from "./pages/Search/Search";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes> 
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search/>}/>

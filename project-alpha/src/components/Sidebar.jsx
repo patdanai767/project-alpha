@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import DropLogo from "../assets/Drop.svg";
+import React,{useState}from 'react'
+import DropLogo from '../assets/Drop.svg'
 
 function Sidebar() {
   // State สำหรับการเปิด/ปิด dropdown
@@ -32,19 +32,19 @@ function Sidebar() {
     setIsOpen5(!isOpen5);
   };
   return (
-    <div class="w-64 h-screen bg-gray-300 py-4 text-center">
-      <div className="text-3xl font-serif font-extrabold">Fliter</div>
-      <botton
-        onClick={toggleGender}
-        className="border-solid border-black border-2 w-44 min-h-9 text-black px-6 py-2 rounded-full mt-4 inline-flex justify-between hover:bg-gray-400 cursor-pointer"
-      >
-        Gender
-        <img src={DropLogo} width="14" />
-      </botton>
-      {isOpen1 && (
-        <div className="bg-gray-200 w-56 relative left-4 border-2 rounded-lg">
-          <div className="cursor-pointer hover:bg-gray-300">Male</div>
-          <div className="cursor-pointer hover:bg-gray-300">Female</div>
+      <div class="w-64 h-auto bg-gray-300 py-4 text-center ">
+        <div className='text-3xl font-serif font-extrabold'>Fliter</div>
+        <botton 
+        onClick={toggleGender} 
+        className='border-solid border-black border-2 w-44 min-h-9 text-black px-6 py-2 rounded-full mt-4 inline-flex justify-between hover:bg-gray-400 cursor-pointer'
+        >
+          Gender
+          <img src={DropLogo} width="14" />
+        </botton>
+        {isOpen1 && (
+          <div className='bg-gray-200 w-56 relative left-4 border-2 rounded-lg'>
+          <div className='cursor-pointer hover:bg-gray-300'>Male</div>
+          <div className='cursor-pointer hover:bg-gray-300'>Female</div>
         </div>
       )}
 
