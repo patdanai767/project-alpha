@@ -1,15 +1,18 @@
 import React, {useState} from 'react'
-import HeartButton from './HeartButton'
-import Star from '../assets/Starbutton.jsx'
-import VerifySym from '../assets/VerifySymbol.svg'
-import PeopleLogo from '../assets/PeopleLogo.svg'
+import HeartButton from '../HeartButton.jsx'
+import Star from '../../assets/Starbutton.jsx'
+import VerifySym from '../../assets/VerifySymbol.svg'
+import PeopleLogo from '../../assets/PeopleLogo.svg'
+import DurationLogo from '../../assets/durationLogo.svg'
+import GraduationCap from '../../assets/GraduationCap.svg'
+import Profile from "../../assets/shiro.jpg"
 
 function Contence() {
   return (
     <div className='ml-[150px] mt-[40px] '>
       <div className='border-[3px] border-gray-400 h-[400px] w-[1000px] hover:border-black rounded-md'>
 
-        <div className='absolute border-gray-400 h-[200px] w-[200px] border-[3px] ml-5 mt-5 rounded-md'></div>
+        <div className='absolute border-gray-400 h-[200px] w-[200px] border-[3px] ml-5 mt-5 rounded-md'><img src={Profile}/></div>
 
         <div className='absolute ml-[910px] mt-[25px] '>
           <HeartButton/>
@@ -41,12 +44,16 @@ function Contence() {
             <div className='bg-blue-300 rounded-md h-[20px] w-[100px] flex items-center justify-center font-semibold text-black'>Professional</div>
             <div className='bg-pink-300 rounded-md h-[20px] w-[100px] flex items-center justify-center font-semibold text-black ml-[10px]'>Super Trainer</div>
           </div>
-          <div className='flex'><img src={PeopleLogo} width={20} /><div className='ml-[5px] text-gray-600 font-semibold mt-[5px]'>56 active client • 8421 courses</div></div>
+          <div className='flex'><img src={PeopleLogo} width={20} /><div className='ml-[10px] text-gray-600 font-semibold mt-[5px]'>56 active client • 8421 courses</div></div>
+          <div className='flex ml-[1px]'><img src={GraduationCap} width={20} /><div className='ml-[9px] text-gray-600 font-semibold '>Weight training</div></div>
         </div>
         
         <div className='absolute border-gray-100 border-2 w-[400px] h-[225px] ml-[230px] mt-[150px]'>
           <div className='absolute '>Hello my Name is Roronoa Zoro a man will become a strongest swordsman in the world. and my friend Lufy he is a man will be come king of the pirate</div>
         </div>
+
+        <div className='absolute mt-[340px] ml-6 '><img src={DurationLogo} width={30} /></div>
+        <div className='absolute mt-[345px] ml-[60px] font-semibold text-gray-700'>7/12/2024</div>
         
 
       </div>
