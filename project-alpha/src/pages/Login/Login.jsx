@@ -3,10 +3,12 @@ import "./Login.css";
 
 const Login = () => {
   return (
-    <div className="h-screen w-full flex justify-center items-center">
-      <div className="wrapper bg-slate-300">
+    <div class='flex items-center justify-center min-h-screen from-purple-900 via-indigo-800 to-indigo-500 bg-gradient-to-br'>
+    <div className="h-screen w-full flex justify-center items-center ">
+      <div className="wrapper bg-white">
+      
         <form action="">
-          <h1>Login</h1>
+        <h1>Login</h1>
           <h2 className=" mt-2 bg-s">sign in to continue</h2>
           <div className="input-box">
             <input type="text-lg font-medium" placeholder="Username" required />
@@ -27,9 +29,13 @@ const Login = () => {
               Not a member? <a href="/register"> Signup now</a>
             </p>
           </div>
+          
         </form>
       </div>
     </div>
+    </div>
+    
+    
   );
 };
 export default Login;
