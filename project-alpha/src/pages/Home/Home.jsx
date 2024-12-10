@@ -132,10 +132,10 @@ const Home = () => {
                 }`}
               >
                 <Homecard
-                  key={val.id}
-                  name={val.name}
-                  image={val.image}
-                  category={val.category}
+                  key={trainersData[index].id}
+                  name={trainersData[index].name}
+                  image={trainersData[index].image}
+                  category={trainersData[index].category}
                 />
               </div>
             </div>

@@ -19,9 +19,6 @@ export default {
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
-      },
-      colors:{
-        'skibidi':'#2d7cda',
       }
     },
   },
