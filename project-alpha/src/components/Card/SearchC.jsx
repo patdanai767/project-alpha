@@ -1,6 +1,4 @@
-import { Target } from "lucide-react";
-import React from "react";
-import HeartButton from '../HeartButton.jsx'
+import HeartButton from '../Button/HeartButton.jsx'
 import Star from '../../assets/Starbutton.jsx'
 import VerifySym from '../../assets/VerifySymbol.svg'
 import PeopleLogo from '../../assets/PeopleLogo.svg'

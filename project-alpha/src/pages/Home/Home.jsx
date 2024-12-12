@@ -147,19 +147,19 @@ const Home = () => {
             <div className=" border-lime border-2 sm:border-4 p-8 rounded-xl">
               <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 mb-4 hover:text-lime hover:scale-105 transition duration-200">
                 <UserRoundPlus size={36} />
-                <p>Find new customer</p>
+                <p className="cursor-pointer">Find new customer</p>
               </div>
               <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 mb-4 hover:text-lime hover:scale-105 transition duration-200">
                 <Building2 size={36} />
-                <p>Grow your business</p>
+                <p className="cursor-pointer">Grow your business</p>
               </div>
               <div className="flex items-center text-2xl sm:text-3xl lg:text-4xl gap-8 hover:text-lime hover:scale-105 transition duration-200">
                 <HandCoins size={36} />
-                <p>Earn income securely</p>
+                <p className="cursor-pointer">Earn income securely</p>
               </div>
             </div>
             <div className="flex flex-col items-start text-left lg:text-right">
-              <p className="text-lime text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4 font-bold">
+              <p className="cursor-pointer text-lime text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4 font-bold">
                 Are you a Trainer ?
               </p>
               <p className="text-xl text-left sm:text-2xl font-semibold mb-8">
