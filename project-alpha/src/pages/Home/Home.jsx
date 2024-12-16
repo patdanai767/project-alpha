@@ -14,7 +14,7 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 import Homecard from "../../components/Card/Homecard";
-import {trainersData} from "../../constants/assets"
+import { trainersData } from "../../constants/assets";
 
 const Home = () => {
   const scrollToTop = () => {
@@ -24,7 +24,7 @@ const Home = () => {
     });
   };
 
-  console.log(trainersData)
+  console.log(trainersData);
 
   const [index, setIndex] = useState(0);
   const [isNext, setIsNext] = useState(false);
@@ -48,8 +48,7 @@ const Home = () => {
       <div className="h-full flex flex-wrap flex-col relative overflow-hidden font-montserrat">
         {/* header */}
         <div className="w-full bg-sky">
-          <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row-reverse items-center justify-evenly px-8 lg:px-16 py-36 lg:py-64 gap-0 lg:gap-8">
-            <div className="border-blue border-2 sm:border-4 px-40 sm:px-56 py-20 sm:py-28 rounded-xl"></div>
+          <div className="max-w-[1920px] mx-auto flex flex-col items-center justify-center px-8 lg:px-16 py-64 gap-0 lg:gap-8">
             <div className="flex flex-col items-start text-left lg:text-right">
               <p className="text-blue font-bold text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4">
                 Do you have a Trainer ?
