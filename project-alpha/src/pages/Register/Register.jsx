@@ -10,15 +10,15 @@ const Register = () => {
       <h2 className=" text-blue-900 mb-8 font-bold">Already Registered? Login</h2>
       <form action="#" class="w-full flex flex-col gap-4">
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white ">UserName</label>
-          <input type="username" class=" w-full rounded-3xl bg-slate-200 outline-blue-900 px-5 py-3" placeholder="" />
+          <input type="username" class=" w-full rounded-3xl bg-slate-200 outline-blue px-5 py-3" placeholder="" />
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white">FullName</label>
-          <input type="fullname" class=" w-full rounded-3xl bg-slate-200 outline-blue-900 px-5 py-3" placeholder="" />
+          <input type="fullname" class=" w-full rounded-3xl bg-slate-200 outline-blue px-5 py-3" placeholder="" />
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white">Email</label>
-          <input type="email" class="mb-3 w-full rounded-3xl bg-slate-200 outline-blue-900 px-5 py-3" placeholder="" />
+          <input type="email" class="mb-3 w-full rounded-3xl bg-slate-200 outline-blue px-5 py-3" placeholder="" />
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white">Password</label>
-          <input type="password" class="mb-3 w-full rounded-3xl bg-slate-200 outline-blue-900 px-5 py-3" placeholder="" />
+          <input type="password" class="mb-3 w-full rounded-3xl bg-slate-200 outline-blue px-5 py-3" placeholder="" />
              
-        <button type="password" class="mb-3 w-full rounded-3xl bg-blue-900  px-5 py-3 font-semibold text-white">Login</button>
+        <button type="password" class="mb-3 w-full rounded-3xl bg-blue  px-5 py-3 font-semibold text-white">Login</button>
       
      
       </form>

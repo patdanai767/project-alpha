@@ -7,7 +7,7 @@ import {trainersData} from "../../constants/TrainerData";
 export default function Search() {
   return (
     <div className='flex'>
-      <Sidebar/>
+      
       <div>
       {trainersData.map((val) => 
                 <Searchcard

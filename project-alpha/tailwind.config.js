@@ -9,6 +9,10 @@ export default {
     //   'skibidi':'#2d7cda',
     // },
     extend: {
+      lineClamp:{
+        9: '9',
+      },
+      
       colors: {
         blue: "#2F4ACC",
         lightblue: "#4A8BDF",
