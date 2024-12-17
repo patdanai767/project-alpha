@@ -5,9 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // colors: {
-    //   'skibidi':'#2d7cda',
-    // },
     extend: {
       lineClamp:{
         9: '9',
