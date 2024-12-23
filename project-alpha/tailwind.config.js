@@ -15,6 +15,8 @@ export default {
         sky: "#EFFAFD",
         lime: "#DDF344",
         green: "#38A32A",
+        red: "#EB455F",
+        black: "#000000",
         white: "#FFFFFF"
       },
       fontFamily: {
