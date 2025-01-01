@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Register.css";
 import { LuEye } from "react-icons/lu";
 
 const Register = () => {
@@ -27,7 +28,7 @@ const Register = () => {
           </p>
         </div>
 
-        <form action="#" className="w-full flex flex-col gap-3">
+        <form action="#" class="w-full flex flex-col gap-3">
           <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white ">
             UserName
           </label>
@@ -56,11 +57,11 @@ const Register = () => {
             <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white ">
               Password
             </label>
-            <div className="flex  items-center justify-between">
+            <div className="flex  item-center justify-between">
               <input
                 id="hs-toggle-password"
                 type={show ? "text" : "password"}
-                className="mb-3 w-80  ml-[5.4px] rounded-3xl bg-slate-200 outline-blue-900 py-3 ps-4 border "
+                class="mb-3 w-80  ml-[0.5vh] rounded-3xl bg-slate-200 outline-blue-900 py-3 ps-4 border "
                 placeholder=""
               />
               <button
@@ -79,7 +80,7 @@ const Register = () => {
 
           <button
             type="create"
-            class="mb-3 w-[40vh]  ml-[4vh] rounded-3xl bg-blue  px-5 py-3 font-semibold text-white"
+            class="mb-3 w-[40vh] rounded-3xl bg-blue  px-5 py-3 font-semibold text-white"
           >
             Create
           </button>
