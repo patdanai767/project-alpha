@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const HeartButton = () => {
+const StarButton = () => {
   const [liked, setLiked] = useState(false);
 
   const toggleLike = () => {
@@ -10,7 +10,7 @@ const HeartButton = () => {
   return (
     <svg 
     fill="#000000" 
-    height="35px" width="35px" 
+    height="25px" width="25px" 
     version="1.1" id="Capa_1" 
     xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -22,4 +22,4 @@ const HeartButton = () => {
   );
 };
 
-export default HeartButton;
+export default StarButton;
