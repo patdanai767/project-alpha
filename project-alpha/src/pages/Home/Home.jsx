@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   ArrowUp,
   BicepsFlexed,
   Building2,
   CalendarClock,
-  ChevronLeft,
-  ChevronRight,
   Dumbbell,
   HandCoins,
   Monitor,
@@ -15,19 +12,28 @@ import {
 } from "lucide-react";
 import Homecard from "../../components/Card/Homecard";
 import { trainersData } from "../../constants/assets";
+import { config } from "../../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Home = () => {
+  const [index, setIndex] = useState(0);
+  const [isNext, setIsNext] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const duration = setInterval(next, 3000);
+    return () => clearInterval(duration);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-
-  console.log(trainersData);
-
-  const [index, setIndex] = useState(0);
-  const [isNext, setIsNext] = useState(false);
 
   const next = () => {
     setIsNext(true);
@@ -36,12 +42,6 @@ const Home = () => {
       setIsNext(false);
     }, 300);
   };
-
-  useEffect(() => {
-    const duration = setInterval(next, 3000);
-
-    return () => clearInterval(duration);
-  }, []);
 
   return (
     <>
