@@ -12,18 +12,15 @@ import {
 } from "lucide-react";
 import Homecard from "../../components/Card/Homecard";
 import { trainersData } from "../../constants/assets";
-import { config } from "../../config";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const Home = () => {
   const [index, setIndex] = useState(0);
   const [isNext, setIsNext] = useState(false);
-
-  const navigate = useNavigate();
+  const [courses, setCourses] = useState();
 
   useEffect(() => {
+    fetchData();
     const duration = setInterval(next, 3000);
     return () => clearInterval(duration);
   }, []);
@@ -33,6 +30,11 @@ const Home = () => {
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  const fetchData = async () => {
+    const res = await axios.get("/api/course");
+    setCourses(res.data);
   };
 
   const next = () => {

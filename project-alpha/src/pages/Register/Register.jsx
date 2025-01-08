@@ -4,33 +4,36 @@ import Footer from "../../components/Navbar/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 
 const Register = () => {
-  const [selectTypeRole, setSelectTypeRole] = useState(true);
+  const [selectTypeRole, setSelectTypeRole] = useState("Trainee");
+  const [details, setDetails] = useState({
+    fullname: undefined,
+    username: undefined,
+    email: undefined,
+    password: undefined,
+    sex: undefined,
+  });
 
   useEffect(() => {
-    fetchData();
+    console.log(details);
   }, []);
 
-  const fetchData = async () => {
-    try {
-      await axios.get("/api/course").then((res) => {});
-    } catch (err) {
-      console.log({ message: err });
-    }
-  };
-
   const handleSelectTrainee = () => {
-    setSelectTypeRole(true);
+    setSelectTypeRole("Trainee");
   };
 
   const handleSelectTrainer = () => {
-    setSelectTypeRole(false);
+    setSelectTypeRole("Trainer");
+  };
+
+  const handleChange = (e) => {
+    setDetails((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (
     <div className="bg-sky">
       <Navbar />
       <div className="md:grid grid-cols-2">
-        {selectTypeRole ? (
+        {selectTypeRole === "Trainee" ? (
           <div className="flex justify-center">
             <div className="bg-white rounded-2xl shadow-md w-[550px] my-[100px]">
               <div className="my-10 mx-10 grid gap-7">
@@ -65,6 +68,8 @@ const Register = () => {
                     <input
                       className="border p-2 w-full border-slate-300 rounded"
                       placeholder="Enter your fullname"
+                      id="fullname"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -72,6 +77,8 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your username"
+                      id="username"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -79,6 +86,8 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your email"
+                      id="email"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -86,22 +95,22 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your password"
+                      id="password"
+                      onChange={handleChange}
+                      type="password"
                     />
                   </div>
-                  <div className="flex gap-4 items-center">
+                  <div className="flex gap-4 items-center mt-1">
                     <div className="font-semibold">Sex</div>
-                    <form className="flex gap-6">
-                      <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
-                        <div className="ml-2">Male</div>
+                    <form className="flex gap-6" id="sex">
+                      <div className="flex border border-slate-300 rounded-lg p-1 px-4 cursor-pointer hover:bg-slate-200 transition">
+                        Male
                       </div>
-                      <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
-                        <div className="ml-2">Female</div>
+                      <div className="flex border border-slate-300 rounded-lg p-1 px-4 cursor-pointer hover:bg-slate-200 transition">
+                        Female
                       </div>
-                      <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
-                        <div className="ml-2">LGBTQ+</div>
+                      <div className="flex border border-slate-300 rounded-lg p-1 px-4 cursor-pointer hover:bg-slate-200 transition">
+                        LGBTQ+
                       </div>
                     </form>
                   </div>
