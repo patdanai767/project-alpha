@@ -1,5 +1,4 @@
-import React from "react";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/Navbar/Sidebar";
 import Contence from "../../components/Card/SearchCard";
 import Searchcard from "../../components/Card/SearchC";
 import {trainersData} from "../../constants/TrainerData";
@@ -7,7 +6,7 @@ import {trainersData} from "../../constants/TrainerData";
 export default function Search() {
   return (
     <div className='flex'>
-      <Sidebar/>
+      
       <div>
       {trainersData.map((val) => 
                 <Searchcard

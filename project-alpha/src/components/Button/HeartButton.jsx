@@ -13,7 +13,7 @@ const HeartButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-8 h-8 ${liked ? 'text-red-500 hover:text-red-400' : 'text-gray-400 fill-none hover:text-black'}`}
+        className={`w-7 h-7 ${liked ? 'text-red-500 hover:text-red-400' : 'text-gray-400 fill-none hover:text-black'}`}
         fill="currentColor"
         viewBox="0 0 24 24"
         stroke="currentColor"
