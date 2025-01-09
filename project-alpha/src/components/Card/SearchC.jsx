@@ -1,71 +1,91 @@
-import React from "react";
+import React,{useState}from 'react'
 import HeartButton from '../HeartButton.jsx'
-import Star from '../../assets/Starbutton.jsx'
+//import Star from '../../assets/Starbutton.jsx'
 import VerifySym from '../../assets/VerifySymbol.svg'
 import PeopleLogo from '../../assets/PeopleLogo.svg'
 import DurationLogo from '../../assets/durationLogo.svg'
 import GraduationCap from '../../assets/GraduationCap.svg'
 import {
+  Clock,
+  Calendar,
+  Star,
+  Target,
+  X,
 } from "lucide-react";
 
 const Searchcard = ({title,description,price,duration,thumbnail,category}) => {
+  // State สำหรับการเปิด/ปิด dropdown
+      const [isOpen1, setIsOpen1] = useState(false);
+      const [isOpen2, setIsOpen2] = useState(false);
+  // ฟังก์ชันสำหรับเปิด/ปิด dropdown
+      const toggleMessage = () => {
+        setIsOpen1(!isOpen1);
+      };
+      const toggleCrouse = () => {
+        setIsOpen2(!isOpen2);
+      };
   return (
-    <div className=' md:px-[40px] py-[40px]'>
-    <div className='relative md:border-[3px] border-gray-400 md:h-[400px] md:max-w-[1000px] min-w-[450px] h-[500px] md:w-[93vw] w-[100vw] hover:border-black rounded-md '>
-      
-    <div className='absolute border-gray-100 h-[200px] w-[200px] border-[3px] md:ml-5 ml-2 mt-5 rounded-md'><img src={thumbnail} className="rounded-md md:h-[194px] md:w-[194px] h-[150px] w-[150px]" /></div>
-   
-      <div className=" rerative absolute z-10 border-2 border-none  w-[260px] h-[80px] lg:right-[80px] lg:top-0 md:right-[-40px] md:top-[180px] ml-[155px] top-[85px]">
-        <div className='absolute left-[35px] top-[27px]'><Star/></div>
-        <div className='absolute lg:text-3xl text-2xl font-bold md:left-[17px] lg:top-[20px] left-[19px] top-[23px]'>5</div>
-        <div className='absolute text-gray-500 text-sm font-semibold left-[18px] top-[53px]'>review</div>
+    <div className="py-4">
+    <div className="border-[2px] h-[400px] w-[1024px] border-black rounded-xl pt-[30px] pb-[30px] pr-[35px] pl-[35px] flex justify-between">
 
-        <div className='absolute lg:text-3xl font-semibold text-2xl lg:top-[20px] top-[23px] lg:left-[100px] left-[90px]'>{price}</div>
-        <div className='absolute top-[53px] lg:left-[104px] left-[94px] text-gray-500 font-semibold text-sm'>30-day/course</div>
+      <div className="flex flex-col justify-between">
+        <div className="h-[200px] w-[200px] bg-lime rounded-xl"><img src={thumbnail} className="rounded-xl h-[200px] w-[200px]" /></div>    
+        <div>
+          <div className="mb-[10px] flex"><Calendar className="w-[16px] h-[16px] mt-[4px]"/>  <div className="ml-[8px] font-montserrat font-semibold">Mon - Fri</div>  </div>
+          <div className="flex"><Clock className="w-[16px] h-[16px] mt-[4px]"/>  <div className="ml-[8px] font-montserrat font-semibold">16 : 00 - 19:00</div>  </div>  
+        </div>       
       </div>
 
-      <div className='absolute right-[35px] top-[25px] '>
-          <HeartButton/>
-        </div>
-      <div className='absolute right-[24px] top-[53px] text-sm text-gray-500 font-semibold'>favorite</div>
-
-      <div className='absolute flex justify-center items-center border-black border-2 bg-lightblue lg:w-[280px] md:w-[190px] h-[50px]  lg:right-5  md:right-5 md:top-[265px] top-[400px] w-[93vw] max-w-[700px] ml-2
-      rounded-lg hover:bg-green cursor-pointer'>
-        <div className='font-semibold text-xl text-black'>Buy Course</div>
+      <div>
+        <div className="text-xl font-montserrat font-bold">{title}</div>
+        <div className="flex mt-[3px]"><Target className="h-[16px] w-[16px] mt-[0px]"/><div className="mt-[-3px] ml-[4px] font-montserrat font-medium">{category}</div></div>
+        <div className="h-[140px] w-[400px] mt-[3px] break-words line-clamp-9">{description}</div>
       </div>
 
-      <div className='absolute border-gray-500 border-2 bg-white  lg:w-[280px] md:w-[190px] h-[50px] lg:right-5  md:right-5 md:top-[325px] top-[460px] w-[93vw] max-w-[700px] ml-2
-      rounded-lg hover:bg-gray-300 cursor-pointer'>
-        <div className='flex justify-center mt-[8px] font-semibold text-xl text-black'>Send massage</div>
-      </div>
-
-      <div className='absolute text-3xl font-semibold md:left-[230px] md:top-[20px] left-[170px] top-[20px] flex'>
-        {title}
-        <div className='mt-[12px] ml-[10px]'><img src={VerifySym} width={18} /></div>
-      </div>
-
-      <div className="absolute border-none border-2 w-[33vw] max-w-[300px] h-[30px] md:left-[230px] left-[172px] top-[60px]">
-      <div className='md:flex'>
-          <div className='bg-lightblue rounded-md h-[20px] w-[100px] flex items-center justify-center font-semibold text-black'>Professional</div>
-          <div className='bg-pink-300 rounded-md h-[20px] w-[100px] flex items-center justify-center font-semibold text-black md:left-[10px] mt-1 md:mt-0'>Super Trainer</div>
-        </div>
-      </div>
-
-      <div className='absolute border-none border-2 md:w-[300px] w-[165px] h-[60px] md:left-[230px] md:top-[90px] top-[170px] left-2'>
+      <div className="flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between">
+              <div className="flex"> <Star  className="h-[20px] w-[20px] mt-[4px]"/> <div className="text-xl ml-[3px] font-semibold font-montserrat">4.8</div> </div><HeartButton/>
+            </div>
+            <div className="text-gray-600 mt-[-5px] ">252 review</div>
+            <div className="text-xl font-semibold font-montserrat">{price}</div>
+            <div className="text-gray-600 mt-[-5px]">30-min/course</div>
+          </div>
         
-        <div className='flex'><img src={PeopleLogo} width={20} /><div className='ml-[9px] text-gray-600 font-semibold mt-[5px] break-words'>●561 active client ●311111 courses</div></div>
-        <div className='flex'><img src={GraduationCap} width={19} className="ml-[1px]"/><div className='ml-[9px] text-gray-600 font-semibold '>{category}</div></div>
+        
+        <div>
+          <a href="/coursedetail" className="border-[2px] border-green bg-lime w-[250px] h-[56px] rounded-[12px] text-green text-xl font-montserrat font-semibold grid place-items-center mb-[8px] hover:bg-yellow-200 cursor-pointer">
+            View Course
+          </a>
+          <div onClick={toggleMessage} className="border-[2px] border-lightblue bg-white w-[250px] h-[56px] rounded-[12px] text-lightblue text-xl font-montserrat font-semibold grid place-items-center hover:bg-gray-300 cursor-pointer">
+            Send message
+          </div>
+        </div>
       </div>
       
-      <div className='absolute border-none border-2 md:w-[33vw] md:max-w-[400px] w-[60vw] max-w-[1000px] h-[225px] md:left-[230px] md:top-[150px] left-[180px] top-[175px]'>
-        <div className='break-words line-clamp-9'>{description}</div>
-      </div>
+    </div>
 
-      <div className='absolute mt-[340px] md:left-6 left-2'><img src={DurationLogo} width={30} /></div>
-      <div className='absolute mt-[345px] md:left-[60px] left-11 font-semibold text-gray-700'>{duration}</div>
+    {isOpen1 && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-10" onClick={toggleMessage}></div>     
+    )}
+
+    {isOpen1 && (
+      <div className='fixed inset-0 flex justify-center items-center z-10'>
+      <div className='bg-white w-[400px] h-[500px] border-2 border-black rounded-[12px] p-[16px]'>
+        <div className='flex justify-end'><X className='h-[20px] w-[20px] cursor-pointer' onClick={toggleMessage}/></div>
+        <div className='flex justify-center'><div className='h-[100px] w-[100px] bg-lime rounded-[12px]'></div></div>
+        <div className='text-[20px] font-semibold font-montserrat text-center mt-[10px]'>send message to</div>
+        <div className='text-[20px] font-semibold font-montserrat text-center'>TrainerA</div>
+        <div className='w-[368px] h-[193px] border-[2px] rounded-[12px] border-black mt-[16px]'></div>
+        <div className='w-[368px] h-[50px] border-[2px] rounded-[12px] border-black bg-lightblue grid place-items-center mt-[10px] hover:bg-blue cursor-pointer'> 
+          <div className='text-[20px] font-montserrat font-semibold text-white ]'>Send message</div>
+        </div>
+      </div>
+      </div>
+    )}
+
+    </div>
     
-    </div>
-    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home";
 import Layout from "./layout/layout";
 import Search from "./pages/Search/Search";
 import Payment from "./pages/Payment/Payment";
+import CourseDetail from './pages/CourseDetail/CourseDetail';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search/>}/>
+          <Route path="/coursedetail" element={<CourseDetail />} />
         </Route>
         <Route path="/payment" element={<Payment />} />
         <Route path="/register" element={<Register />} />
