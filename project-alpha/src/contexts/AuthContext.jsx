@@ -8,6 +8,22 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("AUTH_KEY") || "");
   const navigate = useNavigate();
 
+  const registerAction = async (data) => {
+    try {
+      const res = await axios.post("/api/auth/register", data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (Cookies.get("AUTH_KEY")) {
+        Cookies.remove("AUTH_KEY");
+      }
+      setToken(res.data.accessToken);
+      Cookies.set("AUTH_KEY", res.data.accessToken);
+      navigate("/");
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   const loginAction = async (data) => {
     try {
       const res = await axios.post("/api/auth/login", data, {
@@ -43,7 +59,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, loginAction, logoutAction }}>
+    <AuthContext.Provider
+      value={{ token, registerAction, loginAction, logoutAction }}
+    >
       {children}
     </AuthContext.Provider>
   );

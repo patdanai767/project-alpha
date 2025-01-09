@@ -47,7 +47,7 @@ const Login = () => {
                 <div className="mt-[28px] mb-2">Email</div>
                 <input
                   className="border p-2 w-full border-slate-300 rounded"
-                  placeholder="Enter your email"
+                  placeholder="example@gmail.com"
                   type="email"
                   id="email"
                   onChange={handleChange}
