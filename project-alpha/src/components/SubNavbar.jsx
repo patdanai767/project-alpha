@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LogIn, Menu, User,  X } from "lucide-react";
+import { LogIn, Menu, User, X } from "lucide-react";
 
 const SubNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,13 +9,15 @@ const SubNavbar = () => {
   };
 
   return (
-    <div className=" absolute inset-x-0 top-[70px]  h-[70px] bg-transparent w-[1440px]">
-      <div className="ิ flex items-center gap-[32px] w-[1376px] h-[70px] bottom-2 text-blue border border-blue">
-        <a href="/" className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out ml-7 gap-10 "
-          >
-          Home
-        </a>
+    <div className="flex h-[70px] bg-transparent w-full">
+      <div className=" flex items-center gap-[32px] w-full h-[70px] bottom-2 text-blue border-b border-blue">
         <div className="hidden sm:flex gap-8 cursor-pointer">
+          <a
+            href="/"
+            className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out ml-7 gap-10 "
+          >
+            Home
+          </a>
           <a
             href="/search"
             className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10"
@@ -37,7 +39,6 @@ const SubNavbar = () => {
         </div>
       </div>
       <div>
-       
         <div
           onClick={toggleMenu}
           className="flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"

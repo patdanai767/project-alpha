@@ -5,29 +5,25 @@ import Home from "./pages/Home/Home";
 import Layout from "./layout/layout";
 import Search from "./pages/Search/Search";
 import Payment from "./pages/Payment/Payment";
-import Profile from './pages/Trainer/Profile';
-import TNlayout from './layout/TNlayout';
+import Profile from "./pages/Trainer/Profile";
+import TNlayout from "./layout/TNlayout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes> 
+      <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search/>}/>
-          
-        
+          <Route path="/search" element={<Search />} />
         </Route>
         <Route path="/payment" element={<Payment />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<TNlayout/>}>
-        <Route path="/profile" element={<Profile />} />
-
+        <Route element={<TNlayout />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
-      
     </BrowserRouter>
   );
 }
