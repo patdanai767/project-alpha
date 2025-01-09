@@ -1,5 +1,5 @@
 import React from 'react'
-import HeartButton from '../../components/HeartButton'
+import HeartButton from '../../components/Button/HeartButton'
 import {
   BadgeCheck,
   Target,
