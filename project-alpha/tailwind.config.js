@@ -5,9 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // colors: {
-    //   'skibidi':'#2d7cda',
-    // },
     extend: {
       lineClamp:{
         9: '9',
@@ -19,6 +16,8 @@ export default {
         sky: "#EFFAFD",
         lime: "#DDF344",
         green: "#38A32A",
+        red: "#EC697F",
+        black: "#000000",
         white: "#FFFFFF"
       },
       fontFamily: {

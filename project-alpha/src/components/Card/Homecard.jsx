@@ -10,7 +10,7 @@ const Homecard = ({ name, image, category }) => {
           alt={name}
           className="w-60 md:w-80 h-60 md:h-80 rounded-t-xl"
         />
-        <div className="flex flex-col items-start px-3 py-2 w-full overflow-hidden bg-blue rounded-b-xl group-hover:bg-green transition duration-200 ease-in-out">
+        <div className="flex flex-col items-start px-3 py-2 w-full overflow-hidden bg-blue/80 rounded-b-xl group-hover:bg-green transition duration-200 ease-in-out">
           <p className="text-3xl md:text-4xl text-left font-bold pb-2 w-full truncate whitespace-nowrap">
             {name}
           </p>
