@@ -31,7 +31,7 @@ const Register = () => {
     <div class="max-w-lg mx-auto  bg-white dark:bg-gray-900 rounded-2xl shadow-md px-20 py-7 flex flex-col items-center sm:max-xl "> 
       
       <h1 class="text-4xl font-bold text-center text-blue-900 dark:text-gray-200 mb-4">Create new Account</h1>
-<<<<<<<<< Temporary merge branch 1
+
       <h2 className=" text-blue-900 mb-8 font-bold">Already Registered? Login</h2>
       <form action="#" class="w-full flex flex-col gap-4">
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white ">UserName</label>
@@ -44,13 +44,13 @@ const Register = () => {
           <input type="password" class="mb-3 w-full rounded-3xl bg-slate-200 outline-blue px-5 py-3" placeholder="" />
              
         <button type="password" class="mb-3 w-full rounded-3xl bg-blue  px-5 py-3 font-semibold text-white">Login</button>
-=========
+      </form>
 
       <div>
         <p className=" text-blue-900 mb-8 font-bold">Already Registered?
           <a href="/Login" class="no-underline hover:underline ...  text-lightblue" > Login</a></p>
         </div>
->>>>>>>>> Temporary merge branch 2
+
       
       <form action="#" class="w-full flex flex-col gap-3">
         <label className="block mb-2 text-sm font-medium text-blue-900  dark:text-white ">UserName</label>
