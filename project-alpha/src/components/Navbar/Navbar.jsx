@@ -11,7 +11,10 @@ const Navbar = () => {
   return (
     <div className="bg-blue text-sky font-montserrat w-full flex items-center justify-between p-7 sm:p-6">
       <div className="flex items-center gap-8">
-        <a href="/" className="text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out">
+        <a
+          href="/"
+          className="text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out"
+        >
           PROJECT ALPHA
         </a>
         <div className="hidden sm:flex gap-8 cursor-pointer">
