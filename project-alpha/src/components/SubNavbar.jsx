@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LogIn, Menu, User,  X } from "lucide-react";
 
-const Navbar = () => {
+const SubNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -9,31 +9,35 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-blue text-sky font-montserrat w-full flex items-center justify-between p-7 sm:p-6">
-      <div className="flex items-center gap-8">
-        <a href="/" className="text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out">
-          PROJECT ALPHA
+    <div className=" absolute inset-x-0 top-[70px]  h-[70px] bg-transparent w-[1440px]">
+      <div className="ิ flex items-center gap-[32px] w-[1376px] h-[70px] bottom-2 text-blue border border-blue">
+        <a href="/" className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out ml-7 gap-10 "
+          >
+          Home
         </a>
         <div className="hidden sm:flex gap-8 cursor-pointer">
           <a
             href="/search"
-            className="cursor-pointer hover:text-lime transition duration-200 ease-in-out"
+            className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10"
           >
-            Choose trainers
+            Account
           </a>
-          <p className="cursor-pointer hover:text-lime transition duration-200 ease-in-out">
-            Become a trainer
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Messages
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Dashboard
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Profile
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Calendar
           </p>
         </div>
       </div>
       <div>
-        <a
-          href="/login"
-          className="hidden sm:flex items-center gap-2 border-2 rounded-xl cursor-pointer px-4 py-1 hover:text-lime hover:border-lime transition duration-200 ease-in-out"
-        >
-          <LogIn />
-          <div className="font-semibold ">Login</div>
-        </a>
+       
         <div
           onClick={toggleMenu}
           className="flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"
@@ -90,4 +94,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default SubNavbar;

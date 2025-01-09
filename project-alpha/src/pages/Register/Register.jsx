@@ -47,7 +47,7 @@ const Register = () => {
           type="button"
           data-hs-toggle-password='{"target": "#hs-toggle-password"}'
           >
-          <p onClick={handleClick} className="ml-[-7vh]  cursor-pointer  text-gray-400 hover:text-[black] duration-300"><LuEye></LuEye></p>
+          <p onClick={handleClick} className="ml-[-7vh]  cursor-pointer  text-gray-400 hover:text-[black] duration-300 mt-[-5px]"><LuEye></LuEye></p>
           </button>
         </div>
         </div>
