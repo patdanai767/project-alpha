@@ -18,15 +18,15 @@ export default function DropdownProfile({
     <div>
       {isDropdownOpen && (
         <div className="absolute p-2 -translate-x-32 translate-y-2 rounded bg-red w-[130px] border shadow-lg z-20">
-          <div className="flex flex-col p-2 cursor-pointer border-b">
+          <a className="flex flex-col p-2 cursor-pointer border-b" href="/profile">
             Profile
-          </div>
-          <div className="flex flex-col p-2 cursor-pointer border-b">
+          </a>
+          <a className="flex flex-col p-2 cursor-pointer border-b" href="/messenger">
             Messenger
-          </div>
-          <div className="flex flex-col p-2 cursor-pointer border-b">
+          </a>
+          <a className="flex flex-col p-2 cursor-pointer border-b" href="/profile/dashboard">
             Dashboard
-          </div>
+          </a>
           <div
             className="flex flex-col p-2 cursor-pointer"
             onClick={toggleLogout}
