@@ -9,7 +9,7 @@ const SubNavbar = () => {
   };
 
   return (
-    <div className="flex h-[70px] bg-transparent w-full">
+    <div className="flex h-[70px] bg-transparent w-full mx-auto">
       <div className=" flex items-center gap-[32px] w-full h-[70px] bottom-2 text-blue border-b border-blue">
         <div className="hidden sm:flex gap-8 cursor-pointer">
           <a
