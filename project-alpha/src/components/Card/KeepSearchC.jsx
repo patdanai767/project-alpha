@@ -1,5 +1,5 @@
 import React from "react";
-import HeartButton from '../HeartButton.jsx'
+import HeartButton from '../Button/HeartButton'
 import Star from '../../assets/Starbutton.jsx'
 import VerifySym from '../../assets/VerifySymbol.svg'
 import PeopleLogo from '../../assets/PeopleLogo.svg'
@@ -10,7 +10,7 @@ import {
 
 const Searchcard = ({title,description,price,duration,thumbnail,category}) => {
   return (
-    <div className=' md:px-[40px] py-[40px]'>
+    <div className=' md:px-[12px] py-[40px]'>
     <div className='relative md:border-[3px] border-gray-400 md:h-[400px] md:max-w-[1000px] min-w-[450px] h-[500px] md:w-[93vw] hover:border-black rounded-md '>
       
     <div className='absolute border-gray-100 h-[200px] w-[200px] border-[3px] md:ml-5 ml-2 mt-5 rounded-md'><img src={thumbnail} className="rounded-md md:h-[194px] md:w-[194px] h-[150px] w-[150px]" /></div>
