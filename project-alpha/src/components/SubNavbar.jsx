@@ -41,7 +41,7 @@ const SubNavbar = () => {
       <div>
         <div
           onClick={toggleMenu}
-          className="flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"
+          className="mt-6  flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"
         >
           <Menu />
         </div>
@@ -81,14 +81,27 @@ const SubNavbar = () => {
             className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
             "
           >
-            Choose trainers
+            Account
           </a>
           <a
             className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
           >
-            Become a trainer
+            Messages
           </a>
+          <a
+            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+          >
+            Dashboard
+          </a>
+          <a
+            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+          >
+            Calendar
+          </a>
+
         </div>
       </div>
     </div>
