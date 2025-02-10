@@ -277,7 +277,7 @@ const Register = () => {
 
       <button
         type="create"
-        class="mb-3 w-[40vh]  ml-[4vh] rounded-3xl bg-blue  px-5 py-3 font-semibold text-white"
+        className="mb-3 w-[40vh]  ml-[4vh] rounded-3xl bg-blue  px-5 py-3 font-semibold text-white"
       >
         Create
       </button>

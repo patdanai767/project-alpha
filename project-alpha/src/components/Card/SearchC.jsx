@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeartButton from "../Button/HeartButton";
 //import Star from '../../assets/Starbutton.jsx'
 import VerifySym from "../../assets/VerifySymbol.svg";
@@ -38,7 +38,7 @@ const Searchcard = ({
         <div className="lg:border-[2px] border-black border-b-[2px] h-[400px] lg:w-[1024px] w-[100vw] lg:rounded-xl pt-[30px] pb-[30px] lg:pr-[35px] lg:pl-[35px] pr-[17px] pl-[17px] flex justify-between ">
           <div className="flex flex-col md:justify-between">
             <div className="md:h-[200px] md:w-[200px] h-[150px] w-[150px] bg-lime rounded-xl">
-              <img src={thumbnail} className="rounded-xl" />
+              <img src={thumbnail} className="rounded-xl object-cover w-[150px] h-[150px] md:w-[200px] md:h-[200px]" />
             </div>
             <div>
               <div className="mb-[10px] flex">

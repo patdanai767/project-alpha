@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Sidebar from "../../components/Navbar/Sidebar";
-import SearchCard from "../../components/Card/KeepSearchC";
+import React, { useEffect, useState } from "react";
 import Searchcard from "../../components/Card/SearchC";
 import FilterBar from "../../components/FilterBar";
 import { trainers } from "../../constants/TrainerData";
 import Pagination from "../../components/Pagination/Pagination";
+import axios from "axios";
 
 function Search_() {
   const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
+  const [courses, setCourses] = useState([]);
   const itemsPerPage = 3; // จำนวนข้อมูลต่อหน้า
 
   // คำนวณจำนวนหน้าทั้งหมด
@@ -18,21 +18,32 @@ function Search_() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = trainers.slice(indexOfFirstItem, indexOfLastItem);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const res = await axios.get("/api/course");
+    setCourses(res.data);
+    console.log(currentItems)
+    console.log(courses)
+  };
+
   return (
     <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
         <FilterBar />
 
         <div className="mt-[15px]">
-          {currentItems.map((val) => (
+          {courses.map((val,index) => (
             <Searchcard
-              key={val.id}
+              key={index}
               title={val.title}
               description={val.description}
               price={val.price}
               duration={val.duration}
               thumbnail={val.thumbnail}
-              category={val.category}
+              category={val.category[0].title}
             />
           ))}
         </div>

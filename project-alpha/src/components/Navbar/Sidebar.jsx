@@ -32,7 +32,7 @@ function Sidebar() {
     setIsOpen5(!isOpen5);
   };
   return (
-      <div class="w-[100vw] max-w-[250px] h-auto bg-gray-300 py-4 text-center ">
+      <div className="w-[100vw] max-w-[250px] h-auto bg-gray-300 py-4 text-center ">
         <div className='text-3xl font-serif font-extrabold'>Fliter</div>
         <botton 
         onClick={toggleGender} 
