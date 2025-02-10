@@ -19,7 +19,7 @@ function Search_() {
   const currentItems = trainers.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <div className="flex lg:justify-center mt-[82px]">
+    <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
         <FilterBar />
 
