@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Messenger() {
   const navigate = useNavigate();
@@ -18,7 +19,10 @@ export default function Messenger() {
     <div className="w-full min-h-dvh bg-sky flex flex-col">
       <Navbar />
       <div className="flex flex-grow ">
-        <div className=" w-1/4 border-r border-blue p-[32px] overflow-auto">
+        <div className=" w-1/4 border-r border-blue px-[32px] py-[16px] overflow-auto">
+          <div className="flex justify-center text-xl font-semibold pb-[16px]">
+            Messenger
+          </div>
           <div className="grid grid-cols-1 gap-[16px]">
             <MessageCard />
             <MessageCard />
