@@ -7,6 +7,7 @@ import Search from "./pages/Search/Search";
 import Payment from "./pages/Payment/Payment";
 import Profile from "./pages/Trainer/Profile";
 import TNlayout from "./layout/TNlayout";
+import CourseDetail from './pages/CourseDetail/CourseDetail';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<Search/>}/>
+          <Route path="/coursedetail" element={<CourseDetail />} />
         </Route>
         <Route path="/payment" element={<Payment />} />
         <Route path="/register" element={<Register />} />
