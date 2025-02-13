@@ -120,42 +120,102 @@ const Navbar = () => {
         }`}
       ></div>
       {/* sidebar menu */}
-      <div
-        className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between border-b-2 border-blue pb-7">
-          <a href="/login" className="flex items-center gap-2 cursor-pointer">
-            <User className="bg-lime rounded-sm p-1" />
-            <p>Login</p>
-          </a>
-          <div
-            onClick={toggleMenu}
-            className="flex items-center cursor-pointer"
-          >
-            <X
-              className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
+      {token ? (
+        <div
+          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b-2 border-blue pb-7">
+            <a href="/login" className="flex items-center gap-2 cursor-pointer">
+              <User className="bg-lime rounded-sm p-1" />
+              <p>Profile</p>
+            </a>
+            <div
+              onClick={toggleMenu}
+              className="flex items-center cursor-pointer"
+            >
+              <X
+                className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
             "
-            />
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <a
+              href="/search"
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+            "
+            >
+              Account
+            </a>
+            <a
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+            >
+              Messages
+            </a>
+            <a
+              href="/search"
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+            "
+            >
+              Dashboard
+            </a>
+            <a
+              className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+            >
+              Calendar
+            </a>
+          </div>
+          <div className="flex border-t-2 border-blue pt-7">
+          <a
+              className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+            >
+              Log out
+            </a>
           </div>
         </div>
-        <div className="flex flex-col items-start">
-          <a
-            href="/search"
-            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+      ) : (
+        <div
+          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b-2 border-blue pb-7">
+            <a href="/login" className="flex items-center gap-2 cursor-pointer">
+              <User className="bg-lime rounded-sm p-1" />
+              <p>Login</p>
+            </a>
+            <div
+              onClick={toggleMenu}
+              className="flex items-center cursor-pointer"
+            >
+              <X
+                className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
             "
-          >
-            Choose trainers
-          </a>
-          <a
-            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <a
+              href="/search"
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+            "
+            >
+              Choose trainers
+            </a>
+            <a
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
-          >
-            Become a trainer
-          </a>
+            >
+              Become a trainer
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

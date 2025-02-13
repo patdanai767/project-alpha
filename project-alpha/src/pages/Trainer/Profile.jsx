@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 
-
-
-
-
-
 const Profile = () => {
   const [aboutMe, setAboutMe] = useState([]);
   const [isLimitReached, setIsLimitReached] = useState(false);
@@ -14,7 +9,6 @@ const Profile = () => {
 
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
-
   const handleAboutMechange = (e) => {
     const inputText = e.target.value;
     if (inputText.length <= 500) {
@@ -23,22 +17,30 @@ const Profile = () => {
     }
   };
 
-
   const addEducations = () => {
     if (educations.length < 3) {
-      setEducations([...educations, { id: Date.now(), school: '', faculty: '' }]);
+      setEducations([
+        ...educations,
+        { id: Date.now(), school: "", faculty: "" },
+      ]);
     }
   };
 
   const addWorkExperience = () => {
     if (workExperience.length < 3) {
-      setWorkExperience([...workExperience, { id: Date.now(), company: '', position: '' }]);
+      setWorkExperience([
+        ...workExperience,
+        { id: Date.now(), company: "", position: "" },
+      ]);
     }
   };
 
   const addCertificates = () => {
     if (Certificates.length < 3) {
-      setCertificates([...Certificates, { id: Date.now(), certificate: '', description: '' }]);
+      setCertificates([
+        ...Certificates,
+        { id: Date.now(), certificate: "", description: "" },
+      ]);
     }
   };
 
@@ -90,13 +92,8 @@ const Profile = () => {
     }
   };
 
-
-
-
-
-
   return (
-    <div class="flex lg:justify-center ml-[10px] lg:ml-[0px] bg-sky">
+    <div class="flex lg:justify-center ml-[10px] lg:ml-[0px]">
       <div className=" flex flex-wrap flex-col relative font-montserrat">
         <div className="">
           <div class=" w-[190px] h-[44px] top-[204px]  absolute ">
@@ -164,7 +161,7 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div class="mt-[40px] w-[1024px] lg:h-[88px] gap-[8px] h-auto lg:justify-between   flex flex-col lg:flex-row ">
                 <div class="w-[508px] h-[24px] gap-[8px]">
                   <div class="text-[20px] text-black w-[600px] leading-{24.38} font-montserrat font-semibold ml-1.5">
@@ -227,56 +224,53 @@ const Profile = () => {
                     placeholder="Write something about yourself... "
                     rows="3"
                     value={aboutMe}
-                    onChange={handleAboutMechange} >
-                  </textarea>
+                    onChange={handleAboutMechange}
+                  ></textarea>
                   {isLimitReached && (
                     <p className="text-red mt-2 text-sm ">
                       You have reached the 500-character limit.
                     </p>
                   )}
-
-
                 </div>
               </div>
               <div class="w-[1024px] h-[1000px] mt-[190px] gap-8 lg:mt-[40px] ">
-                <div class="text-[24px] leading-{29.26} font-semibold"
-                >Resume
+                <div class="text-[24px] leading-{29.26} font-semibold">
+                  Resume
                 </div>
 
                 <div class="w-[1024px] h-[1208px]">
                   <div class="w-[1024px]  h-auto gap-16 ">
                     <div>
                       <div class="flex justify-between w-[93vw] lg:w-[1024px]  ">
-                        <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold "
-                        >Education ({educations.length}/3)
+                        <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold ">
+                          Education ({educations.length}/3)
                         </div>
-
 
                         {educations.length <= 3 && (
                           <button
                             onClick={addEducations}
                             class="lg:w-[91px] w-[100px] h-[40px] paddind-[8px] border border-black text-white bg-green  font-medium rounded-[12px] px-5  me-3 mb-2 "
-                          >Add +
+                          >
+                            Add +
                           </button>
                         )}
                       </div>
 
                       {/*การ์ดข้อมูลการศึกษา*/}
-                      <div className="space-y-4">
-
-
-                      </div>
+                      <div className="space-y-4"></div>
                     </div>
 
                     {educations.map((edu) => (
-                      <div key={edu.id} className=" mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 ">
+                      <div
+                        key={edu.id}
+                        className=" mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 "
+                      >
                         <div>
                           <div class=" text-black font-semibold">Year</div>
                           <div class="lg:w-[147px] lg:h-[56px] mt-2 ">
-                            <div class=" grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] "
-                            >2023 - 2024</div>
-                            
-                            
+                            <div class=" grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] ">
+                              2023 - 2024
+                            </div>
                           </div>
                         </div>
                         <div class="lg:w-[837px] w-[66vw] h-auto ml-[-16px] ">
@@ -309,42 +303,41 @@ const Profile = () => {
                             <button
                               onClick={() => removeEducation(edu.id)}
                               class="lg:w-[116px] w-[100px] h-[40px] padding-[8px] border border-black text-white bg-red  font-medium rounded-[12px] text-sm px-5 py-2.5  me-2 mb-2"
-                            >Delete
+                            >
+                              Delete
                             </button>
                           </div>
                         </div>
                       </div>
-
-
-
                     ))}
 
                     {/*การ์ด Work experience**/}
                     <div class="w-[1024px] h-[304px] gap-16 ">
                       <div class="flex justify-between w-[93vw] lg:w-[1024px] ">
-
-                        <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold"
-                        >Work Experience ({workExperience.length}/3)
+                        <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold">
+                          Work Experience ({workExperience.length}/3)
                         </div>
                         <button
                           onClick={addWorkExperience}
                           class="lg:w-[91px] w-[100px] h-[40px] mt-3 lg:mt-2 paddind-[8px] border border-black text-white bg-green  font-medium rounded-[12px] px-5  me-3 mb-2"
-                        >Add +
+                        >
+                          Add +
                         </button>
                       </div>
 
-
                       {/*การ์ด Work experience*/}
-                      <div className="space-y-4">
-                      </div>
+                      <div className="space-y-4"></div>
                       {workExperience.map((work) => (
-
-                        <div key={work.id} className=" mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 ">
+                        <div
+                          key={work.id}
+                          className=" mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 "
+                        >
                           <div>
                             <div class="text-black font-semibold">Year</div>
                             <div class="lg:w-[147px] lg:h-[56px]  mt-2 ">
-                              <div class="grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] "
-                              >2023 - 2024</div>
+                              <div class="grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] ">
+                                2023 - 2024
+                              </div>
                             </div>
                           </div>
                           <div class="lg:w-[837px] w-[66vw] h-auto ml-[-16px]">
@@ -377,40 +370,43 @@ const Profile = () => {
                               <button
                                 onClick={() => removeWorkExperience(work.id)}
                                 class="lg:w-[116px] w-[100px] h-[40px] padding-[8px] border border-black text-white bg-red  font-medium rounded-[12px] text-sm px-5 py-2.5  me-2 mb-2"
-                              >Delete
+                              >
+                                Delete
                               </button>
                             </div>
                           </div>
                         </div>
                       ))}
 
-
                       {/*ใบcer**/}
 
                       <div class="w-[1024px] h-[304px] gap-16 ">
                         <div class="flex justify-between w-[93vw] lg:w-[1024px] ">
-
-                          <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold"
-                          >Certifications ({Certificates.length}/3)
+                          <div class=" text-[20px] w-[600px] ml-3 mt-3 font-semibold">
+                            Certifications ({Certificates.length}/3)
                           </div>
                           {educations.length <= 3 && (
                             <button
                               onClick={addCertificates}
                               class="lg:w-[91px] w-[100px] h-[40px] mt-3 lg:mt-2 paddind-[8px] border border-black text-white bg-green  font-medium rounded-[12px] px-5  me-3 mb-2"
-                            >Add +
+                            >
+                              Add +
                             </button>
                           )}
                         </div>
                         {/*ใบcer*/}
-                        <div className="space-y-4">
-                        </div>
+                        <div className="space-y-4"></div>
                         {Certificates.map((cer) => (
-                          <div key={cer.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 ">
+                          <div
+                            key={cer.id}
+                            className="mt-3 lg:w-[1024px] w-[93vw] h-[248px] flex justify-between  border  border-black p-4 rounded-[12px]  padding-[16px] gap-8 "
+                          >
                             <div>
                               <div class="text-black font-semibold">Year</div>
                               <div class="lg:w-[147px] lg:h-[56px]  mt-2 ">
-                                <div class="grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] "
-                                >2023 - 2024</div>
+                                <div class="grid place-items-center bg-transparent  lg:w-[147px] w-[100px] lg:h-[56px] h-[40px] rounded-[12px] border border-black padding-[16px] ">
+                                  2023 - 2024
+                                </div>
                               </div>
                             </div>
                             <div class="lg:w-[837px] w-[66vw] h-auto ml-[-16px]">
@@ -443,41 +439,28 @@ const Profile = () => {
                                 <button
                                   onClick={() => removeCertificates(cer.id)}
                                   class="w-[116px] h-[40px]  border border-black text-white bg-red  font-medium rounded-[12px] text-sm px-5 py-2.5 me-2 mb-2 "
-                                >Delete
+                                >
+                                  Delete
                                 </button>
                               </div>
                             </div>
                           </div>
                         ))}
 
-
-                        <button class=" lg:w-[1024px] w-[93vw] h-[56px]  border border-black text-white bg-blue  font-medium rounded-[12px] text-sm  mt-3"
-                        >Save Change
+                        <button class=" lg:w-[1024px] w-[93vw] h-[56px]  border border-black text-white bg-blue  font-medium rounded-[12px] text-sm  mt-3">
+                          Save Change
                         </button>
                       </div>
                     </div>
                   </div>
-
                 </div>
-
               </div>
-
-
-
-
-
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-
-
   );
-
-
-
 };
 
 export default Profile;

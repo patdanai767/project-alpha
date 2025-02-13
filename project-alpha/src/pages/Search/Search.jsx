@@ -11,12 +11,12 @@ function Search_() {
   const itemsPerPage = 3; // จำนวนข้อมูลต่อหน้า
 
   // คำนวณจำนวนหน้าทั้งหมด
-  const totalPages = Math.ceil(trainers.length / itemsPerPage);
+  const totalPages = Math.ceil(courses.length / itemsPerPage);
 
   // คำนวณข้อมูลที่ต้องแสดงในหน้าปัจจุบัน
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = trainers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = courses.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     fetchData();
@@ -25,8 +25,6 @@ function Search_() {
   const fetchData = async () => {
     const res = await axios.get("/api/course");
     setCourses(res.data);
-    console.log(currentItems)
-    console.log(courses)
   };
 
   return (
@@ -35,7 +33,7 @@ function Search_() {
         <FilterBar />
 
         <div className="mt-[15px]">
-          {courses.map((val,index) => (
+          {currentItems.map((val,index) => (
             <Searchcard
               key={index}
               title={val.title}
@@ -43,7 +41,7 @@ function Search_() {
               price={val.price}
               duration={val.duration}
               thumbnail={val.thumbnail}
-              category={val.category[0].title}
+              category={val.category.title}
             />
           ))}
         </div>

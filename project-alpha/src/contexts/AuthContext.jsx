@@ -27,7 +27,10 @@ const AuthProvider = ({ children }) => {
   const loginAction = async (data) => {
     try {
       const res = await axios.post("/api/auth/login", data, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
       if (res.error?.message) {
         throw new Error(res.error.message);

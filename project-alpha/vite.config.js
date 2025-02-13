@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         "/api": {
-          target: 'https://demo-backend-omsj.onrender.com',
+          target: 'http://localhost:8080',
           changeOrigin: true,
           secure: false,
           rewrite: path => path.replace('/api', ''),
