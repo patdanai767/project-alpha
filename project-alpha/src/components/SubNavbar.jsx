@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LogIn, Menu, User,  X } from "lucide-react";
+import { LogIn, Menu, User, X } from "lucide-react";
 
-const Navbar = () => {
+const SubNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -9,37 +9,39 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-blue text-sky font-montserrat w-full flex items-center justify-between p-7 sm:p-6">
-      <div className="flex items-center gap-8">
-        <a
-          href="/"
-          className="text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out"
-        >
-          PROJECT ALPHA
-        </a>
+    <div className="flex h-[70px] bg-transparent w-full mx-auto">
+      <div className=" flex items-center gap-[32px] w-full h-[70px] bottom-2 text-blue border-b border-blue">
         <div className="hidden sm:flex gap-8 cursor-pointer">
           <a
-            href="/search"
-            className="cursor-pointer hover:text-lime transition duration-200 ease-in-out"
+            href="/"
+            className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out ml-7 gap-10 "
           >
-            Choose trainers
+            Home
           </a>
-          <p className="cursor-pointer hover:text-lime transition duration-200 ease-in-out">
-            Become a trainer
+          <a
+            href="/search"
+            className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10"
+          >
+            Account
+          </a>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Messages
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Dashboard
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Profile
+          </p>
+          <p className="font-semibold cursor-pointer hover:underline transition duration-200 ease-in-out gap-10">
+            Calendar
           </p>
         </div>
       </div>
       <div>
-        <a
-          href="/login"
-          className="hidden sm:flex items-center gap-2 border-2 rounded-xl cursor-pointer px-4 py-1 hover:text-lime hover:border-lime transition duration-200 ease-in-out"
-        >
-          <LogIn />
-          <div className="font-semibold ">Login</div>
-        </a>
         <div
           onClick={toggleMenu}
-          className="flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"
+          className="mt-6  flex sm:hidden cursor-pointer hover:text-lime hover:border-lime transition duration-200 ease-in-out"
         >
           <Menu />
         </div>
@@ -79,18 +81,31 @@ const Navbar = () => {
             className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
             "
           >
-            Choose trainers
+            Account
           </a>
           <a
             className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
           >
-            Become a trainer
+            Messages
           </a>
+          <a
+            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+          >
+            Dashboard
+          </a>
+          <a
+            className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+          >
+            Calendar
+          </a>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default SubNavbar;
