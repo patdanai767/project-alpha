@@ -8,6 +8,9 @@ import Payment from "./pages/Payment/Payment";
 import CourseDetail from "./pages/CourseDetail/CourseDetail";
 import AuthProvider from "./contexts/AuthContext";
 import Messenger from "./pages/Messenger/Messenger";
+import Profile from "./pages/Trainer/Profile";
+import TNlayout from "./layout/TNlayout";
+import CourseDetail from "./pages/CourseDetail/CourseDetail";
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/coursedetail" element={<CourseDetail />} />
-            <Route path="/Messenger" element={<Messenger />} />
+            <Routes element={<TNlayout />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/Messenger" element={<Messenger />} />
+            </Routes>
           </Route>
           <Route path="/payment" element={<Payment />} />
           <Route path="/register" element={<Register />} />
