@@ -10,6 +10,7 @@ import AuthProvider from "./contexts/AuthContext";
 import Messenger from "./pages/Messenger/Messenger";
 import Profile from "./pages/Trainer/Profile";
 import TNlayout from "./layout/TNlayout";
+import MessengerDetails from "./pages/Messenger/MessengerDetails";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route element={<TNlayout />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/messenger" element={<Messenger />} />
+              <Route path="/messenger/:id" element={<MessengerDetails />} />
             </Route>
           </Route>
           <Route path="/payment" element={<Payment />} />

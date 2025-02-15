@@ -8,7 +8,4 @@ export const config = {
       },
     };
   },
-
-  // return {
-  // { Authorization: `Bearer ${Cookies.get("AUTH_KEY" || null)}` },}
 };

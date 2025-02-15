@@ -1,8 +1,6 @@
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function DropdownProfile({
-  arr,
-  setIsDropdownOpen,
   isDropdownOpen,
 }) {
   const authAction = useAuth();

@@ -17,6 +17,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { token } = useAuth();
+  const authAction = useAuth();
 
   useEffect(() => {
     if (!token) {
@@ -31,6 +32,14 @@ const Navbar = () => {
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
+  };
+
+  const toggleLogout = () => {
+    try {
+      authAction.logoutAction();
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return (
@@ -57,13 +66,14 @@ const Navbar = () => {
       <div>
         {token ? (
           <div className="sm:flex gap-8 items-center hidden">
-            <motion.div
+            <motion.a
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              href="/messenger"
             >
               <MessageSquare size={20} />
-            </motion.div>
+            </motion.a>
             <motion.div
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
@@ -152,11 +162,12 @@ const Navbar = () => {
             <a
               className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
+              href="/messenger"
             >
               Messages
             </a>
             <a
-              href="/search"
+              href="/dashboard"
               className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
             "
             >
@@ -165,14 +176,16 @@ const Navbar = () => {
             <a
               className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
+              href="/calendar"
             >
               Calendar
             </a>
           </div>
           <div className="flex border-t-2 border-blue pt-7">
-          <a
+            <a
               className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
           "
+              onClick={toggleLogout}
             >
               Log out
             </a>

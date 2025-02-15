@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
 
-export default function MessageCard() {
+export default function MessageCard({ fullname, lastMessage, date }) {
+  const formatDate = (mongoDate) => {
+    const date = new Date(mongoDate);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <motion.div
       animate={{
@@ -26,10 +34,10 @@ export default function MessageCard() {
       </div>
       <div className="flex-1 gap-[8px] mb-[8px]">
         <div className="justify-between flex">
-          <div className="text-[20px] font-semibold">Trainer A</div>
-          <div>22 Dec</div>
+          <div className="text-[20px] font-semibold">{fullname}</div>
+          {date ? <div className="text-slate-400">{formatDate(date)}</div> : ""}
         </div>
-        <div>Hello, user...</div>
+        <div>{lastMessage}</div>
       </div>
     </motion.div>
   );
