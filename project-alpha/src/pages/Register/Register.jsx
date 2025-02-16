@@ -13,13 +13,12 @@ const Register = () => {
     email: undefined,
     password: undefined,
     sex: undefined,
-    role: undefined,
+    role: selectTypeRole,
   });
   const navigate = useNavigate();
   const authAction = useAuth();
 
   useEffect(() => {
-    console.log(details);
     if (Cookies.get("AUTH_KEY")) {
       navigate("/");
     }
@@ -27,24 +26,27 @@ const Register = () => {
 
   const handleSelectTrainee = () => {
     setSelectTypeRole("Trainee");
-    setDetails({ role: selectTypeRole });
+    setDetails((prev) => ({ ...prev, role: "Trainee" }));
   };
 
   const handleSelectTrainer = () => {
     setSelectTypeRole("Trainer");
+    setDetails((prev) => ({ ...prev, role: "Trainer" }));
   };
 
   const handleChange = (e) => {
     setDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const test = (e) => {
+    console.log("I sus")
+  }
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    console.log(details)
     try {
-      console.log(details);
-      if (details !== undefined) {
-        authAction.registerAction(details);
-      }
+      authAction.registerAction(details);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +56,7 @@ const Register = () => {
     <div className="bg-sky">
       <Navbar />
       <div className="md:grid grid-cols-2">
-        {selectTypeRole ? (
+        {selectTypeRole === "Trainee" ? (
           <div className="flex justify-center">
             <div className="bg-white rounded-2xl shadow-md w-[550px] my-[100px]">
               <div className="my-10 mx-10 grid gap-7">
@@ -71,13 +73,13 @@ const Register = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-10">
                   <div
-                    onClick={handleSelectTrainee}
+                    onClick={() => handleSelectTrainee()}
                     className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
                   >
                     Trainee account
                   </div>
                   <div
-                    onClick={handleSelectTrainer}
+                    onClick={() => handleSelectTrainer()}
                     className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
                   >
                     Trainer account
@@ -89,6 +91,9 @@ const Register = () => {
                     <input
                       className="border p-2 w-full border-slate-300 rounded"
                       placeholder="Enter your fullname"
+                      type="text"
+                      name="fullname"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -96,6 +101,9 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your username"
+                      type="text"
+                      name="username"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -103,6 +111,9 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your email"
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -110,21 +121,39 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your password"
+                      type="password"
+                      name="password"
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="flex gap-4 items-center">
                     <div className="font-semibold">Sex</div>
                     <form className="flex gap-6">
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="male"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">Male</div>
                       </div>
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="female"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">Female</div>
                       </div>
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="lgbtq+"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">LGBTQ+</div>
                       </div>
                     </form>
@@ -140,7 +169,10 @@ const Register = () => {
                       </a>
                     </div>
                   </div>
-                  <div className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded">
+                  <div
+                    className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded"
+                    onClick={handleRegister}
+                  >
                     Register
                   </div>
                 </div>
@@ -175,13 +207,13 @@ const Register = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-10">
                   <div
-                    onClick={handleSelectTrainee}
+                    onClick={() => handleSelectTrainee()}
                     className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
                   >
                     Trainee account
                   </div>
                   <div
-                    onClick={handleSelectTrainer}
+                    onClick={() => handleSelectTrainer()}
                     className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
                   >
                     Trainer account
@@ -193,6 +225,9 @@ const Register = () => {
                     <input
                       className="border p-2 w-full border-slate-300 rounded"
                       placeholder="Enter your fullname"
+                      type="text"
+                      name="fullname"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -200,6 +235,9 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your username"
+                      type="text"
+                      name="username"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -207,6 +245,9 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your email"
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -214,21 +255,39 @@ const Register = () => {
                     <input
                       className="w-full border p-2 border-slate-300 rounded"
                       placeholder="Enter your password"
+                      type="password"
+                      name="password"
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="flex gap-4 items-center">
                     <div className="font-semibold">Sex</div>
                     <form className="flex gap-6">
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="male"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">Male</div>
                       </div>
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="female"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">Female</div>
                       </div>
                       <div className="flex border rounded-lg p-1 px-2 cursor-pointer hover:bg-slate-200 transition">
-                        <input type="radio" />
+                        <input
+                          type="radio"
+                          name="sex"
+                          value="lgbtq+"
+                          onChange={handleChange}
+                        />
                         <div className="ml-2">LGBTQ+</div>
                       </div>
                     </form>
@@ -244,7 +303,10 @@ const Register = () => {
                       </a>
                     </div>
                   </div>
-                  <div className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded">
+                  <div
+                    className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded"
+                    onClick={handleRegister}
+                  >
                     Register
                   </div>
                 </div>
@@ -274,13 +336,9 @@ const Register = () => {
           />
         </div>
       </div>
-
-      <button
-        type="create"
-        className="mb-3 w-[40vh]  ml-[4vh] rounded-3xl bg-blue  px-5 py-3 font-semibold text-white"
-      >
-        Create
-      </button>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };

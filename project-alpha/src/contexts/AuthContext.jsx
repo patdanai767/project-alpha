@@ -11,7 +11,10 @@ const AuthProvider = ({ children }) => {
   const registerAction = async (data) => {
     try {
       const res = await axios.post("/api/auth/register", data, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
       if (Cookies.get("AUTH_KEY")) {
         Cookies.remove("AUTH_KEY");
