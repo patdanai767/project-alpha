@@ -21,7 +21,12 @@ export default function MessengerDetails() {
     if (!Cookies.get("AUTH_KEY")) {
       navigate("/");
     }
+    const interval = setInterval(fetchData, 1000);
     fetchData();
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [reload]);
 
   const fetchData = async () => {
