@@ -28,7 +28,7 @@ const Login = () => {
     try {
       authAction.loginAction(credentials);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 

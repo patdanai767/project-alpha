@@ -12,6 +12,7 @@ import Profile from "./pages/Trainer/Profile";
 import TNlayout from "./layout/TNlayout";
 import MessengerDetails from "./pages/Messenger/MessengerDetails";
 import Account from "./pages/Account/account";
+import Mycourse from "./pages/Trainee/Mycourse";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/messenger/:id" element={<MessengerDetails />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/mycourse" element={<Mycourse />} />
             </Route>
           </Route>
           <Route path="/payment" element={<Payment />} />
