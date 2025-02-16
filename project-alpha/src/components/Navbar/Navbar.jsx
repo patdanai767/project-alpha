@@ -58,9 +58,6 @@ const Navbar = () => {
           >
             Choose trainers
           </a>
-          <p className="cursor-pointer hover:text-lime transition duration-200 ease-in-out">
-            Become a trainer
-          </p>
         </div>
       </div>
       <div>
@@ -219,12 +216,6 @@ const Navbar = () => {
             "
             >
               Choose trainers
-            </a>
-            <a
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
-          "
-            >
-              Become a trainer
             </a>
           </div>
         </div>
