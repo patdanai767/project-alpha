@@ -87,12 +87,12 @@ const Navbar = () => {
             </motion.div>
             <div>
               <motion.div
-                className="cursor-pointer"
+                className="cursor-pointer h-[40px] w-[40px] bg-lime rounded"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleProfileMenu}
               >
-                <Square size={28} color="yellow" />
+                <img src="" className="h-[40px] w-[40px] object-cover rounded"/>
               </motion.div>
               <DropdownProfile
                 arr={"login"}

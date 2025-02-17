@@ -65,19 +65,7 @@ const SubNavbar = () => {
             whileTap={{
               scale: 0.8,
             }}
-            href="/dashboard"
-            className="font-semibold cursor-pointer gap-10"
-          >
-            Dashboard
-          </motion.a>
-          <motion.a
-            whileHover={{
-              scale: 1.1,
-            }}
-            whileTap={{
-              scale: 0.8,
-            }}
-            href="profile"
+            href="/profile"
             className="font-semibold cursor-pointer gap-10"
           >
             Profile
@@ -90,8 +78,9 @@ const SubNavbar = () => {
               scale: 0.8,
             }}
             className="font-semibold cursor-pointer gap-10"
+            href="/dashboard"
           >
-            Calendar
+            My Course
           </motion.a>
         </div>
       ) : (
