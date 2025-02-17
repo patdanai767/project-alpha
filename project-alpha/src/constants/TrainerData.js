@@ -19,16 +19,22 @@ export const profile = {
 
 export const trainers = [
     {
-        id: 0,
+        _id: "0",
         title: "Patrick Star",
         description: "hellow aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        price: "THB 1000",
+        price: 1000,
         duration: "22",
         thumbnail: patrick_profile,
-        category: "Dancing"
+        category: {
+            _id: "67618ebe9336125ea6502e16",
+            title: "Weight training",
+            description: "Weight training is the exercise that use about your body weight such as square, push-up, sit-up",
+            slug: "Power",
+            __v: 0
+         },
     },
     {
-        id: 1,
+        _id: 1,
         title: "Shin Chan",
         description : "hi",
         price: "THB 500",
@@ -37,7 +43,7 @@ export const trainers = [
         category: "Weight training"
     },
     {
-        id: 2,
+        _id: 2,
         title: "Shiro",
         description : "hi",
         price: "THB 2000",
@@ -46,7 +52,7 @@ export const trainers = [
         category: "Boxing"
     },
     {
-        id: 3,
+        _id: 3,
         title: "SpongeBob",
         description : "hi",
         price: "THB 3000",
@@ -55,7 +61,7 @@ export const trainers = [
         category: "Dancing"
     },
     {
-        id: 4,
+        _id: 4,
         title: "Squidward",
         description : "hi",
         price: "THB 5000",
@@ -64,7 +70,7 @@ export const trainers = [
         category: "Weight training"
     },
     {
-        id: 5,
+        _id: 5,
         title: "Lufy",
         description : "hi",
         price: "THB 5000",
@@ -73,7 +79,7 @@ export const trainers = [
         category: "Weight training"
     },
     {
-        id: 6,
+        _id: 6,
         title: "Zoro",
         description : "hi",
         price: "THB 5000",
@@ -83,7 +89,7 @@ export const trainers = [
     },
 
     {
-        id: 7,
+        _id: 7,
         title: "Usop",
         description: "hellow aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         price: "THB 1000",
@@ -93,7 +99,7 @@ export const trainers = [
     },
 
     {
-        id: 8,
+        _id: 8,
         title: "Chpper",
         description : "hi",
         price: "THB 500",
@@ -102,7 +108,7 @@ export const trainers = [
         category: "Dancing"
     },
     {
-        id: 9,
+        _id: 9,
         title: "Satoru",
         description : "hi",
         price: "THB 5555",
@@ -110,6 +116,47 @@ export const trainers = [
         thumbnail: Gojoprofile,
         category: "Weight training"
     },
+    
+    {
+    _id: "67a9f650d590e255765d6ea8",
+    category: {
+      _id: "67618ebe9336125ea6502e16",
+      title: "Weight training",
+      description: "Weight training is the exercise that use about your body weight such as square, push-up, sit-up",
+      slug: "Power",
+      __v: 0
+    },
+    rating: [],
+    title: "Building body for Arm-wrestling",
+    description: "Arm-wrestling is one of the most powerful competetive in the world where is every single country want to compete how strong they are.",
+    price: 800,
+    duration: 30,
+    thumbnail: "https://imgv3.fotor.com/images/slider-image/A-clear-close-up-photo-of-a-woman.jpg",
+    status: "draft",
+    createdBy: {
+      _id: "676d5dfb716bad41db9bae34",
+      username: "TalkToMe",
+      fullname: "Nigga888",
+      email: "patlala@gmail.com",
+      password: "P@ssw0rd!",
+      __v: 0,
+      role: "admin",
+      updatedAt: "2025-02-16T13:54:11.772Z"
+    },
+    trainees: [
+      {
+        _id: "676d5dfb716bad41db9bae34",
+        username: "TalkToMe",
+        fullname: "Nigga888",
+        email: "patlala@gmail.com",
+        password: "P@ssw0rd!",
+        __v: 0,
+        role: "admin",
+        updatedAt: "2025-02-16T13:54:11.772Z"
+      }
+    ],
+    __v: 0
+  },
     
 ]
 
