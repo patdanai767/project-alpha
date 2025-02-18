@@ -12,10 +12,13 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import { motion } from "framer-motion";
 import DropdownProfile from "../Modal/DropdownProfile";
+import axios from "axios";
+import { config } from "../../config";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [user, setUser] = useState({});
   const { token } = useAuth();
   const authAction = useAuth();
 
@@ -23,6 +26,16 @@ const Navbar = () => {
     if (!token) {
       setIsMenuOpen(false);
       setIsProfileOpen(false);
+    } else {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get("/api/user/profile",config.headers());
+          setUser(res.data);
+        } catch (error) {
+          throw new Error(error);
+        }
+      };
+      fetchData();
     }
   }, []);
 
@@ -92,7 +105,10 @@ const Navbar = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleProfileMenu}
               >
-                <img src="" className="h-[40px] w-[40px] object-cover rounded"/>
+                <img
+                  src={user.profileImage}
+                  className="h-[40px] w-[40px] object-cover rounded"
+                />
               </motion.div>
               <DropdownProfile
                 arr={"login"}

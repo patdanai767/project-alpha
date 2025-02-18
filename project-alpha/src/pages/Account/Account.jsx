@@ -11,6 +11,7 @@ export default function Account() {
     fullname: "",
   });
   const [image, setImage] = useState();
+  const [uploadPic, setUploadPic] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function Account() {
       navigate("/");
     }
     fetchData();
+    console.log(user)
   }, []);
 
   const fetchData = async () => {
@@ -25,6 +27,7 @@ export default function Account() {
       await axios.get("/api/user/profile", config.headers()).then((res) => {
         setUser(res.data);
         setData({ username: res.data.username, fullname: res.data.fullname });
+        setImage(res.data.profileImage)
       });
     } catch (error) {
       throw new Error(error);
@@ -32,8 +35,28 @@ export default function Account() {
   };
 
   const handleClickSave = async () => {
+    const pic = new FormData();
+    pic.append("file", uploadPic);
+    pic.append("upload_preset", "Project_alpha");
     try {
-      await axios.patch(`/api/user/${user._id}`, data, config.headers());
+      const upload = await axios.post(
+        "https://api.cloudinary.com/v1_1/dqevqj0cc/image/upload",
+        pic
+      );
+
+      const { url } = upload.data;
+      console.log(url);
+
+      const payloadUpdate = {
+        ...data,
+        profileImage: url,
+      };
+
+      await axios
+        .patch(`/api/user/${user._id}`, payloadUpdate, config.headers())
+        .then(() => {
+          window.location.reload();
+        });
     } catch (error) {
       throw Error(error);
     }
@@ -52,6 +75,7 @@ export default function Account() {
   const handleFileChange = (e) => {
     const file = e.target.files;
     setImage(URL.createObjectURL(file[0]));
+    setUploadPic(file[0]);
   };
 
   return (
@@ -76,7 +100,7 @@ export default function Account() {
                 onChange={handleFileChange}
               />
               <div
-                className="mt-4 w-[200px] h-10 border bg-blue text-white content-center text-center rounded-lg text-[20px] cursor-pointer"
+                className="mt-4 w-[200px] h-10 border bg-lightblue text-white content-center text-center rounded-lg text-[20px] cursor-pointer"
                 onClick={handleFileClick}
               >
                 Upload photo

@@ -3,10 +3,23 @@ import {
   Calendar,
   CalendarPlus,
   ChartNoAxesColumnIncreasing,
+  Star,
 } from "lucide-react";
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
+import ReviewBox from "../../components/Box/ReviewBox";
+import { useState } from "react";
+import { reviews } from "../../constants/Reviews";
+import Pagination from "../../components/Pagination/Pagination";
 
 export default function Overviewevents() {
+  const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
+  const itemsPerPage = 3;
+
+  const totalPages = Math.ceil(reviews.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div className="flex justify-center">
       <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
@@ -64,8 +77,23 @@ export default function Overviewevents() {
           </div>
         </div>
         <div className="my-[32px]">
-          <div className="text-[24px] my-[32px]">My review</div>
+          <div className="text-[24px] mt-[32px]">My review</div>
+          <div className="flex gap-1 mb-[32px]">
+            <div className="flex items-center gap-1">
+              <Star fill="#DDF344" className="w-[36px] h-[36px]" />
+              <p className="text-[36px] font-bold">4.7</p>
+            </div>
+            <p className="content-end mb-1">from 74 review</p>
+          </div>
+          {currentItems.map((item, index) => (
+            <ReviewBox key={index} point={item.point} description={item.description} />
+          ))}
         </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );

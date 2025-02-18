@@ -5,8 +5,12 @@ import {
   ChartNoAxesColumnIncreasing,
 } from "lucide-react";
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 export default function Addevents() {
+  const [startDate, setStartDate] = useState(new Date());
   return (
     <div className="flex justify-center">
       <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
@@ -68,8 +72,27 @@ export default function Addevents() {
             <p className="text-[20px] mb-1">Description</p>
             <textarea className="p-[12px] rounded-xl border border-lightblue bg-transparent w-full overflow-x-scroll" />
           </div>
-          <div className="mt-[32px]">
-            <p className="text-[20px] mb-1">Start</p>
+          <div className="flex mt-[32px] gap-8">
+            <div className="w-full">
+              <p className="text-[20px] mb-1">Start</p>
+              <DatePicker
+                showTimeSelect
+                dateFormat="Pp"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="text-center cursor-pointer p-[10px] rounded-xl border border-lightblue bg-transparent w-full"
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-[20px] mb-1">End</p>
+              <DatePicker
+                showTimeSelect
+                dateFormat="Pp"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="text-center cursor-pointer p-[10px] rounded-xl border border-lightblue bg-transparent w-full"
+              />
+            </div>
           </div>
         </div>
       </div>
