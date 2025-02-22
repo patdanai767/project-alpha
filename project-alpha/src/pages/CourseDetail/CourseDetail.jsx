@@ -10,7 +10,6 @@ import {
   Briefcase,
   ScrollText,
   Star,
-  Menu,
   ChevronDown
 } from "lucide-react";
 

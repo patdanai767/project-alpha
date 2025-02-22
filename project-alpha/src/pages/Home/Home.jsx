@@ -6,8 +6,6 @@ import {
   BicepsFlexed,
   Building2,
   CalendarClock,
-  ChevronLeft,
-  ChevronRight,
   Dumbbell,
   HandCoins,
   Monitor,
@@ -26,6 +24,14 @@ import {
 } from "framer-motion";
 
 const Home = () => {
+  const [index, setIndex] = useState(0);
+  const [isNext, setIsNext] = useState(false);
+
+  useEffect(() => {
+    const duration = setInterval(next, 3000);
+    return () => clearInterval(duration);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -77,9 +83,6 @@ const Home = () => {
 
   console.log(trainersData);
 
-  const [index, setIndex] = useState(0);
-  const [isNext, setIsNext] = useState(false);
-
   const next = () => {
     setIsNext(true);
     setTimeout(() => {
@@ -87,12 +90,6 @@ const Home = () => {
       setIsNext(false);
     }, 300);
   };
-
-  useEffect(() => {
-    const duration = setInterval(next, 3000);
-
-    return () => clearInterval(duration);
-  }, []);
 
   return (
     <>
