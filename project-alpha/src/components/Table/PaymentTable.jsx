@@ -22,7 +22,7 @@ export default function PaymentTable({ date, token, currentToken, status }) {
         <tr className="py-4 border-b border-blue grid grid-cols-4 text-center">
           <td>{formateDate(date)}</td>
           <td>{formatTime(date)}</td>
-          <td>{token}</td>
+          <td>+{token}</td>
           <td>{currentToken}</td>
         </tr>
       ) : (
