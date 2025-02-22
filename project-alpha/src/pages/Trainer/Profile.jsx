@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { config } from "../../config";
+import { useNavigate } from "react-router-dom";
+
 
 const Profile = () => {
   const [aboutMe, setAboutMe] = useState([]);
@@ -12,62 +17,107 @@ const Profile = () => {
   const [editEducation,setEditEducation] = useState(false)
   const [editExperience,setEditExperience] = useState(false)
   const [editCertificates,setEditCertificates] = useState(false)
+  
+
+
+  const fetchDataEducation=async()=>{
+    try {
+      const {data} = await axios.get('http://localhost:8080/education',config.headers())
+      console.log(data)
+      setDataEducation(data)
+    } catch (error) {
+      console.log('fetchDataEducation error: '+error);
+      
+    }
+  }
+  const fetchDataCertifies=async()=>{
+    try {
+      const {data} = await axios.get('http://localhost:8080/certifies',config.headers())
+      console.log(data)
+      setDataCertificates(data)
+    } catch (error) {
+      console.log('fetchDataCertifies error: '+error);
+      
+    }
+  }
+  const fetchDataexps=async()=>{
+    try {
+      const {data} = await axios.get('http://localhost:8080/work-exps',config.headers())
+      console.log(data)
+      setDataExperience(data)
+    } catch (error) {
+      console.log('fetchDataCertifies error: '+error);
+      
+    }
+  }
+  
+  useEffect(()=>{
+    fetchDataEducation()
+    fetchDataCertifies()
+    fetchDataexps()
+  },[])
 
   const [dataEducation,setDataEducation] = useState([
-    { id:1,
-      school:"kmitl",
-      faculty:"engineer",
-      year:"2023",
+    {
+      placeEducated:"kmitl",
+      description:"engineer",
+      duration:"2023-2030",
       isEditing:false
     }
   ])
   const [dataExperience,setDataExperience] = useState([
-    { id:1,
-      work:"scg",
-      descript:"dev",
-      year:"2023",
-      isEditing:false
+    { 
+      title: "Personal trainer in KMITL Gym",
+      description: "This certifies that me has successfully demonstrated and understanding",
+      duration: "period",
+      isEditing: false
     }
   ])
   const [dataCertificates,setDataCertificates] = useState([
-    { id:1,
-      cer:"js",
-      descript:"programming",
-      year:"2023",
-      isEditing:false
+    { 
+      title: "Personal trainer in KMITL Gym",
+      description: "This certifies that me has successfully demonstrated and understanding",
+      duration: "period",
+      isEditing: false
     }
   ])
 
+  
+
+  
+  
+  
+
   const handleChangeDataEducation = (id, field, value) => {
     setDataEducation(dataEducation.map(edu => 
-      edu.id === id ? { ...edu, [field]: value } : edu
+      edu._id === id ? { ...edu, [field]: value } : edu
     ));
   };
   const handleChangeDataExperience = (id, field, value) => {
     setDataExperience(dataExperience.map(edu => 
-      edu.id === id ? { ...edu, [field]: value } : edu
+      edu._id === id ? { ...edu, [field]: value } : edu
     ));
   };
   
   const handleChangeDataCertificates= (id, field, value) => {
     setDataCertificates(dataCertificates.map(edu => 
-      edu.id === id ? { ...edu, [field]: value } : edu
+      edu._id === id ? { ...edu, [field]: value } : edu
     ));
   };
   
   const toggleEditEducation = (id) => {
     setDataEducation(dataEducation.map(edu =>
-      edu.id === id ? { ...edu, isEditing: !edu.isEditing } : edu
+      edu._id === id ? { ...edu, isEditing: !edu.isEditing } : edu
     ))
   }
   const toggleEditExperience = (id) => {
     setDataExperience(dataExperience.map(edu =>
-      edu.id === id ? { ...edu, isEditing: !edu.isEditing } : edu
+      edu._id === id ? { ...edu, isEditing: !edu.isEditing } : edu
     ))
   }
   const toggleEditCertificates = (id) => {
     setDataCertificates(dataCertificates.map(edu =>
-      edu.id === id ? { ...edu, isEditing: !edu.isEditing } : edu
+      edu._id === id ? { ...edu, isEditing: !edu.isEditing } : edu
     ))
   }
   
@@ -80,96 +130,161 @@ const Profile = () => {
     }
   };
 
-  const addEducation = () => {
+
+  const addEducation = async() => {
     if (dataEducation.length < 3) {
       const newEducation = {
-        id: Date.now(),
-        school: "",
-        faculty: "",
-        year: "2023",
-        isEditing: true
+        placeEducated:"Input",
+        description:"Input",
+        duration:"0000-0000",
+        isEditing:false
       };
-      setDataEducation([...dataEducation, newEducation]);
+      try {
+        await axios.post( 'http://localhost:8080/education',newEducation,config.headers())
+        fetchDataEducation()
+      } catch (error) {
+        console.log(`error add data ${error}`);
+        
+      } 
     }
+    
   }
   
 
-  const addWorkExperience = () => {
+  const addWorkExperience = async() => {
     if (workExperience.length < 3) {
       const newworkExperience = {
-        id: Date.now(),
-        work: "",
-        descript: "",
-        year: "2023",
-        isEditing: true
+      title: "Input",
+      description: "Input",
+      duration: "0000-0000",
+      isEditing: false
       };
-      setDataExperience([...dataExperience, newworkExperience])
+      try {
+        await axios.post( 'http://localhost:8080/work-exps',newworkExperience,config.headers())
+        fetchDataexps()
+      } catch (error) {
+        console.log(`error add data ${error}`);
+      } 
     }
   };
 
-  const addCertificates = () => {
+  const addCertificates = async() => {
     if (dataCertificates.length < 3) {
       const newCertificates = {
-        id: Date.now(),
-        cer: "",
-        descript: "",
-        year: "2023",
-        isEditing: true
+      title: "Input",
+      description: "Input",
+      duration: "0000-0000",
+      isEditing: false
       }
-      setDataCertificates([...dataCertificates, newCertificates])
+      try {
+        await axios.post( 'http://localhost:8080/certifies',newCertificates,config.headers())
+        fetchDataCertifies()
+      } catch (error) {
+        console.log(`error add data ${error}`);
+      } 
     }
   };
 
-  const hanleEducationChange = (id, field, value) => {
-    setEducations(
-      educations.map((edu) =>
-        edu.id === id ? { ...edu, [field]: value } : edu
-      )
-    )
+
+  const handleSaveEducation = async (id) => {
+    try {
+      const educationToUpdate = dataEducation.find(edu=> edu._id === id)
+
+      const newDataEducation = {
+        placeEducated: educationToUpdate.placeEducated,
+        description: educationToUpdate.description,
+        duration: educationToUpdate.duration,
+        isEditing: educationToUpdate.isEditing
+      };
+      
+
+      await axios.patch(`http://localhost:8080/education/${id}`,newDataEducation,config.headers());  
+      console.log('success');
+      
+
+      toggleEditEducation(id);
+
+    } catch (error) {
+      console.log('Error updating education:', error);
+    }
   };
-  const hanleWorkExperienceChange = (id, field, value) => {
-    setWorkExperience(
-      workExperience.map((work) =>
-        work.id === id ? { ...work, [field]: value } : work
-      )
-    );
+  const handleSaveExperience= async (id) => {
+    try {
+      const experiencToUpdate = dataExperience.find(edu=> edu._id === id)
+
+      const newDataExperienc = {
+        title: experiencToUpdate.title,
+        description: experiencToUpdate.description,
+        duration: experiencToUpdate.duration,
+        isEditing: experiencToUpdate.isEditing
+      };
+      
+
+      await axios.patch(`http://localhost:8080/work-exps/${id}`,newDataExperienc,config.headers());  
+      console.log('success');
+      
+
+      toggleEditExperience(id);
+
+    } catch (error) {
+      console.log('Error updating experienc:', error);
+    }
   };
-  const hanleCertificates = (id, field, value) => {
-    setWorkExperience(
-      workExperience.map((cer) =>
-        cer.id === id ? { ...cer, [field]: value } : cer
-      )
-    );
+  const handleSaveCertificates= async (id) => {
+    try {
+      const certificatesToUpdate = dataCertificates.find(edu=> edu._id === id)
+
+      const newDataCertificates = {
+        title: certificatesToUpdate.title,
+        description: certificatesToUpdate.description,
+        duration: certificatesToUpdate.duration,
+        isEditing: certificatesToUpdate.isEditing
+      };
+
+      await axios.patch(`http://localhost:8080/certifies/${id}`,newDataCertificates,config.headers());  
+      console.log('success');
+      
+
+      toggleEditCertificates(id);
+
+    } catch (error) {
+      console.log('Error updating Certificates:', error);
+    }
   };
   
-  const removeEducation = (id) => {
-    if (dataEducation.length > 1) {
-      setDataEducation(dataEducation.filter(edu => edu.id !== id));
-    } else {
-      setShowDeleteWarning(true);
+  
+  const removeEducation = async(id) => {
+    try {
+      await axios.delete(`http://localhost:8080/education/${id}`,config.headers())
+      setDataEducation((prevData) => prevData.filter((edu) => edu._id !== id));
+    } catch (error) {
+      console.log(`error delete ${error}`);
+      
     }
   };
 
-  const removeWorkExperience = (id) => {
-    if (dataExperience.length > 1) {
-      setDataExperience(dataExperience.filter((edu) => edu.id !== id));
-      showDeleteWarning(false);
-    } else {
-      setShowDeleteWarning(true);
+  const removeWorkExperience = async(id) => {
+    try {
+      await axios.delete(`http://localhost:8080/work-exps/${id}`,config.headers())
+      setDataExperience((prevData) => prevData.filter((edu) => edu._id !== id));
+    } catch (error) {
+      console.log(`error delete ${error}`);
+      
     }
   };
 
-  const removeCertificates = (id) => {
-    if (dataCertificates.length > 1) {
-      setDataCertificates(dataCertificates.filter((cer) => cer.id !== id));
-      showDeleteWarning(false);
-    } else {
-      setShowDeleteWarning(true);
+  const removeCertificates = async(id) => {
+    try {
+      await axios.delete(`http://localhost:8080/certifies/${id}`,config.headers())
+      setDataCertificates((prevData) => prevData.filter((edu) => edu._id !== id));
+    } catch (error) {
+      console.log(`error delete ${error}`);
+      
     }
   };
 
   return (
-    <div className="flex lg:justify-center ml-[10px] lg:ml-0 bg-[#EFFAFD]">
+    <div className="flex lg:justify-center ml-[10px] lg:ml-0 bg-[#EFFAFD] h-full">
       <div className=" flex flex-wrap flex-col relative font-montserrat">
         <div className="">
           <div className=" w-[190px] h-[44px] top-[204px]  absolute ">
@@ -340,13 +455,24 @@ const Profile = () => {
                       {/*การ์ดข้อมูลการศึกษา*/}
                       <div className="space-y-4"></div>
                     </div>
+                   
 
                     {dataEducation.map((edu) => (
-                      <div key={edu.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
+                      <div key={edu._id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
                         <div className="flex">
                           <div className="w-2/12">
                             <p className="font-bold mb-[8px] text-xl">Year</p>
-                            <p>{edu.year}</p>
+                            {edu.isEditing ? (
+                            <input 
+                            className="bg-transparent lg:w-[100px] w-[30px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
+                            value={edu.duration}
+                            onChange={(e) => handleChangeDataEducation(edu._id, 'duration', e.target.value)}
+                            name="duration"
+                            />
+                            ):(
+                              <p className="mb-[8px]">{edu.duration}</p>
+                            )}
+                            <p></p>
                           </div>
                           <div className="w-7/12">
                             <div>
@@ -355,23 +481,23 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.school}
-                                  onChange={(e) => handleChangeDataEducation(edu.id, 'school', e.target.value)}
-                                  name="school"
+                                  value={edu.placeEducated}
+                                  onChange={(e) => handleChangeDataEducation(edu._id, 'placeEducated', e.target.value)}
+                                  name="placeEducated"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.school}</p>
+                                <p className="mb-[8px]">{edu.placeEducated}</p>
                               )}
                               <p className="mb-[8px] font-bold text-base">Faculty / Bachelor</p>
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.faculty}
-                                  onChange={(e) => handleChangeDataEducation(edu.id, 'faculty', e.target.value)}
-                                  name="faculty"
+                                  value={edu.description}
+                                  onChange={(e) => handleChangeDataEducation(edu._id, 'description', e.target.value)}
+                                  name="description"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.faculty}</p>
+                                <p className="mb-[8px]">{edu.description}</p>
                               )}
                             </div>
                           </div>
@@ -380,13 +506,13 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <>
                                   <button
-                                    onClick={() => toggleEditEducation(edu.id)}
+                                    onClick={() => toggleEditEducation(edu._id)}
                                     className="w-[101px] h-[36px] border border-gray-600 text-gray-600 bg-gray-200 font-medium rounded-[12px] text-base"
                                   >
                                     Cancel
                                   </button>
                                   <button
-                                    onClick={() => toggleEditEducation(edu.id)}
+                                    onClick={() => handleSaveEducation(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     SAVE
@@ -395,13 +521,13 @@ const Profile = () => {
                               ) : (
                                 <>
                                   <button
-                                    onClick={() => toggleEditEducation(edu.id)}
+                                    onClick={() => toggleEditEducation(edu._id)}
                                     className="w-[80px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     Edit
                                   </button>
                                   <button
-                                    onClick={() => removeEducation(edu.id)}
+                                    onClick={() => removeEducation(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#EC697F] font-medium rounded-[12px] text-base"
                                   >
                                     Delete
@@ -436,11 +562,20 @@ const Profile = () => {
                       <div className="space-y-4">
                       </div>
                       {dataExperience.map((edu) => (
-                      <div key={edu.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
+                      <div key={edu._id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
                         <div className="flex">
                           <div className="w-2/12">
                             <p className="font-bold mb-[8px] text-xl">Year</p>
-                            <p>{edu.year}</p>
+                            {edu.isEditing ? (
+                            <input 
+                            className="bg-transparent lg:w-[100px] w-[30px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
+                            value={edu.duration}
+                            onChange={(e) => handleChangeDataExperience(edu._id, 'duration', e.target.value)}
+                            name="duration"
+                            />
+                            ):(
+                              <p className="mb-[8px]">{edu.duration}</p>
+                            )}
                           </div>
                           <div className="w-7/12">
                             <div>
@@ -449,23 +584,23 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.work}
-                                  onChange={(e) => handleChangeDataExperience(edu.id, 'work', e.target.value)}
-                                  name="work"
+                                  value={edu.title}
+                                  onChange={(e) => handleChangeDataExperience(edu._id, 'title', e.target.value)}
+                                  name="title"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.work}</p>
+                                <p className="mb-[8px]">{edu.title}</p>
                               )}
                               <p className="mb-[8px] font-bold text-bas">Description</p>
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.descript}
-                                  onChange={(e) => handleChangeDataExperience(edu.id, 'descript', e.target.value)}
-                                  name="descript"
+                                  value={edu.description}
+                                  onChange={(e) => handleChangeDataExperience(edu._id, 'description', e.target.value)}
+                                  name="description"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.descript}</p>
+                                <p className="mb-[8px]">{edu.description}</p>
                               )}
                             </div>
                           </div>
@@ -474,13 +609,13 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <>
                                   <button
-                                    onClick={() => toggleEditExperience(edu.id)}
+                                    onClick={() => toggleEditExperience(edu._id)}
                                     className="w-[101px] h-[36px] border border-gray-600 text-gray-600 bg-gray-200 font-medium rounded-[12px] text-base"
                                   >
                                     Cancel
                                   </button>
                                   <button
-                                    onClick={() => toggleEditExperience(edu.id)}
+                                    onClick={() => handleSaveExperience(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     SAVE
@@ -489,13 +624,13 @@ const Profile = () => {
                               ) : (
                                 <>
                                   <button
-                                    onClick={() => toggleEditExperience(edu.id)}
+                                    onClick={() => toggleEditExperience(edu._id)}
                                     className="w-[80px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     Edit
                                   </button>
                                   <button
-                                    onClick={() => removeWorkExperience(edu.id)}
+                                    onClick={() => removeWorkExperience(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#EC697F] font-medium rounded-[12px] text-base"
                                   >
                                     Delete
@@ -531,11 +666,20 @@ const Profile = () => {
                         <div className="space-y-4">
                         </div>
                         {dataCertificates.map((edu) => (
-                      <div key={edu.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
+                      <div key={edu._id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400 rounded-[12px] p-[16px] gap-8">
                         <div className="flex">
                           <div className="w-2/12">
                             <p className="font-bold mb-[8px] text-xl">Year</p>
-                            <p>{edu.year}</p>
+                            {edu.isEditing ? (
+                            <input 
+                            className="bg-transparent lg:w-[100px] w-[30px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
+                            value={edu.duration}
+                            onChange={(e) => handleChangeDataCertificates(edu._id, 'duration', e.target.value)}
+                            name="duration"
+                            />
+                            ):(
+                              <p className="mb-[8px]">{edu.duration}</p>
+                            )}
                           </div>
                           <div className="w-7/12">
                             <div>
@@ -544,23 +688,23 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.cer}
-                                  onChange={(e) => handleChangeDataCertificates(edu.id, 'cer', e.target.value)}
-                                  name="cer"
+                                  value={edu.title}
+                                  onChange={(e) => handleChangeDataCertificates(edu._id, 'title', e.target.value)}
+                                  name="title"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.cer}</p>
+                                <p className="mb-[8px]">{edu.title}</p>
                               )}
                               <p className="mb-[8px] font-bold text-bas">Description</p>
                               {edu.isEditing ? (
                                 <input
                                   className="bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400 padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"
-                                  value={edu.descript}
-                                  onChange={(e) => handleChangeDataCertificates(edu.id, 'descript', e.target.value)}
-                                  name="descript"
+                                  value={edu.description}
+                                  onChange={(e) => handleChangeDataCertificates(edu._id, 'description', e.target.value)}
+                                  name="description"
                                 />
                               ) : (
-                                <p className="mb-[8px]">{edu.descript}</p>
+                                <p className="mb-[8px]">{edu.description}</p>
                               )}
                             </div>
                           </div>
@@ -569,13 +713,13 @@ const Profile = () => {
                               {edu.isEditing ? (
                                 <>
                                   <button
-                                    onClick={() => toggleEditCertificates(edu.id)}
+                                    onClick={() => toggleEditCertificates(edu._id)}
                                     className="w-[101px] h-[36px] border border-gray-600 text-gray-600 bg-gray-200 font-medium rounded-[12px] text-base"
                                   >
                                     Cancel
                                   </button>
                                   <button
-                                    onClick={() => toggleEditCertificates(edu.id)}
+                                    onClick={() => handleSaveCertificates(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     SAVE
@@ -584,13 +728,13 @@ const Profile = () => {
                               ) : (
                                 <>
                                   <button
-                                    onClick={() => toggleEditCertificates(edu.id)}
+                                    onClick={() => toggleEditCertificates(edu._id)}
                                     className="w-[80px] h-[36px] border border-black text-white bg-[#4A8BDF] font-medium rounded-[12px] text-base"
                                   >
                                     Edit
                                   </button>
                                   <button
-                                    onClick={() => removeCertificates(edu.id)}
+                                    onClick={() => removeCertificates(edu._id)}
                                     className="w-[101px] h-[36px] border border-black text-white bg-[#EC697F] font-medium rounded-[12px] text-base"
                                   >
                                     Delete
@@ -602,75 +746,7 @@ const Profile = () => {
                         </div>
                       </div>
                     ))}
-                        {/* {editCertificates ? (<div>
-                          {Certificates.map((cer) => (
-                          <div key={cer.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400   rounded-[12px]  p-[16px] gap-[16px] ">
-                                <div className="flex">
-                                    <div className="w-2/12">
-                                        <p className="font-bold mb-[8px] text-xl">Year</p>
-                                        <p>2023</p>
-                                    </div>
-                                    <div className="w-7/12">
-                                        <div>
-                                        <p className="font-bold mb-[8px] text-xl">Details</p>
-                                        <p className="mb-[8px] font-bold text-bas">Certificate name</p>
-                                        <input className=" bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400  padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"></input>
-                                        <p className="mb-[8px] font-bold text-bas">Description</p>
-                                        <input className=" bg-transparent lg:w-[825px] w-[200px] h-[34px] pl-2 rounded-[8px] border border-blue-400  padding-[16px] gap-[10px] bg-blue-100 focus:border-gray-600"></input>
-                                        </div>
-                                    </div>
-                                    <div className="w-3/12 justify-between">
-                                        <div className="gap-1 flex justify-end">
-                                            <button
-                                            onClick={() => handleSaveCertificates()}
-                                            className="w-[101px] h-[36px]  border border-gray-600 text-gray-600 bg-gray-200 font-medium rounded-[12px] text-base"
-                                            >Cancel
-                                            </button>
-                                            <button
-                                            onClick={() => removeCertificates(cer.id)}
-                                            className="w-[101px] h-[36px]  border border-black text-white bg-[#4A8BDF]  font-medium rounded-[12px] text-base "
-                                            >SAVE
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                          </div>
-                        ))}
-                        </div>):(<div>
-                          {Certificates.map((cer) => (
-                          <div key={cer.id} className="mt-3 lg:w-[1024px] w-[93vw] h-[200px] border-2 border-blue-400   rounded-[12px]  p-[16px] gap-[16px] ">
-                                <div className="flex">
-                                    <div className="w-2/12">
-                                        <p className="font-bold mb-[8px] text-xl">Year</p>
-                                        <p>2023</p>
-                                    </div>
-                                    <div className="w-7/12">
-                                        <div>
-                                        <p className="font-bold mb-[8px] text-xl">Details</p>
-                                        <p className="mb-[8px] font-bold text-bas">Certificate name</p>
-                                        <p className="mb-[8px]">KMITL</p>
-                                        <p className="mb-[8px] font-bold text-bas">Description</p>
-                                        <p className="mb-[8px]">IoT Engineering</p>
-                                        </div>
-                                    </div>
-                                    <div className="w-3/12 justify-between">
-                                        <div className="gap-1 flex justify-end">
-                                            <button
-                                            onClick={() => handleEditCertificates()}
-                                            className="w-[80px] h-[36px]  border border-black text-white bg-[#4A8BDF]  font-medium rounded-[12px] text-base "                                            >Edit
-                                            </button>
-                                            <button
-                                            onClick={() => removeCertificates(cer.id)}
-                                            className="w-[101px] h-[36px]  border border-black text-white bg-[#EC697F]  font-medium rounded-[12px] text-base "
-                                            >Delete
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                          </div>
-                        ))}
-                        </div>)} */}
-                    
+                        
                       </div>
                     </div>
                   </div>
