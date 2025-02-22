@@ -21,8 +21,6 @@ export default function Account() {
       navigate("/");
     }
     fetchData();
-    console.log(user);
-    console.log(coinData);
   }, []);
 
   const fetchData = async () => {
@@ -171,6 +169,7 @@ export default function Account() {
                 {coinData
                   ? coinData.map((data) => (
                       <PaymentTable
+                        key={data._id}
                         date={data.createdAt}
                         token={data.coin}
                         currentToken={data.currentCoin}
