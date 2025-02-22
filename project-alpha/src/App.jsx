@@ -11,12 +11,13 @@ import Messenger from "./pages/Messenger/Messenger";
 import Profile from "./pages/Trainer/Profile";
 import TNlayout from "./layout/TNlayout";
 import MessengerDetails from "./pages/Messenger/MessengerDetails";
-import Account from "./pages/Account/account";
+import Account from "./pages/Account/Account";
 import Mycourse from "./pages/Trainee/Mycourse";
 import Dashboard from "./pages/Trainer/Dashboard";
 import Myevents from "./pages/Trainer/Myevents";
 import Addevents from "./pages/Trainer/Addevents";
 import Overviewevents from "./pages/Trainer/Overviewevents";
+import Token from "./pages/Token/Token";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/coursedetail" element={<CourseDetail />} />
+            <Route path="/token" element={<Token />} />
             <Route element={<TNlayout />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/messenger" element={<Messenger />} />

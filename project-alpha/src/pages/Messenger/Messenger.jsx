@@ -1,10 +1,8 @@
 import MessageCard from "../../components/Card/MessageCard";
-import { Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import MessageBox from "../../components/Box/MessageBox";
 import axios from "axios";
 import { config } from "../../config";
 

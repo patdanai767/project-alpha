@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { config } from "../../config";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import PaymentTable from "../../components/Table/PaymentTable";
 
 export default function Account() {
   const [user, setUser] = useState({ email: "" });
@@ -12,6 +13,7 @@ export default function Account() {
   });
   const [image, setImage] = useState();
   const [uploadPic, setUploadPic] = useState();
+  const [coinData, setCoinData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +21,8 @@ export default function Account() {
       navigate("/");
     }
     fetchData();
-    console.log(user)
+    console.log(user);
+    console.log(coinData);
   }, []);
 
   const fetchData = async () => {
@@ -27,7 +30,10 @@ export default function Account() {
       await axios.get("/api/user/profile", config.headers()).then((res) => {
         setUser(res.data);
         setData({ username: res.data.username, fullname: res.data.fullname });
-        setImage(res.data.profileImage)
+        setImage(res.data.profileImage);
+      });
+      await axios.get("/api/coins/myCoins", config.headers()).then((res) => {
+        setCoinData(res.data);
       });
     } catch (error) {
       throw new Error(error);
@@ -152,7 +158,7 @@ export default function Account() {
           <div className="border w-full border-black my-16" />
           <div>
             <div className="text-[24px] font-semibold mb-4">Payments</div>
-            <div>
+            <div className="mb-32">
               <table className="w-full">
                 <thead>
                   <tr className="py-2 border-b-2 border-blue grid grid-cols-4">
@@ -162,14 +168,16 @@ export default function Account() {
                     <th>Current tokens</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className="py-4 border-b border-blue grid grid-cols-4 text-center">
-                    <td>Nov 14,2024</td>
-                    <td>23.17</td>
-                    <td>+10</td>
-                    <td>10</td>
-                  </tr>
-                </tbody>
+                {coinData
+                  ? coinData.map((data) => (
+                      <PaymentTable
+                        date={data.createdAt}
+                        token={data.coin}
+                        currentToken={data.currentCoin}
+                        status={data.status}
+                      />
+                    ))
+                  : ""}
               </table>
             </div>
           </div>

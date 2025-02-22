@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
   Bell,
+  Coins,
   Heart,
   LogIn,
   Menu,
   MessageSquare,
+  Plus,
   Square,
   User,
   X,
@@ -29,7 +31,7 @@ const Navbar = () => {
     } else {
       const fetchData = async () => {
         try {
-          const res = await axios.get("/api/user/profile",config.headers());
+          const res = await axios.get("/api/user/profile", config.headers());
           setUser(res.data);
         } catch (error) {
           throw new Error(error);
@@ -76,6 +78,19 @@ const Navbar = () => {
       <div>
         {token ? (
           <div className="sm:flex gap-8 items-center hidden">
+            <motion.a
+              className="cursor-pointer text-lime"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="/token"
+            >
+              <div className="flex border-[3px] px-4 py-1 gap-3 rounded-xl items-center border-lime">
+                <Coins size={20} />
+                <div>{user.coin}</div>
+                <div>Tokens</div>
+                <Plus size={20} />
+              </div>
+            </motion.a>
             <motion.a
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
@@ -187,11 +202,18 @@ const Navbar = () => {
               Dashboard
             </a>
             <a
-              className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
           "
               href="/calendar"
             >
               Calendar
+            </a>
+            <a
+              className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+          "
+              href="/token"
+            >
+              Get token
             </a>
           </div>
           <div className="flex border-t-2 border-blue pt-7">
@@ -202,6 +224,11 @@ const Navbar = () => {
             >
               Log out
             </a>
+          </div>
+          <div className="mt-5 p-2 flex gap-2 bg-lime text-blue rounded-lg">
+            <Coins/>
+            <div>{user.coin}</div>
+            <div>Tokens</div>
           </div>
         </div>
       ) : (
