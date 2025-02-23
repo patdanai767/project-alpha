@@ -23,7 +23,7 @@ export const trainers = [
         title: "Patrick Star",
         description: "hellow aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         price: 1000,
-        duration: "22",
+        duration: 30,
         thumbnail: patrick_profile,
         category: {
             _id: "67618ebe9336125ea6502e16",
@@ -34,85 +34,85 @@ export const trainers = [
          },
     },
     {
-        _id: 1,
+        _id: "1",
         title: "Shin Chan",
         description : "hi",
         price: "THB 500",
-        duration: "22",
+        duration: 30,
         thumbnail: shinchan_profile,
         category: "Weight training"
     },
     {
-        _id: 2,
+        _id: "2",
         title: "Shiro",
         description : "hi",
         price: "THB 2000",
-        duration: "22",
+        duration: 60,
         thumbnail: shiro_profile,
         category: "Boxing"
     },
     {
-        _id: 3,
+        _id: "3",
         title: "SpongeBob",
         description : "hi",
         price: "THB 3000",
-        duration: "22",
+        duration: 60,
         thumbnail: spongebob_profile,
         category: "Dancing"
     },
     {
-        _id: 4,
+        _id: "4",
         title: "Squidward",
         description : "hi",
         price: "THB 5000",
-        duration: "22",
+        duration: 30,
         thumbnail: squidward_profile,
         category: "Weight training"
     },
     {
-        _id: 5,
+        _id: "5",
         title: "Lufy",
         description : "hi",
         price: "THB 5000",
-        duration: "22",
+        duration: 30,
         thumbnail: Lufyprofile,
         category: "Weight training"
     },
     {
-        _id: 6,
+        _id: '6',
         title: "Zoro",
         description : "hi",
         price: "THB 5000",
-        duration: "22",
+        duration: 30,
         thumbnail: Zoroprofile,
         category: "Weight training"
     },
 
     {
-        _id: 7,
+        _id: '7',
         title: "Usop",
         description: "hellow aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         price: "THB 1000",
-        duration: "22",
+        duration: 60,
         thumbnail: Usopprofle,
         category: "Dancing"
     },
 
     {
-        _id: 8,
+        _id: '8',
         title: "Chpper",
         description : "hi",
         price: "THB 500",
-        duration: "22",
+        duration: 60,
         thumbnail: Chopperprofle,
         category: "Dancing"
     },
     {
-        _id: 9,
+        _id: '9',
         title: "Satoru",
         description : "hi",
         price: "THB 5555",
-        duration: "22",
+        duration: 30,
         thumbnail: Gojoprofile,
         category: "Weight training"
     },
