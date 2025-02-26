@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Footer from "../../components/Navbar/Footer";
 import Navbar from "../../components/Navbar/Navbar";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
+  const [credentials, setCredentials] = useState({
+    email: undefined,
+    password: undefined,
+  });
+  const navigate = useNavigate();
+  const authAction = useAuth();
+
   useEffect(() => {
-    fetchData();
+    if (Cookies.get("AUTH_KEY")) {
+      navigate("/");
+    }
   }, []);
 
-  const fetchData = async () => {
+  const handleChange = (e) => {
+    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSummit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.get("/api/course").then((res) => {});
-    } catch (err) {
-      console.log({ message: err });
+      authAction.loginAction(credentials);
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
-  const handleSubmit = () => {
-    console.log("skibi");
-  };
   return (
     <div className="bg-sky">
       <Navbar />
@@ -34,7 +47,10 @@ const Login = () => {
                 <div className="mt-[28px] mb-2">Email</div>
                 <input
                   className="border p-2 w-full border-slate-300 rounded"
-                  placeholder="Enter your email"
+                  placeholder="example@gmail.com"
+                  type="email"
+                  id="email"
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -42,9 +58,15 @@ const Login = () => {
                 <input
                   className="w-full border p-2 border-slate-300 rounded"
                   placeholder="Enter your password"
+                  type="password"
+                  id="password"
+                  onChange={handleChange}
                 />
               </div>
-              <div className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded">
+              <div
+                className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded"
+                onClick={handleSummit}
+              >
                 Sign in
               </div>
               <div className="grid justify-center gap-1">
