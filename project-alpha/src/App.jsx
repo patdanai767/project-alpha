@@ -22,6 +22,16 @@ import Token from "./pages/Token/Token";
 function App() {
   return (
     <BrowserRouter>
+      <Routes> 
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search/>}/>
+          <Route path="/coursedetail/:id" element={<CourseDetail />} />
+        </Route>
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <AuthProvider>
         <Routes>
           <Route element={<Layout />}>
