@@ -25,18 +25,68 @@ function CourseDetail()  {
 
   const { id } = useParams(); // ดึง id จาก URL
   const [coursesData, setCourseDetail] = useState({})
+  const [education, setEducation] = useState([]);
+  const [workExperience, setWorkExperience] = useState([]);
+  const [certifies, setCertifies] = useState([]);
 
   useEffect(() => {
     reData_()
-    console.log(coursesData.price);
+    fetchEducation()
+    fetchWorkExps()
+    fetchCertifies()
   },[])
 
   const reData_ = async () => {
     const res = await axios.get(`/api/course/${id}`)
-     console.log("API Response:", res.data);
     setCourseDetail(res.data)
+    console.log("API Response:", res.data);
   }
 
+  const fetchEducation = async () => {
+    try {
+      const courseRes = await axios.get(`/api/course/${id}`)
+      const trainerId = courseRes.data.createdBy?._id;
+
+      const res = await axios.get(`/api/education`);
+      const filteredEducation = res.data.filter(edu => edu.createdBy._id === trainerId);
+
+      setEducation(filteredEducation);
+      console.log("educationData",filteredEducation);
+    } catch (error) {
+      console.error("Error fetching education:", error);
+    }
+  };
+
+  const fetchWorkExps = async () => {
+    try {
+      const courseRes = await axios.get(`/api/course/${id}`)
+      const trainerId = courseRes.data.createdBy?._id;
+
+      const res = await axios.get(`/api/work-exps`);
+      const filteredWorkExps = res.data.filter(work => work.createdBy._id === trainerId);
+
+      setWorkExperience(filteredWorkExps);
+      console.log("Workexperience",filteredWorkExps);
+    } catch (error) {
+      console.error("Error fetching workexperience:", error);
+    }
+  };
+
+  const fetchCertifies = async () => {
+    try {
+      const courseRes = await axios.get(`/api/course/${id}`)
+      const trainerId = courseRes.data.createdBy?._id;
+
+      const res = await axios.get(`/api/certifies`);
+      const filteredCertifies = res.data.filter(cer => cer.createdBy._id === trainerId);
+
+      setCertifies(filteredCertifies);
+      console.log("Certifies",filteredCertifies);
+    } catch (error) {
+      console.error("Error fetching Certifies:", error);
+    }
+  };
+//------------------------------------------------------------------------------------------
   
 
   // หา course ตาม id
@@ -49,6 +99,22 @@ function CourseDetail()  {
    // ฟังก์ชันสำหรับเลือกค่าจาก dropdown
   const selectResume = (value) => {
     setSelectedResume(value);
+    if(value == "Education"){
+      setIsOpen2(true)
+      setIsOpen3(false)
+      setIsOpen4(false)
+    }
+    else if(value == "Work experience"){
+      setIsOpen3(true)
+      setIsOpen4(false)
+      setIsOpen2(false)
+    }
+    else if (value == "Certification"){
+      setIsOpen4(true)
+      setIsOpen3(false)
+      setIsOpen2(false)
+    }
+    
     setIsOpen1(false); // ปิด dropdown หลังจากเลือก
   };  
 
@@ -61,17 +127,17 @@ function CourseDetail()  {
     const [isOpen3, setIsOpen3] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
     const toggleEducation = () => {
-      setIsOpen2(!isOpen2);
+      setIsOpen2(true);
       setIsOpen3(false);
       setIsOpen4(false);
     };
     const toggleWork = () => {
-      setIsOpen3(!isOpen3);
+      setIsOpen3(true);
       setIsOpen2(false);
       setIsOpen4(false);
     };
     const toggleCer = () => {
-      setIsOpen4(!isOpen4);
+      setIsOpen4(true);
       setIsOpen2(false);
       setIsOpen3(false);
     };
@@ -171,9 +237,9 @@ const [isOpen5, setIsOpen5] = useState(false);// State สำหรับกา�
                       {isOpen1 && (
                         <div className='bg-white sm:w-[200px] w-[160px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                           <div className='flex flex-col justify-between'>
-                            <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[200px]'onClick={() => selectResume("Education")}>Education</div>
+                            <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[200px]'onClick={() => selectResume("Education")} >Education</div>
                             <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[200px]'onClick={() => selectResume("Work experience")}>Work experience</div>
-                            <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[200px]'onClick={() => selectResume("Cetification")}>Cetification</div>
+                            <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[200px]'onClick={() => selectResume("Certification")}>Certification</div>
                         </div>
                       </div>
                       )}
@@ -181,23 +247,39 @@ const [isOpen5, setIsOpen5] = useState(false);// State สำหรับกา�
                   </div>
                   {isOpen2 && (
                     <div>
-                      <EdCard/>
-                      <EdCard/>
-                      <EdCard/>
+                      {education.map((val) => (
+                        <EdCard
+                          key = {val._id}
+                          id = {val._id}
+                          placeEducated={val.placeEducated}
+                          description = {val.description}
+                          duration = {val.duration}
+                        />
+                      ))}
                     </div>     
                   )}
                   {isOpen3 && (
                     <div>
-                      <WorkCard/>
-                      <WorkCard/>
-                      <WorkCard/>
+                      {workExperience.map((val) =>( 
+                        <WorkCard
+                          key = {val._id}
+                          title = {val.title}
+                          description = {val.description}
+                          duration = {val.duration}
+                        />
+                      ))}
                     </div>     
                   )}
                   {isOpen4 && (
                     <div>
-                      <CerCard/>
-                      <CerCard/>
-                      <CerCard/>
+                      {certifies.map((val) => (
+                        <CerCard
+                        key = {val._id}
+                        title = {val.title}
+                        description = {val.description}
+                        duration = {val.duration}
+                        />
+                      ))}
                     </div>     
                   )}
                   

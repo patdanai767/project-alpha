@@ -68,6 +68,7 @@ function Search_() {
         <div className="mt-[15px]">
           {currentItems.map((val) => (
             <Searchcard
+            key = {val.id}
               id = {val._id}
               title={val.title}
               description={val.description}
