@@ -99,13 +99,14 @@ const Navbar = () => {
             >
               <MessageSquare size={20} />
             </motion.a>
-            <motion.div
+            <motion.a
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              href="/favorite"
             >
               <Heart size={20} />
-            </motion.div>
+            </motion.a>
             <motion.div
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
@@ -226,7 +227,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="mt-5 p-2 flex gap-2 bg-lime text-blue rounded-lg">
-            <Coins/>
+            <Coins />
             <div>{user.coin}</div>
             <div>Tokens</div>
           </div>
