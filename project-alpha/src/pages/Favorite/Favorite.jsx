@@ -19,12 +19,9 @@ export default function Favorite() {
   };
 
   const totalPages = Math.ceil(courses.length / itemsPerPage);
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = courses.slice(indexOfFirstItem, indexOfLastItem);
-
-  console.log(courses);
   return (
     <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
