@@ -10,6 +10,7 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [search, setSearch] = useState("");
   const [user, setUser] = useState();
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,14 +49,14 @@ export default function Messenger() {
   return (
     <motion.div className="w-full h-screen bg-sky flex flex-col">
       <div className="flex flex-grow ">
-        <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
+        <div className="w-full md:w-1/4 md:border-r-hidden md:border-r border-blue py-[16px] overflow-auto">
           <div className=" justify-center text-xl font-semibold pb-[16px] mb-10">
             <div className="px-[32px] text-[24px] my-4">Chat</div>
             <div className="flex px-[32px]">
               <motion.input
                 type="text"
                 placeholder="Search Messenger"
-                className="text-[16px] font-medium bg-slate-200 w-full px-6 py-2 rounded-xl"
+                className="text-[16px] font-medium bg-gray/20 focus:bg-lightblue/20 focus:placeholder:text-lightblue focus:outline-lightblue text-black w-full px-6 py-2 rounded-xl truncate"
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>

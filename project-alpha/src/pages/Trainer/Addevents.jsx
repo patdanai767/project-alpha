@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Calendar,
   CalendarPlus,
   ChartNoAxesColumnIncreasing,
+  ChevronLeft,
 } from "lucide-react";
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
 import DatePicker from "react-datepicker";
@@ -10,10 +11,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
 export default function Addevents() {
+
   const [startDate, setStartDate] = useState(new Date());
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/dashboard");
+  }
+
   return (
     <div className="flex justify-center">
-      <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
+      <div className="hidden md:block w-1/4 border-r border-blue py-[16px] overflow-auto">
         <div className="p-[32px]">
           <div className="grid gap-4">
             <Link
@@ -41,13 +50,16 @@ export default function Addevents() {
         </div>
       </div>
       <div className="min-h-screen w-3/4 m-16">
+      <div className="hidden md:block">
         <div className="text-[36px] font-semibold">Welcome, Trainee</div>
         <div className="my-[32px]">
           <div className="text-[24px] my-[32px]">Upcoming course</div>
           <EventCardTrainer />
         </div>
+        </div>
         <div className="mb-[32px]">
-          <div className="text-[24px] my-[32px]">Add events</div>
+        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex cursor-pointer"/>
+          <div className="text-[24px] my-[32px]">Add events</div></div>
           <div className="flex justify-between gap-8">
             <div className="w-full">
               <p className="text-[20px] mb-1">Title</p>

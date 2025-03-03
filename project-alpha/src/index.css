@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 * {
-    @apply font-montserrat
+    @apply font-montserrat;
+    @apply scrollbar-hide;
 }
 
 

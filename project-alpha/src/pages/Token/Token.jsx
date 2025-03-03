@@ -43,88 +43,95 @@ export default function Token() {
   };
 
   return (
-    <div>
-      <div className="h-[76vh] flex justify-center mt-[74px]">
-        <div className="md:w-[60%]">
-          <div className="text-[48px] text-blue font-bold">Buy token</div>
-          <div className="mt-24 flex gap-4">
-            <div className="grid md:grid-cols-3 w-[50%] gap-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(10)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>10 Tokens</div>
-                  <div>35 THB</div>
-                </div>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(35)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>35 Tokens</div>
-                  <div>99 THB</div>
-                </div>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(100)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>100 Tokens</div>
-                  <div>199 THB</div>
-                </div>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(300)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>300 Tokens</div>
-                  <div>499 THB</div>
-                </div>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(700)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>700 Tokens</div>
-                  <div>999 THB</div>
-                </div>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer bg-lime rounded-xl py-8 px-6 justify-items-center border-black border-[3px]"
-                onClick={() => handleBuy(1500)}
-              >
-                <Coins color="green" height={48} width={48} />
-                <div className="text-[20px] grid gap-2 text-center font-semibold mt-4">
-                  <div>1500 Tokens</div>
-                  <div>1,999 THB</div>
-                </div>
-              </motion.div>
+    <div className="h-full flex flex-wrap flex-col relative overflow-hidden">
+      <div className="w-full bg-sky z-0">
+        <div className="flex mt-16 mb-16 md:mb-48 max-w-[1920px] mx-auto">
+          <div className="flex flex-col justify-center mx-auto md:mx-16 lg:mx-32 xl:mx-52">
+            <div className="flex justify-center md:justify-start text-3xl sm:text-4xl md:text-5xl text-blue font-bold">
+              Buy token
             </div>
-            <div className="w-[40%]">
-              <img className="" src="/token-pic.png" />
+            <div className="mt-0 md:mt-16 flex flex-col-reverse md:flex-row text-[16px] sm:text-[20px]">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-auto mx-16 md:mx-0 gap-4">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(10)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">10 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">35 THB</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(35)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">35 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">99 THB</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(100)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">100 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">199 THB</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(300)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">300 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">499 THB</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(700)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">700 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">999 THB</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-row md:flex-col justify-between items-center cursor-pointer bg-lime px-4 md:px-16 py-4 rounded-xl font-semibold justify-items-center border-black border-[3px] gap-2"
+                  onClick={() => handleBuy(1500)}
+                >
+                  <div className="flex flex-row md:flex-col items-center gap-4 text-center font-semibold">
+                    <Coins color="green" className="size-6 sm:size-9 md:size-12" />
+                    <div className="text-wrap md:text-nowrap">1500 Tokens</div>
+                  </div>
+                  <div className="text-wrap md:text-nowrap">1,999 THB</div>
+                </motion.div>
+              </div>
+              <div className="ml-32 mr-32 md:ml-16 md:mr-0 mb-16 md:mb-0">
+                <img
+                  className="w-[400px] md:block hidden"
+                  src="/token-pic.png"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-full bg-green">
-        <div className="max-w-[1920px] mx-auto text-sky px-8 pt-8 pb-8">
-          <p>@PROJECT_ALPHA</p>
+        <div className="w-full bg-green">
+          <div className="max-w-[1920px] mx-auto text-sky px-8 pt-8 pb-8">
+            <p>@PROJECT_ALPHA</p>
+          </div>
         </div>
       </div>
     </div>
