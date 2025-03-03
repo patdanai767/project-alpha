@@ -58,7 +58,7 @@ function Search_() {
 
   console.log(courses);
   return (
-    <div className="flex lg:justify-center mt-[82px]">
+    <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
       <FilterBar
           filters={filters}
@@ -66,7 +66,7 @@ function Search_() {
         />
 
         <div className="mt-[15px]">
-          {currentItems.map((val) => (
+          {currentItems.map((val,index) => (
             <Searchcard
             key = {val.id}
               id = {val._id}

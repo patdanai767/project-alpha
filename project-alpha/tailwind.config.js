@@ -6,10 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      lineClamp:{
+      lineClamp: {
         9: '9',
       },
-      
+
       colors: {
         blue: "#2F4ACC",
         lightblue: "#4A8BDF",
@@ -18,14 +18,17 @@ export default {
         green: "#38A32A",
         red: "#EC697F",
         black: "#000000",
-        white: "#FFFFFF"
+        white: "#FFFFFF",
+        gray: "#777D7E"
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 
 }
 
