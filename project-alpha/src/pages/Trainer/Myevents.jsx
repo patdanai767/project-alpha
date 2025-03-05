@@ -53,8 +53,11 @@ export default function Myevents() {
         </div>
         </div>
         <div className="mb-[32px]">
-          <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex cursor-pointer size-9"/>
-          <div className="flex text-[36px] font-semibold md:text-[24px] my-[32px]">My events</div></div>
+          
+          <div className="flex items-center gap-4 mb-8">
+            <ChevronLeft onClick={handleBack} className="flex cursor-pointer size-6"/>
+            <div className="flex font-semibold text-[24px] my-0 md:my-4">My events</div>
+          </div>
           
           <div className="grid gap-[32px]">
             <EventCardTrainer />
