@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Calendar,
   CalendarPlus,
   ChartNoAxesColumnIncreasing,
+  ChevronLeft,
   Star,
 } from "lucide-react";
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
@@ -20,9 +21,16 @@ export default function Overviewevents() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/dashboard");
+  }
+
   return (
     <div className="flex justify-center">
-      <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
+      <div className="hidden md:block w-1/4 border-r border-blue py-[16px] overflow-auto">
         <div className="p-[32px]">
           <div className="grid gap-4">
             <Link
@@ -50,28 +58,31 @@ export default function Overviewevents() {
         </div>
       </div>
       <div className="min-h-screen w-3/4 m-16">
+      <div className="hidden md:block">
         <div className="text-[36px] font-semibold">Welcome, Trainee</div>
         <div className="my-[32px]">
           <div className="text-[24px] my-[32px]">Upcoming course</div>
           <EventCardTrainer />
+          </div>
         </div>
         <div className="mb-[32px]">
-          <div className="text-[24px] my-[32px]">Overview</div>
-          <div className="grid grid-cols-4 gap-4">
-            <div className="border border-black rounded-xl h-32 p-4 grid justify-between">
-              <p className="text-[20px]">Number of trainees</p>
+        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex cursor-pointer size-6"/>
+          <div className="font-semibold text-[24px] my-[32px]">Overview</div></div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
+              <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">Trainee Numbers</p>
               <p className="text-[24px] font-bold">127</p>
             </div>
-            <div className="border border-black rounded-xl h-32 p-4 grid justify-between">
-              <p className="text-[20px]">Number of trainees</p>
+            <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
+              <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">Training hours</p>
               <p className="text-[24px] font-bold">127</p>
             </div>
-            <div className="border border-black rounded-xl h-32 p-4 grid justify-between">
-              <p className="text-[20px]">Number of trainees</p>
+            <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
+              <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">Received tokens</p>
               <p className="text-[24px] font-bold">127</p>
             </div>
-            <div className="border border-black rounded-xl h-32 p-4 grid justify-between">
-              <p className="text-[20px]">Number of trainees</p>
+            <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
+              <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">Rating Numbers</p>
               <p className="text-[24px] font-bold">127</p>
             </div>
           </div>

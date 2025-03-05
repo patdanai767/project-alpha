@@ -87,7 +87,7 @@ const Navbar = () => {
               <div className="flex border-[3px] px-4 py-1 gap-3 rounded-xl items-center border-lime">
                 <Coins size={20} />
                 <div>{user.coin}</div>
-                <div>Tokens</div>
+                <div className="hidden md:block">Tokens</div>
                 <Plus size={20} />
               </div>
             </motion.a>
@@ -165,31 +165,46 @@ const Navbar = () => {
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between border-b-2 border-blue pb-7">
-            <a href="/login" className="flex items-center gap-2 cursor-pointer">
-              <User className="bg-lime rounded-sm p-1" />
-              <p>Profile</p>
-            </a>
-            <div
-              onClick={toggleMenu}
-              className="flex items-center cursor-pointer"
-            >
-              <X
-                className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
-            "
-              />
+          <div>
+            <div className="flex items-center justify-between">
+              <a
+                href="/login"
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <User className="bg-lime rounded-sm p-1" />
+                <p>Profile</p>
+              </a>
+              <div
+                onClick={toggleMenu}
+                className="flex items-center cursor-pointer"
+              >
+                <X className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lightblue/20" />
+              </div>
+            </div>
+            <div className="border-b-2 border-blue pb-7">
+              <a href="/token" className="mt-5 px-2 py-2 flex justify-between gap-2 text-green rounded-lg border-2 border-green hover:bg-lime cursor-pointer">
+                <div className="flex gap-2">
+                  <Coins className="" />
+                  <div>{user.coin}</div>
+                </div>
+                <div
+                  className="flex items-center cursor-pointer"
+                >
+                  <Plus className="w-full h-full rounded-xl hover:bg-lime" />
+                </div>
+              </a>
             </div>
           </div>
           <div className="flex flex-col items-start">
             <a
               href="/search"
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
             >
               Account
             </a>
             <a
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
           "
               href="/messenger"
             >
@@ -197,39 +212,20 @@ const Navbar = () => {
             </a>
             <a
               href="/dashboard"
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
             >
-              Dashboard
-            </a>
-            <a
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
-          "
-              href="/calendar"
-            >
-              Calendar
-            </a>
-            <a
-              className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lime
-          "
-              href="/token"
-            >
-              Get token
+              My course
             </a>
           </div>
           <div className="flex border-t-2 border-blue pt-7">
             <a
-              className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full text-red p-2 rounded-xl cursor-pointer hover:bg-red/20
           "
               onClick={toggleLogout}
             >
               Log out
             </a>
-          </div>
-          <div className="mt-5 p-2 flex gap-2 bg-lime text-blue rounded-lg">
-            <Coins />
-            <div>{user.coin}</div>
-            <div>Tokens</div>
           </div>
         </div>
       ) : (
@@ -248,7 +244,7 @@ const Navbar = () => {
               className="flex items-center cursor-pointer"
             >
               <X
-                className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lime
+                className="w-full h-full p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
               />
             </div>
@@ -256,7 +252,7 @@ const Navbar = () => {
           <div className="flex flex-col items-start">
             <a
               href="/search"
-              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lime
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
             >
               Choose trainers

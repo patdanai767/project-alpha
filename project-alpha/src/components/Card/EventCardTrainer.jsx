@@ -4,17 +4,63 @@ import { Bell, Pencil, X } from "lucide-react";
 export default function EventCardTrainer() {
   return (
     <div className="p-3 flex border border-black rounded-lg">
-      <div className="flex items-center w-full justify-between">
-        <div className="flex">
-          <img className="w-[50px] h-[50px] object-cover bg-lime mr-4 rounded-lg border-none" />
-          <div>
-            <div className="font-semibold text-[20px]">Trainer B</div>
-            <div>Meeting 1</div>
+      <div className="flex flex-col md:flex-row items-start md:items-center w-full justify-between">
+        <div className="flex w-full justify-between">
+          {/* text + image */}
+          <div className="flex justify-center items-center md:flex-row">
+            <img className="size-[50px] object-cover bg-lime mr-4 rounded-lg border-none" />
+            <div className="flex flex-col">
+              <div className="flex flex-col">
+                <div className="font-semibold text-[20px]">Trainer B</div>
+                <div>Meeting 1</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="block md:hidden">Thu, 23 Jan</div>
+                <div className="block md:hidden">17:00 - 18:00</div>
+              </div>
+            </div>
+          </div>
+          {/* icons */}
+          <div className="flex flex-col-reverse gap-2">
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 px-0 md:px-3 border-gray text-gray"
+            >
+              <Bell size={16} />
+            </motion.div>
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 text-white bg-lightblue"
+            >
+              <Pencil size={16} />
+            </motion.div>
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
+            >
+              <X size={16} />
+            </motion.div>
           </div>
         </div>
-        <div>Thu, 23 Jan</div>
-        <div>17:00 - 18:00</div>
-        <div className="flex gap-3">
+        <div className="flex w-full"><div className="hidden md:block w-full">Thu, 23 Jan</div>
+          <div className="hidden md:block w-full">17:00 - 18:00</div></div>
+
+        <div className="flex gap-3 justify-end">
           <motion.div
             whileHover={{
               scale: 1.05,
@@ -22,7 +68,18 @@ export default function EventCardTrainer() {
             whileTap={{
               scale: 0.95,
             }}
-            className="items-center content-center gap-1 cursor-pointer rounded-lg border p-1 px-2 text-white bg-lightblue"
+            className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 md:px-3 border-gray text-gray"
+          >
+            <Bell className="w-[20px] h-[20px]" />
+          </motion.div>
+          <motion.div
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-lightblue"
           >
             <Pencil className="w-[20px] h-[20px]" />
           </motion.div>
@@ -33,20 +90,9 @@ export default function EventCardTrainer() {
             whileTap={{
               scale: 0.95,
             }}
-            className="items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
+            className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
           >
             <X className="w-[20px] h-[20px]" />
-          </motion.div>
-          <motion.div
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{
-              scale: 0.95,
-            }}
-            className="items-center content-center gap-1 cursor-pointer rounded-lg border p-1 px-3 border-slate-500 text-slate-500"
-          >
-            <Bell className="w-[20px] h-[20px]" />
           </motion.div>
         </div>
       </div>
