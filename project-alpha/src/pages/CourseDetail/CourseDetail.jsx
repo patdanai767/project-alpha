@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from 'react-router-dom';
 import HeartButton from '../../components/Button/HeartButton'
 import Review from '../../components/Review/Review';
@@ -20,9 +20,12 @@ import {
   X,
 } from "lucide-react";
 import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 function CourseDetail()  {
-
+  const navigate = useNavigate();
   const { id } = useParams(); // ดึง id จาก URL
   const [coursesData, setCourseDetail] = useState({})
   const [education, setEducation] = useState([]);
@@ -87,7 +90,6 @@ function CourseDetail()  {
     }
   };
 //------------------------------------------------------------------------------------------
-  
 
   // หา course ตาม id
   //const trainer = coursesDetail.find((Trainer) => Trainer._id === id);
@@ -115,7 +117,7 @@ function CourseDetail()  {
       setIsOpen2(false)
     }
     
-    setIsOpen1(false); // ปิด dropdown หลังจากเลือก
+    setIsOpen1(false); 
   };  
 
   console.log();
@@ -156,8 +158,50 @@ const [isOpen5, setIsOpen5] = useState(false);// State สำหรับกา�
         console.log("Message sent:", message); // หรือส่งไป backend
         setMessage(""); // เคลียร์ช่องข้อความหลังส่ง
       };
+const sendMessage = async() => {
+  const courseRes = await axios.get(`/api/course/${id}`)
+  const trainerId = courseRes.data.createdBy?._id;
   
-  
+  const payload = {
+    content: message,
+    sentToId: trainerId,
+    mediaURL: ""
+  }
+  await axios.post("/api/conversation/sentMessage",payload,{
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
+    },
+  })
+  setMessage("")
+  navigate(`/messenger/${trainerId}`)
+}
+//------------------------------------------------------
+  const authAction = useAuth();
+  const token = authAction?.token;
+  console.log("here",authAction)
+  const [enroll,setEnroll] = useState(false)
+
+  const enrollCourse = async() => {
+    setEnroll(true)
+    if (!token) {
+      alert("กรุณาล็อกอินก่อน");
+      return;
+    }
+    try {
+      const response = await axios.patch(`/api/course/${id}/enroll`, {}, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
+        },
+      });
+      
+      console.log("Enroll success:", response.data); // ตรวจสอบข้อมูลที่ได้กลับมา
+    } catch (error) {
+      console.error("Error enrolling:", error.response ? error.response.data : error.message);
+    }
+  }
+  //-------------------------------------------------------------------
   return (
     <div>
       
@@ -190,7 +234,10 @@ const [isOpen5, setIsOpen5] = useState(false);// State สำหรับกา�
                     <div className='text-[20px] font-medium font-montserrat'>30-min course</div>
                   </div>
                   <div className='flex pr-5 lg:pr-0'>
-                    <div className='h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px] bg-lime border-green flex items-center justify-center mr-[10px] cursor-pointer hover:bg-yellow-200'> <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div> <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Bye course</div> </div>
+                    <div className='h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px] bg-lime border-green flex items-center justify-center mr-[10px] cursor-pointer hover:bg-yellow-200' onClick={enrollCourse}>
+                      <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>  
+                      <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Buy course</div> 
+                    </div>
                     <div onClick={toggleMessage} className='h-[56px] sm:w-[212px] w-[300px] rounded-[12px] border-[2px] bg-lightblue border-blue flex items-center justify-center cursor-pointer hover:bg-blue '> <div><MessageSquare className='h-[20px] w-[20px] stroke-white'/></div> <div className='font-montserrat font-semibold text-[20px] ml-[10px] text-white'>Send Message</div> </div>
                   </div>
                 </div>
@@ -324,7 +371,7 @@ const [isOpen5, setIsOpen5] = useState(false);// State สำหรับกา�
               onChange={(e) => setMessage(e.target.value)} 
               placeholder="Type your message here..."
             />
-            <div className='w-[368px] h-[50px] border-[2px] rounded-[12px] border-black bg-lightblue grid place-items-center mt-[10px] hover:bg-blue cursor-pointer' onClick={handleSend}> 
+            <div className='w-[368px] h-[50px] border-[2px] rounded-[12px] border-black bg-lightblue grid place-items-center mt-[10px] hover:bg-blue cursor-pointer' onClick={sendMessage}> 
               <div className='text-[20px] font-montserrat font-semibold text-white ]'>Send message</div>
             </div>
           </div>
