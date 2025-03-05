@@ -5,11 +5,12 @@ import { config } from "../../config";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const [aboutMe, setAboutMe] = useState([]);
+  
   const [isLimitReached, setIsLimitReached] = useState(false);
   const [educations, setEducations] = useState([1]);
   const [workExperience, setWorkExperience] = useState([1]);
   const [Certificates, setCertificates] = useState([1]);
+  const [uploadPic, setUploadPic] = useState();
 
   const [profile, setProfile] = useState({ 
     username:'',
@@ -28,12 +29,19 @@ const Profile = () => {
       const {data} = await axios.get("http://localhost:8080/course", config.headers())
       setProfile({
         username:data[0].createdBy.username,
+        category: "",
+        rating: "",
         title:data[0].category.title,
         price:data[0].price,
         duration:data[0].duration,
         description:data[0].category.description, 
-        id:data[0]._id
+        thumbnail: "Thumbnail.jpg",
+        status: "draft"
+        
       })
+      setImage(
+        data[0].createdBy.profileImage,
+      )
       
     } catch (error) {
       throw new Error(error);
@@ -42,14 +50,29 @@ const Profile = () => {
 
   const handleClickSave = async () => {
     try {
-      await axios.patch(`http://localhost:8080/course/${profile.id}`, profile, config.headers());
+      const payloadUpdate = {
+      ...profile,
+      "category": "",
+      "rating": "",
+      "title": profile.title,
+      "price": profile.price,
+      "duration": profile.duration,
+      "description":profile.description,
+      "thumbnail": "Thumbnail.jpg",
+      "status": "draft"
+      };
+      await axios
+        .patch(`http://localhost:8080/course/${profile.id}`, payloadUpdate, config.headers())
+        console.log(profile.id);
+        
     } catch (error) {
-      throw Error(error);
+      throw error;
     }
   };
 
   const handleChange = (e) => {
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(profile);
   };
 
   const fileInputRef = useRef();
@@ -61,6 +84,7 @@ const Profile = () => {
   const handleFileChange = (e) => {
     const file = e.target.files;
     setImage(URL.createObjectURL(file[0]));
+    setUploadPic(file[0]);
   };
 
   const fetchDataEducation = async () => {
@@ -100,8 +124,7 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    
+  useEffect(() => {   
     fetchDataProfile()
     fetchDataEducation();
     fetchDataCertifies();
@@ -183,7 +206,9 @@ const Profile = () => {
   const handleAboutMechange = (e) => {
     const inputText = e.target.value;
     if (inputText.length <= 500) {
-      setAboutMe(inputText);
+      setProfile({
+        description:inputText
+      });
       setIsLimitReached(inputText.length === 500);
     }
   };
@@ -387,26 +412,12 @@ const Profile = () => {
                     onChange={handleFileChange}
                   />
                   <div
-                    className="mt-3 cursor-pointer py-1 px-6 inline-flex items-center gap-x-2 text-[20px] font-semibold rounded-lg border border-gray-300 bg-[#4A8BDF] text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    className=" mt-3 cursor-pointer py-1 px-7 inline-flex items-center  text-[20px] font-semibold rounded-lg border border-gray-300 bg-[#4A8BDF] text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                     onClick={handleFileClick}
+                    
                   >
                     Upload photo
-                    <svg
-                      className="shrink-0 size-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                      <polyline points="17 8 12 3 7 8"></polyline>
-                      <line x1="12" x2="12" y1="3" y2="15"></line>
-                    </svg>
+                    
                   </div>
                 </div>
 
@@ -420,10 +431,10 @@ const Profile = () => {
                       //   className="flex  items-center justify-between "
                       id="hs-toggle-password"
                       type="Name"
-                      name="Name"
+                      name="username"
                       className="mt-2 mb-3  lg:w-[760px] w-[93vw] h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4  border-2 border-lightblue font-montserrat p-[16px]"
                       placeholder="Trainer A"
-                      required=""
+                      onChange={handleChange}
                       value={profile.username}
                     ></input>
                     <div className="mt-2 w-[600] text-[20px] leading-{24.38px} font-semibold ">
@@ -434,7 +445,8 @@ const Profile = () => {
                       //   className="flex  items-center justify-between "
                       className="mt-2 mb-3  lg:w-[760px] w-[93vw] h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue  font-montserrat p-[16px] "
                       placeholder="Weight Training"
-                      required=""
+                      name="title"
+                      onChange={handleChange}
                       value={profile.title}
                     ></input>
                   </div>
@@ -450,7 +462,8 @@ const Profile = () => {
                     // className="bg-transparent w-[508px] h-[56px] rounded-[12px] border border-black p-[16px] gap-[10px]"
                     className="mt-2 mb-3 lg:w-[508px] w-[93vw]  h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue   p-[16px]"
                     placeholder="750 THB"
-                    required=""
+                    name="price"
+                    onChange={handleChange}
                     value={profile.price}
                   ></input>
                 </div>
@@ -462,7 +475,8 @@ const Profile = () => {
                     // className="bg-transparent w-[508px] h-[56px] rounded-[12px] border border-black p-[16px] gap-[10px]"
                     className="mt-2  mb-3 lg:w-[508px] w-[93vw] h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue   p-[16px]"
                     placeholder="30-min course"
-                    required=""
+                    name="duration"
+                    onChange={handleChange}
                     value={profile.duration}
                   ></input>
                 </div>
@@ -497,14 +511,15 @@ const Profile = () => {
                     // for="large-input"
                     className="text-[24px] text-black w-[600px] leading-{24.38} font-montserrat font-semibold ml-1.5"
                   >
-                    About Me {aboutMe.length}/500
+                    About Me {profile.description.length}/500
                   </label>
                   <textarea
                     className="peer lg:w-[1024px] w-[93vw] h-[128px]  min-h-[100px]  resize-none rounded-[12px]  border-2 border-lightblue  outline-black  bg-transparent px-3 py-2.5  text-sm font-normal text-blue-gray-700  
                     outline-0 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900   disabled:resize-none  disabled:bg-blue-gray-50"
                     placeholder="Write something about yourself... "
                     rows="3"
-                    value={aboutMe}
+                    name="description"
+                    value={profile.description}
                     onChange={handleAboutMechange}
                   ></textarea>
                   {isLimitReached && (
