@@ -8,18 +8,38 @@ import {
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { config } from "../../config";
+import Swal from "sweetalert2";
 
 export default function Addevents() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [data, setData] = useState({
-    title: "",
-    description: "",
-    trainee: "",
-    startedAt: "",
-    endAt: "",
-  });
+  const [data, setData] = useState();
+  const [trainees, setTrainees] = useState([]);
+  const [user, setUser] = useState();
+  const [filterData, setFilterData] = useState();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("/api/course/mycourse", config.headers());
+      const resEvent = await axios.get(
+        "/api/meeting/myMeeting",
+        config.headers()
+      );
+      const resUser = await axios.get("/api/user/profile", config.headers());
+      setUser(resUser.data);
+      setFilterData(resEvent.data.filter((val) => val.status === "continue"));
+      setTrainees(res.data.trainees);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -31,9 +51,38 @@ export default function Addevents() {
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleClick = (e) => {
-    const payload = { ...data, startedAt: startDate, endAt: endDate };
-    console.log(payload);
+  const handleClick = async () => {
+    try {
+      const payload = {
+        ...data,
+        startedAt: startDate,
+        endAt: endDate,
+        status: "continue",
+      };
+      await axios.post("/api/meeting", payload, config.headers()).then(() => {
+        Swal.fire({
+          title: "Success!",
+          icon: "success",
+          timer: 2000,
+        });
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const filterPassedTime = (time) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+
+    return currentDate.getTime() < selectedDate.getTime();
+  };
+
+  const filterPassedStartTime = (time) => {
+    const startDateTime = startDate;
+    const selectedDate = new Date(time);
+
+    return startDateTime < selectedDate;
   };
 
   return (
@@ -70,7 +119,20 @@ export default function Addevents() {
           <div className="text-[36px] font-semibold">Welcome, Trainee</div>
           <div className="my-[32px]">
             <div className="text-[24px] my-[32px]">Upcoming course</div>
-            <EventCardTrainer />
+            {filterData ? (
+              <EventCardTrainer
+                key={filterData[0]?._id}
+                id={filterData[0]?._id}
+                title={filterData[0]?.title}
+                trainer={filterData[0]?.createdBy}
+                trainee={filterData[0]?.trainee}
+                startedTime={filterData[0]?.startedAt}
+                endTime={filterData[0]?.endAt}
+                user={user}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="mb-[32px]">
@@ -99,13 +161,17 @@ export default function Addevents() {
               <select
                 name="trainee"
                 onChange={handleChange}
+                defaultValue={"Default"}
                 className="p-[12px] rounded-xl border border-lightblue bg-transparent w-full"
               >
-                
-                <option>a</option>
-                <option>b</option>
-                <option>c</option>
-                <option>d</option>
+                <option value="Default" disabled></option>
+                {trainees
+                  ? trainees.map((val) => (
+                      <option key={val._id} value={val._id}>
+                        {val.fullname}
+                      </option>
+                    ))
+                  : ""}
               </select>
             </div>
           </div>
@@ -125,6 +191,8 @@ export default function Addevents() {
                 dateFormat="Pp"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                minDate={new Date()}
+                filterTime={filterPassedTime}
                 className="text-center cursor-pointer p-[10px] rounded-xl border border-lightblue bg-transparent w-full"
               />
             </div>
@@ -135,6 +203,8 @@ export default function Addevents() {
                 dateFormat="Pp"
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
+                filterTime={filterPassedStartTime}
+                minDate={startDate}
                 className="text-center cursor-pointer p-[10px] rounded-xl border border-lightblue bg-transparent w-full"
               />
             </div>
