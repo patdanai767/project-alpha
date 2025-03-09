@@ -114,6 +114,7 @@ export default function MessengerDetails() {
                   <Link to={`/messenger/${message.sentToId._id}`} key={index}>
                     <MessageCard
                       fullname={message.sentToId.fullname}
+                      image={message.sentToId.profileImage}
                       // lastMessage={messages.at(-1).content}
                       // date={messages.at(-1).createdAt}
                     />
@@ -141,6 +142,7 @@ export default function MessengerDetails() {
                       text={message.content}
                       sender={senderIdentify(message)}
                       date={message.createdAt}
+                      image={message.sentFromId.profileImage}
                     />
                   ))
                 : ""}

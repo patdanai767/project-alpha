@@ -9,20 +9,21 @@ import {
 import EventCardTrainer from "../../components/Card/EventCardTrainer";
 import ReviewBox from "../../components/Box/ReviewBox";
 import { useEffect, useState } from "react";
-import { reviews } from "../../constants/Reviews";
 import Pagination from "../../components/Pagination/Pagination";
 import axios from "axios";
 import { config } from "../../config";
 
 export default function Overviewevents() {
   const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil(reviews.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
   const [filterData, setFilterData] = useState();
   const [user, setUser] = useState();
+  const [myCourse, setMyCourse] = useState();
+  const [reviews, setReviews] = useState([]);
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(reviews?.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = reviews?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     fetchData();
@@ -34,8 +35,14 @@ export default function Overviewevents() {
         "/api/meeting/myMeeting",
         config.headers()
       );
+      const resCourse = await axios.get(
+        "/api/course/myCourse",
+        config.headers()
+      );
       const resUser = await axios.get("/api/user/profile", config.headers());
+      setMyCourse(resCourse.data);
       setUser(resUser.data);
+      setReviews(resCourse.data.rating);
       setFilterData(resEvent.data.filter((val) => val.status === "continue"));
     } catch (error) {
       throw new Error(error);
@@ -46,6 +53,16 @@ export default function Overviewevents() {
 
   const handleBack = () => {
     navigate("/dashboard");
+  };
+
+  const average = (array) => {
+    if (array) {
+      var total = 0;
+      for (var i = 0; i < array.length; i++) {
+        total += array[i].point;
+      }
+      return total / array.length;
+    }
   };
 
   return (
@@ -138,15 +155,22 @@ export default function Overviewevents() {
           <div className="flex gap-1 mb-[32px]">
             <div className="flex items-center gap-1">
               <Star fill="#DDF344" className="w-[36px] h-[36px]" />
-              <p className="text-[36px] font-bold">4.7</p>
+              <p className="text-[36px] font-bold">
+                {reviews ? `${average(reviews)}` : ""}
+              </p>
             </div>
-            <p className="content-end mb-1">from 74 review</p>
+            <p className="content-end mb-1 ml-1">
+              from {reviews?.length} review
+            </p>
           </div>
           {currentItems.map((item, index) => (
             <ReviewBox
               key={index}
+              date={item.createdAt}
+              fullname={item.createdBy.fullname}
               point={item.point}
               description={item.description}
+              createdBy={item.createdBy}
             />
           ))}
         </div>
