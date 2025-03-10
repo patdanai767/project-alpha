@@ -1,6 +1,20 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-export default function MessageCard({ fullname, lastMessage, date }) {
+export default function MessageCard({
+  fullname,
+  lastMessage,
+  image,
+  messages,
+}) {
+  const [dataMessages, setDataMessages] = useState(
+    messages[messages?.length - 1]
+  );
+
+  useEffect(() => {
+    // console.log(dataMessages);
+  }, []);
+
   const formatDate = (mongoDate) => {
     const date = new Date(mongoDate);
     const hours = String(date.getHours()).padStart(2, "0");
@@ -30,14 +44,20 @@ export default function MessageCard({ fullname, lastMessage, date }) {
       className="flex gap-[16px] items-center px-[32px] cursor-pointer p-2"
     >
       <div className="h-[55px] w-[55px] bg-lime rounded-full">
-        <img src="" alt="profile" />
+        <img src={image} className="rounded-full" />
       </div>
       <div className="flex-1 gap-[8px] mb-[8px]">
         <div className="justify-between flex">
           <div className="text-[20px] font-semibold">{fullname}</div>
-          {date ? <div className="text-slate-400">{formatDate(date)}</div> : ""}
+          {dataMessages ? (
+            <div className="text-slate-400">
+              {formatDate(dataMessages.createdAt)}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
-        <div>{lastMessage}</div>
+        <div>{dataMessages?.content}</div>
       </div>
     </motion.div>
   );

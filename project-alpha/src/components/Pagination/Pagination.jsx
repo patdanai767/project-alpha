@@ -42,54 +42,60 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="flex justify-center space-x-2 mt-4 mb-8">
-      {/* ปุ่ม Previous */}
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={`px-3 py-1 rounded ${
-          currentPage === 1
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-blue text-white hover:bg-blue-600"
-        }`}
-      >
-        Previous
-      </button>
-
-      {/* หมายเลขหน้า */}
-      {pageNumbers.map((page, index) =>
-        page === "..." ? (
-          <span key={index} className="px-3 py-1 text-gray-500">
-            ...
-          </span>
-        ) : (
+    <>
+      {totalPages === 0 ? (
+        ""
+      ) : (
+        <div className="flex justify-center space-x-2 mt-4 mb-8">
           <button
-            key={index}
-            onClick={() => onPageChange(page)}
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
             className={`px-3 py-1 rounded ${
-              currentPage === page
-                ? "bg-blue text-white"
-                : "bg-gray-200 hover:bg-gray-300"
+              currentPage === 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue text-white hover:bg-blue-600"
             }`}
           >
-            {page}
+            Previous
           </button>
-        )
-      )}
 
-      {/* ปุ่ม Next */}
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={`px-3 py-1 rounded ${
-          currentPage === totalPages
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-blue text-white hover:bg-blue-600"
-        }`}
-      >
-        Next
-      </button>
-    </div>
+          {/* หมายเลขหน้า */}
+          {pageNumbers.map((page, index) =>
+            page === "..." ? (
+              <span key={index} className="px-3 py-1 text-gray-500">
+                ...
+              </span>
+            ) : (
+              <button
+                key={index}
+                onClick={() => onPageChange(page)}
+                className={`px-3 py-1 rounded ${
+                  currentPage === page
+                    ? "bg-blue text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              >
+                {page}
+              </button>
+            )
+          )}
+
+          {/* ปุ่ม Next */}
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded ${
+              currentPage === totalPages
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue text-white hover:bg-blue-600"
+            }`}
+          >
+            Next
+          </button>
+          {/* ปุ่ม Previous */}
+        </div>
+      )}
+    </>
   );
 };
 

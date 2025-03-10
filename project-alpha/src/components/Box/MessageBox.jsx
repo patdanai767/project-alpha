@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-function MessageBox({ text, sender, date }) {
+function MessageBox({ text, sender, date,image }) {
   const formatDate = (mongoDate) => {
     const date = new Date(mongoDate);
     const hours = String(date.getHours()).padStart(2, "0");
@@ -14,8 +14,7 @@ function MessageBox({ text, sender, date }) {
         <div className="flex items-center h-fit">
           <div className="rounded-full w-[50px] h-[50px] mr-3 bg-lime">
             <img
-              src=""
-              alt=""
+              src={image}
               className="w-[50px] h-[50px] rounded-full object-cover"
             />
           </div>
