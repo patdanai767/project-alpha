@@ -23,8 +23,6 @@ export default function MessengerDetails() {
     }
     const interval = setInterval(fetchData, 1000);
     fetchData();
-
-    console.log(messages);
     return () => {
       clearInterval(interval);
     };

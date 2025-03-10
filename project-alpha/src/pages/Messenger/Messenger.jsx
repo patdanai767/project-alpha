@@ -18,7 +18,6 @@ export default function Messenger() {
       navigate("/");
     }
     fetchData();
-    console.log(filteredSearch)
   }, []);
 
   const fetchData = async () => {

@@ -7,12 +7,12 @@ export default function MessageCard({
   image,
   messages,
 }) {
-  const [dataMessages, setDataMessages] = useState(
-    messages[messages?.length - 1]
-  );
+  const [dataMessages, setDataMessages] = useState();
 
   useEffect(() => {
-    // console.log(dataMessages);
+    if (messages) {
+      setDataMessages(messages[messages.length - 1]);
+    }
   }, []);
 
   const formatDate = (mongoDate) => {
@@ -49,15 +49,15 @@ export default function MessageCard({
       <div className="flex-1 gap-[8px] mb-[8px]">
         <div className="justify-between flex">
           <div className="text-[20px] font-semibold">{fullname}</div>
-          {dataMessages ? (
+          {/* {dataMessages ? (
             <div className="text-slate-400">
               {formatDate(dataMessages.createdAt)}
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </div>
-        <div>{dataMessages?.content}</div>
+        {/* <div>{dataMessages?.content}</div> */}
       </div>
     </motion.div>
   );
