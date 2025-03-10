@@ -15,7 +15,7 @@ function Review() {
       </div>
 
       <div className='flex mt-[10px]'>
-        <Star/><Star/><Star/><Star/><Star/>
+        <Star fill='yellow'/><Star fill='yellow'/><Star fill='yellow'/><Star fill='yellow'/><Star fill='yellow'/>
       </div>
 
       <div className='mt-[10px]'>

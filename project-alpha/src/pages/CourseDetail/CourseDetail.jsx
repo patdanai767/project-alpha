@@ -37,6 +37,7 @@ function CourseDetail()  {
     fetchEducation()
     fetchWorkExps()
     fetchCertifies()
+    fetchProfile()
   },[])
 
   const reData_ = async () => {
@@ -180,10 +181,20 @@ const sendMessage = async() => {
   const authAction = useAuth();
   const token = authAction?.token;
   console.log("here",authAction)
-  const [enroll,setEnroll] = useState(false)
+  const [enroll,setEnroll] = useState()
+
+
+  const fetchProfile = async() => {
+    const courseRes = await axios.get(`/api/course/${id}`)
+    const traineesID = courseRes.data.trainees;
+    const fetchUserProfile = await axios.get("/api/user/profile",{headers:{Authorization: `Bearer ${token}`}})
+    const checkUser = traineesID.includes(fetchUserProfile.data._id)
+    setEnroll(checkUser)
+  }
+
+  
 
   const enrollCourse = async() => {
-    setEnroll(true)
     if (!token) {
       alert("กรุณาล็อกอินก่อน");
       return;
@@ -234,9 +245,14 @@ const sendMessage = async() => {
                     <div className='text-[20px] font-medium font-montserrat'>30-min course</div>
                   </div>
                   <div className='flex pr-5 lg:pr-0'>
-                    <div className='h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px] bg-lime border-green flex items-center justify-center mr-[10px] cursor-pointer hover:bg-yellow-200' onClick={enrollCourse}>
-                      <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>  
-                      <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Buy course</div> 
+                    <div className={`h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px]  flex items-center justify-center mr-[10px] ${enroll ? 'bg-slate-400' : 'bg-lime border-green hover:bg-yellow-200 cursor-pointer'}`} onClick={enrollCourse}>
+                      <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>
+                      {enroll && (
+                        <div className='font-montserrat font-semibold text-[16px] ml-[10px]'>Already bought</div>      
+                      )}
+                      {!enroll && (
+                        <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Buy course</div>      
+                      )}    
                     </div>
                     <div onClick={toggleMessage} className='h-[56px] sm:w-[212px] w-[300px] rounded-[12px] border-[2px] bg-lightblue border-blue flex items-center justify-center cursor-pointer hover:bg-blue '> <div><MessageSquare className='h-[20px] w-[20px] stroke-white'/></div> <div className='font-montserrat font-semibold text-[20px] ml-[10px] text-white'>Send Message</div> </div>
                   </div>
@@ -336,7 +352,7 @@ const sendMessage = async() => {
                 <div>
                   <div className='font-montserrat font-bold text-[24px]'>Review</div>  
                   <div className='flex'>
-                    <Star className='h-[48px] w-[48px]'/> 
+                    <Star className='h-[48px] w-[48px]'fill="yellow"/> 
                     <div className='text-[48px] font-bold font-montserrat mt-[-10px] ml-[5px]'>5</div> 
                     <div className='text-[16px] font-montserrat font-medium ml-[20px] mt-[30px]'>from 111 review</div> 
                   </div>
