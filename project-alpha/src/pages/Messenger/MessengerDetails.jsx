@@ -111,20 +111,20 @@ export default function MessengerDetails() {
           <div>
             {filteredSearch
               ? filteredSearch.map((message, index) => (
-                  <Link to={`/messenger/${message.sentToId._id}`} key={index}>
-                    <MessageCard
-                      fullname={message.sentToId.fullname}
-                      // lastMessage={messages.at(-1).content}
-                      // date={messages.at(-1).createdAt}
-                    />
-                  </Link>
-                ))
+                <Link to={`/messenger/${message.sentToId._id}`} key={index}>
+                  <MessageCard
+                    fullname={message.sentToId.fullname}
+                  // lastMessage={messages.at(-1).content}
+                  // date={messages.at(-1).createdAt}
+                  />
+                </Link>
+              ))
               : ""}
           </div>
         </div>
         {/* right side */}
         <div className="w-full md:w-3/4 flex flex-col">
-          <div className="flex gap-8 items-center p-[32px] bg-transparent text-black border-blue border-b mb-4 md:border-b-none text-[20px] font-semibold">
+          <div className="flex stiky top-0 gap-8 items-center p-[32px] bg-transparent text-black border-blue border-b md:border-b-none text-[20px] font-semibold">
             <div className="block md:hidden cursor-pointer" onClick={handleBack}>
               <ChevronLeft />
             </div>
@@ -132,21 +132,21 @@ export default function MessengerDetails() {
               {filteredName[0] ? filteredName[0].sentToId.fullname : ""}
             </div>
           </div>
-          <div className="min-h-[660px] overflow-x-scroll">
-            <div className="px-[16px] sm:px-[32px] flex-grow">
+          <div className="overflow-auto flex-grow">
+            <div className="px-[16px] sm:px-[32px]">
               {filterMessages
                 ? filterMessages.map((message, index) => (
-                    <MessageBox
-                      key={index}
-                      text={message.content}
-                      sender={senderIdentify(message)}
-                      date={message.createdAt}
-                    />
-                  ))
+                  <MessageBox
+                    key={index}
+                    text={message.content}
+                    sender={senderIdentify(message)}
+                    date={message.createdAt}
+                  />
+                ))
                 : ""}
             </div>
           </div>
-          <div className="bg-lightblue">
+          <div className="bg-lightblue sticky bottom-0">
             <div className="flex p-[32px] gap-[8px] items-center">
               <input
                 type="text"

@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
+  Activity,
   Bell,
+  ChevronDown,
   Coins,
+  Dumbbell,
+  HandHeart,
   Heart,
+  HeartHandshake,
+  HeartPulse,
   LogIn,
   Menu,
   MessageSquare,
   Plus,
+  Smile,
   Square,
   User,
   X,
@@ -62,9 +69,15 @@ const Navbar = () => {
       <div className="flex items-center gap-8">
         <a
           href="/"
-          className="text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out"
+          className="group flex items-center text-lg font-bold cursor-pointer hover:text-lime transition duration-200 ease-in-out"
         >
-          PROJECT ALPHA
+          <p className="mr-1 z-20">Trainer<span className="mr-[13.5px]"></span><span className="mr-[1.5px]">ext</span></p>
+          <div className="relative">
+            <Activity strokeWidth={3} className="absolute size-5 top-[-13px] right-[30px] z-10" />
+            <Heart strokeWidth={2} className="absolute size-[34px] top-[-19px] right-[25.5px] text-lightblue z-0" />
+          </div>
+          
+
         </a>
         <div className="hidden sm:flex gap-8 cursor-pointer">
           <a
@@ -153,16 +166,14 @@ const Navbar = () => {
       {/* sidebar overlay */}
       <div
         onClick={toggleMenu}
-        className={`fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-25 z-40 transition ${
-          isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-25 z-40 transition ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       ></div>
       {/* sidebar menu */}
       {token ? (
         <div
-          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           <div>
             <div className="flex items-center justify-between">
@@ -229,9 +240,8 @@ const Navbar = () => {
         </div>
       ) : (
         <div
-          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`fixed top-0 right-0 w-60 h-screen p-7 bg-sky text-blue text-xl font-semibold z-50 transform transition-transform duration-200 ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           <div className="flex items-center justify-between border-b-2 border-blue pb-7">
             <a href="/login" className="flex items-center gap-2 cursor-pointer">

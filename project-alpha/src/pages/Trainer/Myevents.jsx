@@ -55,7 +55,7 @@ export default function Myevents() {
         <div className="mb-[32px]">
           
           <div className="flex items-center gap-4 mb-8">
-            <ChevronLeft onClick={handleBack} className="flex cursor-pointer size-6"/>
+            <ChevronLeft onClick={handleBack} className="flex md:hidden cursor-pointer size-6"/>
             <div className="flex font-semibold text-[24px] my-0 md:my-4">My events</div>
           </div>
           

@@ -58,7 +58,7 @@ export default function Addevents() {
         </div>
         </div>
         <div className="mb-[32px]">
-        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex cursor-pointer size-6"/>
+        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex md:hidden cursor-pointer size-6"/>
           <div className="font-semibold text-[24px] my-[32px]">Add events</div></div>
           <div className="flex justify-between gap-8">
             <div className="w-full">

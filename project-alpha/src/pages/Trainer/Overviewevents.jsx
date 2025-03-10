@@ -66,7 +66,7 @@ export default function Overviewevents() {
           </div>
         </div>
         <div className="mb-[32px]">
-        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex cursor-pointer size-6"/>
+        <div className="flex items-center gap-4"><ChevronLeft onClick={handleBack} className="flex md:hidden cursor-pointer size-6"/>
           <div className="font-semibold text-[24px] my-[32px]">Overview</div></div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
