@@ -23,7 +23,6 @@ export default function MessengerDetails() {
     }
     const interval = setInterval(fetchData, 1000);
     fetchData();
-
     return () => {
       clearInterval(interval);
     };
@@ -114,8 +113,10 @@ export default function MessengerDetails() {
                   <Link to={`/messenger/${message.sentToId._id}`} key={index}>
                     <MessageCard
                       fullname={message.sentToId.fullname}
-                      // lastMessage={messages.at(-1).content}
-                      // date={messages.at(-1).createdAt}
+                      image={message.sentToId.profileImage}
+                      messages={messages.filter(
+                        (dataMessage) => dataMessage.sentToId._id === user._id
+                      )}
                     />
                   </Link>
                 ))
@@ -125,7 +126,10 @@ export default function MessengerDetails() {
         {/* right side */}
         <div className="w-full md:w-3/4 flex flex-col">
           <div className="flex gap-8 items-center p-[32px] bg-transparent text-black border-blue border-b mb-4 md:border-b-none text-[20px] font-semibold">
-            <div className="block md:hidden cursor-pointer" onClick={handleBack}>
+            <div
+              className="block md:hidden cursor-pointer"
+              onClick={handleBack}
+            >
               <ChevronLeft />
             </div>
             <div className="flex">
@@ -141,6 +145,7 @@ export default function MessengerDetails() {
                       text={message.content}
                       sender={senderIdentify(message)}
                       date={message.createdAt}
+                      image={message.sentFromId.profileImage}
                     />
                   ))
                 : ""}

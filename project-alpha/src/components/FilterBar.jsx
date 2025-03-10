@@ -5,9 +5,11 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import axios from 'axios';
 import { ImTextColor } from 'react-icons/im';
 
-function FilterBar() {
+function FilterBar({ filters, setFilters }) {
+
   // State สำหรับการเปิด/ปิด dropdown
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
@@ -30,22 +32,38 @@ function FilterBar() {
     // ฟังก์ชันสำหรับเลือกค่าจาก dropdown
   const selectGender = (value) => {
     setSelectedGender(value);
+    updateFilter('gender', value);
     setIsOpen1(false); // ปิด dropdown หลังจากเลือก
   };
   const selectPrice = (value) => {
     setSelectedPrice(value);
+    updateFilter('price', value === "ALL" ? "All" : value);
     setIsOpen2(false);
   };
   const selectDuration = (value) => {
     setSelectedDuration(value);
+    updateFilter('duration', value === "ALL" ? "All" : value);
     setIsOpen3(false);
   };
   const selectActivity = (value) => {
     setSelectedActivity(value);
+    updateFilter('activity', value);
     setIsOpen4(false);
   };
 
   const [searchText, setSearchText] = useState("");
+  const handleSearch = (e) =>{
+    const value = e.target.value;
+    setSearchText(value);
+    updateFilter('title', value);
+  }
+
+  const updateFilter = (key, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   return (
     <div className='mt-[-50px] ml-[10px] lg:ml-0'>
@@ -65,7 +83,7 @@ function FilterBar() {
             {isOpen1 && (
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("All")}> All </div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("All") }>All</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("Male")}>Male</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("Female")}>Female</div>
                 </div>
@@ -83,7 +101,7 @@ function FilterBar() {
             {isOpen2 && (
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("ALL")}>All</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("All")}>All</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("less than THB 1,000")}>less than THB 1,000</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("more than THB 1,000")}>more than THB 1,000</div>
                 </div>
@@ -101,7 +119,7 @@ function FilterBar() {
             {isOpen3 && (
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectDuration("ALL")}>All</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectDuration("All")}>All</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectDuration("30-min")}>30-min</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectDuration("60-min")}>60-min</div>
                 </div>
@@ -119,7 +137,7 @@ function FilterBar() {
             {isOpen4 && (
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectActivity("ALL")}>All</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectActivity("All")}>All</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectActivity("Dancing")}>Dancing</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectActivity("Weight Training")}>Weight Training</div>
                 </div>
@@ -135,11 +153,12 @@ function FilterBar() {
               type="text"
               placeholder="Search by name or keyword"
               value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
+              onChange={handleSearch}
               className="w-full text-blue font-medium outline-none bg-transparent placeholder:text-blue/50"
             />
             <Search color="blue" className="mx-2" />
           </div>
+
           <div className='md:hidden'>
             <Menu className='h-[37px] w-[37px] ml-[9px] mr-[20px] mt-[9px] border-2 border-gray-700 rounded-md hover:cursor-pointer hover:bg-gray-300' onClick={toggleMenu}/>
             {isOpen5 && (
@@ -196,11 +215,24 @@ function FilterBar() {
               </div>
             )}
           </div>
+
         </div>
+        <img src="" alt="" />
 
       </div>
+      
     </div>
   )
+
+  function getOptions(key) {
+    const options = {
+      gender: ["Male", "Female"],
+      price: ["less than THB 1,000", "more than THB 1,000"],
+      duration: ["30-min", "60-min"],
+      activity: ["Dancing", "Weight Training"],
+    };
+    return options[key] || [];
+  }
 }
 
 export default FilterBar
