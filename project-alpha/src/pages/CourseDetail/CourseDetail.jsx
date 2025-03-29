@@ -6,6 +6,7 @@ import { trainers } from "../../constants/TrainerData";
 import EdCard from "../../components/ResumeCard/EducationCard";
 import WorkCard from "../../components/ResumeCard/WorkCard";
 import CerCard from "../../components/ResumeCard/CerCard";
+import Swal from "sweetalert2";
 import {
   BadgeCheck,
   Target,
@@ -22,6 +23,7 @@ import {
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { config } from "../../config";
 
 
 function CourseDetail()  {
@@ -31,6 +33,19 @@ function CourseDetail()  {
   const [education, setEducation] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);
   const [certifies, setCertifies] = useState([]);
+  const [rating, setRating] = useState([])
+  const [avgPoint, setAvgPoint] = useState()
+  const [amountReview,setAmountReview] = useState()
+  const [idReview, setIdReview] = useState([])
+  const [showReview, setShowReview] = useState(4)
+  const handleShowReview = () => {
+    if(showReview===4){
+      setShowReview(rating.length+1)
+    }
+    else{
+      setShowReview(4)
+    }
+  }
 
   useEffect(() => {
     reData_()
@@ -38,12 +53,23 @@ function CourseDetail()  {
     fetchWorkExps()
     fetchCertifies()
     fetchProfile()
+    window.scrollTo(0, 0);
   },[])
 
   const reData_ = async () => {
     const res = await axios.get(`/api/course/${id}`)
     setCourseDetail(res.data)
-    console.log("API Response:", res.data);
+    setRating(res.data.rating)
+    setIdReview(res.data.rating.map(review => review.createdBy))
+
+    //----------------------------calAvgPoint
+    const point = res.data.rating.map(review => review.point)
+    const sumPoint = point.reduce((total, num) => total + num, 0)
+    const AvgPoint = sumPoint/point.length
+
+    setAmountReview(point.length)
+    setAvgPoint(AvgPoint)
+
   }
 
   const fetchEducation = async () => {
@@ -90,17 +116,11 @@ function CourseDetail()  {
       console.error("Error fetching Certifies:", error);
     }
   };
-//------------------------------------------------------------------------------------------
-
-  // หา course ตาม id
-  //const trainer = coursesDetail.find((Trainer) => Trainer._id === id);
-
-  
+//--------------------------------------------ฟังก์ชันสำหรับเลือกค่าจาก dropdown ของ Resume
    const [isOpen1, setIsOpen1] = useState(false);
    const toggleResume = () => {setIsOpen1(!isOpen1);};
    const [selectedResume, setSelectedResume] = useState("Education");
-   // ฟังก์ชันสำหรับเลือกค่าจาก dropdown
-  const selectResume = (value) => {
+   const selectResume = (value) => {
     setSelectedResume(value);
     if(value == "Education"){
       setIsOpen2(true)
@@ -120,11 +140,6 @@ function CourseDetail()  {
     
     setIsOpen1(false); 
   };  
-
-  console.log();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   
     const [isOpen2, setIsOpen2] = useState(true);
     const [isOpen3, setIsOpen3] = useState(false);
@@ -144,30 +159,24 @@ function CourseDetail()  {
       setIsOpen2(false);
       setIsOpen3(false);
     };
-
 //---------------------------------------------------------------------
+
 const [isOpen5, setIsOpen5] = useState(false);// State สำหรับการเปิด/ปิด messagebox
-      const [message, setMessage] = useState(""); // เก็บข้อความ
-      
-      const toggleMessage = () => {setIsOpen5(!isOpen5);};// ฟังก์ชันสำหรับเปิด/ปิด messagebox
-
-      const handleSend = () => {
-        if (message.trim() === "") {
-          alert("Please enter a message!"); // กันส่งข้อความว่าง
-          return;}
-
-        console.log("Message sent:", message); // หรือส่งไป backend
-        setMessage(""); // เคลียร์ช่องข้อความหลังส่ง
-      };
+const [message, setMessage] = useState(""); // เก็บข้อความ 
+const toggleMessage = () => {setIsOpen5(!isOpen5);};// ฟังก์ชันสำหรับเปิด/ปิด messagebox
 const sendMessage = async() => {
   const courseRes = await axios.get(`/api/course/${id}`)
   const trainerId = courseRes.data.createdBy?._id;
-  
   const payload = {
     content: message,
     sentToId: trainerId,
     mediaURL: ""
   }
+
+  if (message.trim() === "") {
+    alert("Please enter a message!"); // กันส่งข้อความว่าง
+    return;}
+
   await axios.post("/api/conversation/sentMessage",payload,{
     headers: {
       "Content-Type": "application/json",
@@ -180,36 +189,75 @@ const sendMessage = async() => {
 //------------------------------------------------------
   const authAction = useAuth();
   const token = authAction?.token;
-  console.log("here",authAction)
   const [enroll,setEnroll] = useState()
 
 
   const fetchProfile = async() => {
     const courseRes = await axios.get(`/api/course/${id}`)
     const traineesID = courseRes.data.trainees;
-    const fetchUserProfile = await axios.get("/api/user/profile",{headers:{Authorization: `Bearer ${token}`}})
-    const checkUser = traineesID.includes(fetchUserProfile.data._id)
+    const fetchUserProfile = await axios.get("/api/user/profile",config.headers())
+    const checkUser = traineesID.map(user => user._id).includes(fetchUserProfile.data._id);
     setEnroll(checkUser)
   }
 
   
-
   const enrollCourse = async() => {
     if (!token) {
-      alert("กรุณาล็อกอินก่อน");
-      return;
+      Swal.fire({
+        title: "You must have login.",
+        icon: "error",
+        showConfirmButton: "OK",
+      })
     }
+    const UserProfile = await axios.get("/api/user/profile",config.headers())
     try {
-      const response = await axios.patch(`/api/course/${id}/enroll`, {}, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
-        },
+      Swal.fire({
+        title: "Would you like to buy ?",
+        text: "You won't be able to revert this!",
+        icon: "question",
+        showConfirmButton: "Buy",
+        showCancelButton: true,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          if(UserProfile.data.coin >= coursesData.price){
+            Swal.fire({
+              title: "Thank you!",
+              icon: "success",
+              timer: 2000,
+            }).then(async () => {
+              const payload = {
+                coin: coursesData.price,
+                status: "remove",
+              };
+              const payload1 = {
+                coin: coursesData.price,
+                status: "add",
+                userId: coursesData.createdBy._id
+
+              };
+              await axios.post("/api/coins", payload, config.headers());
+              await axios.post("/api/coins", payload1, config.headers());
+  
+              await axios.patch(`/api/course/${id}/enroll`, {}, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
+                },
+              });
+              window.location.reload();
+            }); 
+          }
+          else{
+            Swal.fire({
+              title: "Your coins are not enough.",
+              icon: "error",
+              showConfirmButton: "OK",
+            })
+          }
+        }
       });
-      
-      console.log("Enroll success:", response.data); // ตรวจสอบข้อมูลที่ได้กลับมา
     } catch (error) {
-      console.error("Error enrolling:", error.response ? error.response.data : error.message);
+      throw new Error("Something is gone wrong : ", error);
     }
   }
   //-------------------------------------------------------------------
@@ -221,7 +269,7 @@ const sendMessage = async() => {
               <div className='grid gap-[40px]'>
       
                 <div className='flex lg:w-[1024px] w-[100vw] sm:justify-between flex-col sm:flex-row'>
-                  <div className='lg:h-[200px] lg:w-[200px] w-[150px] h-[150px] rounded-[12px] bg-lime'><img src={coursesData.thumbnail} alt="thumbnail" className="lg:h-[200px] lg:w-[200px] w-[150px] h-[150px] rounded-[12px] object-cover"/></div>
+                  <div className='lg:h-[200px] lg:w-[200px] w-[150px] h-[150px] rounded-[12px] bg-lime'><img src={coursesData.createdBy?.profileImage} alt="thumbnail" className="lg:h-[200px] lg:w-[200px] w-[150px] h-[150px] rounded-[12px] object-cover"/></div>
                   <div className='lg:w-[773px] sm:w-[70vw] sm:h-[181px] h-auto flex flex-col justify-between pr-5 lg:pr-0 '> 
                     <div className='flex justify-between'>
                       <div className='lg:text-[30px] text-[24px] font-montserrat font-bold flex'>{coursesData.title}<BadgeCheck className='lg:mt-[8px] mt-[5px] ml-[10px] lg:h-[30px] lg:w-[30px] h-[24px] w-[24px]'/></div>
@@ -229,11 +277,11 @@ const sendMessage = async() => {
                     </div> 
                     <div> 
                       <div className='flex'><BadgeCheck className='h-[20px] w-[20px] lg:mt-[5px] mt-[2px]'/> <div className='ml-[8px] font-montserrat font-semibold lg:text-[20px] text-[16px] text-blue'>Verified</div> </div> 
-                      <div className='font-montserrat font-medium lg:text-[20px] text-[16px] text-blue'>Trainer A has been verified with certificate</div> 
+                      <div className='font-montserrat font-medium lg:text-[20px] text-[16px] text-blue'>{coursesData.title} has been verified with certificate</div> 
                     </div>
                     <div>
                       <div className='flex'> <div className='lg:mt-[5px] mt-[2px]'><Target className='h-[20px] w-[20px]'/></div> <div className='lg:text-[20px] text-[16px] font-montserrat font-semibold ml-[8px]'>Activity</div> </div>
-                      <div className='lg:text-[20px] text-[16px] font-montserrat font-medium'>dwawad</div>
+                      <div className='lg:text-[20px] text-[16px] font-montserrat font-medium'>{coursesData.category?.title}</div>
                     </div>
                   </div>
                 </div>
@@ -245,15 +293,21 @@ const sendMessage = async() => {
                     <div className='text-[20px] font-medium font-montserrat'>30-min course</div>
                   </div>
                   <div className='flex pr-5 lg:pr-0'>
-                    <div className={`h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px]  flex items-center justify-center mr-[10px] ${enroll ? 'bg-slate-400' : 'bg-lime border-green hover:bg-yellow-200 cursor-pointer'}`} onClick={enrollCourse}>
-                      <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>
                       {enroll && (
-                        <div className='font-montserrat font-semibold text-[16px] ml-[10px]'>Already bought</div>      
+                      <div className={`h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px]  flex items-center justify-center mr-[10px] bg-slate-400 `}>
+                        <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>
+                        <div className='font-montserrat font-semibold text-[16px] ml-[10px]'>Already bought</div>
+                      </div>
+                              
                       )}
                       {!enroll && (
-                        <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Buy course</div>      
+                      <div className={`h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px]  flex items-center justify-center mr-[10px] bg-lime border-green hover:bg-yellow-200 cursor-pointer`} onClick={enrollCourse}>
+                        <div><ShoppingBag className='h-[20px] w-[20px] stroke-black'/></div>
+                        <div className='font-montserrat font-semibold text-[20px] ml-[10px]'>Buy course</div>
+                      </div>
+                              
                       )}    
-                    </div>
+                    
                     <div onClick={toggleMessage} className='h-[56px] sm:w-[212px] w-[300px] rounded-[12px] border-[2px] bg-lightblue border-blue flex items-center justify-center cursor-pointer hover:bg-blue '> <div><MessageSquare className='h-[20px] w-[20px] stroke-white'/></div> <div className='font-montserrat font-semibold text-[20px] ml-[10px] text-white'>Send Message</div> </div>
                   </div>
                 </div>
@@ -338,6 +392,7 @@ const sendMessage = async() => {
                       {certifies.map((val) => (
                         <CerCard
                         key = {val._id}
+                        createdBy = {val.createdBy}
                         title = {val.title}
                         description = {val.description}
                         duration = {val.duration}
@@ -349,24 +404,35 @@ const sendMessage = async() => {
                   <div className='w-[1024px] h-auto border-b-[2px] border-lightblue mt-[32px]'></div>
                 </div>
       
-                <div>
+                <div className={`${amountReview == 0 ? 'hidden' : ""}`}>
                   <div className='font-montserrat font-bold text-[24px]'>Review</div>  
                   <div className='flex'>
                     <Star className='h-[48px] w-[48px]'fill="yellow"/> 
-                    <div className='text-[48px] font-bold font-montserrat mt-[-10px] ml-[5px]'>5</div> 
-                    <div className='text-[16px] font-montserrat font-medium ml-[20px] mt-[30px]'>from 111 review</div> 
+                    <div className='text-[48px] font-bold font-montserrat mt-[-10px] ml-[5px]'>{avgPoint}</div> 
+                    <div className='text-[16px] font-montserrat font-medium ml-[20px] mt-[30px]'>from {amountReview} review</div> 
                   </div>
                   <div className='lg:grid-cols-2 grid-cols-1 grid'>
-                    <Review/><Review/><Review/><Review/>
+                    {rating.slice(0,showReview).map((val) => (
+                      <Review
+                      key = {val._id}
+                      point = {val.point}
+                      description={val.description}
+                      profileImage = {val.createdBy.profileImage}
+                      username = {val.createdBy.username}
+                      date = {val.createdAt}
+                      />
+                    ))}
                   </div>
                   <div>
-                  <div className='mt-[32px] h-[40px] w-[203px] rounded-[12px] border-[2px] bg-lime border-green grid place-items-center cursor-pointer'> <div className='font-montserrat font-semibold text-[20px]'>Show all reviews</div> </div>
+                    <div className='mt-[32px] h-[40px] w-[203px] rounded-[12px] border-[2px] bg-lime border-green grid place-items-center cursor-pointer'onClick={handleShowReview}>
+                      <div className='font-montserrat font-semibold text-[20px]'>Show all reviews</div> 
+                    </div>
                   </div>
                   
                 </div>
-                
-      
-      
+                <div className={`${amountReview == 0 ? "" : "hidden"}`}>
+                  <div className="font-montserrat font-bold text-[30px] text-black/40">There are no review</div>
+                </div>
               </div>
             </div>
           </div>

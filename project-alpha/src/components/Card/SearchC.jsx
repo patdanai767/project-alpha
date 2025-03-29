@@ -1,7 +1,6 @@
-import React,{useState}from 'react'
+import React,{useState,useEffect}from 'react'
 import { useNavigate } from 'react-router-dom';
 import HeartButton from '../Button/HeartButton'
-//import Star from '../../assets/Starbutton.jsx'
 import VerifySym from '../../assets/VerifySymbol.svg'
 import PeopleLogo from '../../assets/PeopleLogo.svg'
 import DurationLogo from '../../assets/durationLogo.svg'
@@ -16,33 +15,41 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import axios from 'axios';
 
-const Searchcard = ({id,title,description,price,duration,thumbnail,category}) => {
+const Searchcard = ({id,title,description,price,duration,thumbnail,category,status}) => {
   const authAction = useAuth();
-    const token = authAction?.token;
+  const token = authAction?.token;
+  const [point,setPoint] = useState()
+  const [reviewer, setReviewer] = useState()
+
+  useEffect(() => {
+      calpoint()
+    },[])
+  const calpoint = async() => {
+    const courseRes = await axios.get(`/api/course/${id}`)
+    const fetchRating = courseRes.data.rating
+    const fetchpoint =  fetchRating.map(a => a?.point ?? 0); 
+    const sumPoint = fetchpoint.reduce((total, num) => total + num, 0)
+    const AvgPoint = fetchpoint.length > 0 ? sumPoint / fetchpoint.length : 0;
+    setPoint(AvgPoint)
+    setReviewer(fetchpoint.length)
+  }
 //-------------------------------------------------------------------------
       const [isOpen1, setIsOpen1] = useState(false);// State สำหรับการเปิด/ปิด messagebox
       const [message, setMessage] = useState(""); // เก็บข้อความ
       
       const toggleMessage = () => {setIsOpen1(!isOpen1);};// ฟังก์ชันสำหรับเปิด/ปิด messagebox
-
-      const handleSend = () => {
-        if (message.trim() === "") {
-          alert("Please enter a message!"); // กันส่งข้อความว่าง
-          return;}
-
-        console.log("Message sent:", message); // หรือส่งไป backend
-        setMessage(""); // เคลียร์ช่องข้อความหลังส่ง
-      };
-
       const sendMessage = async() => {
         const courseRes = await axios.get(`/api/course/${id}`)
         const trainerId = courseRes.data.createdBy?._id;
-        
         const payload = {
           content: message,
           sentToId: trainerId,
           mediaURL: ""
         }
+        if (message.trim() === "") {
+          alert("Please enter a message!"); // กันส่งข้อความว่าง
+          return;}
+
         await axios.post("/api/conversation/sentMessage",payload,{
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +62,7 @@ const Searchcard = ({id,title,description,price,duration,thumbnail,category}) =>
 //-----------------------------------------------------------------------------------      
       const navigate = useNavigate();
   return (
-    <div className="py-4 ">
+    <div className='py-4'>
     <div>
     <div className="lg:border-[2px] border-black border-b-[2px] h-auto lg:h-[400px] lg:w-[1024px] w-[100vw] lg:rounded-xl pt-[30px] pb-[30px] lg:pr-[35px] lg:pl-[35px] pr-[17px] pl-[17px] flex justify-between ">
       
@@ -86,9 +93,9 @@ const Searchcard = ({id,title,description,price,duration,thumbnail,category}) =>
       <div className="flex flex-col justify-between ">
           <div className=''>
             <div className="flex justify-between ">
-              <div className="flex"> <Star  className="h-[20px] w-[20px] mt-[4px]"/> <div className="text-xl ml-[3px] font-semibold font-montserrat">4.8</div> </div><HeartButton/>
+              <div className="flex"> <Star  className="h-[20px] w-[20px] mt-[4px]"/> <div className="text-xl ml-[3px] font-semibold font-montserrat">{point}</div> </div><HeartButton/>
             </div>
-            <div className="text-gray-600 mt-[-5px] ">252 review</div>
+            <div className="text-gray-600 mt-[-5px] ">{reviewer} review</div>
             <div className="text-xl font-semibold font-montserrat">{price}</div>
             <div className="text-gray-600 mt-[-5px]">30-min/course</div>
           </div>

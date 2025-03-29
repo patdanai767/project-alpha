@@ -23,13 +23,15 @@ function Search_() {
 
   const reData = async () => {
     const res = await axios.get("/api/course")
-    console.log("API Response:", res.data);
     setCourse(res.data)
   }
 
   const filteredCourses = courses.filter((course) => {
     const matchesGender =
-      filters.gender === "All" || course.gender === filters.gender;
+      filters.gender === "All" || 
+      (filters.gender === "Male" && course.createdBy.sex === "Male") ||
+      (filters.gender === "Female" && course.createdBy.sex === "Female") ||
+      (filters.gender === "LGBTQ+" && course.createdBy.sex === "lgbtq+".toLowerCase()) 
     const matchesPrice =
       filters.price === "All" ||
       (filters.price === "less than THB 1,000" && course.price < 1000) ||
@@ -39,11 +41,16 @@ function Search_() {
       (filters.duration === "30-min" && course.duration === 30) ||
       (filters.duration === "60-min" && course.duration === 60);
     const matchesActivity =
-      filters.activity === "All" || course.activity === filters.activity;
+      filters.activity === "All" || 
+      (filters.activity === "Dancing" && course.category?.title === "Dancing") ||
+      (filters.activity === "Weight Training" && course.category?.title === "Weight training");
     const matchesTitle =
       filters.title === "" || course.title.toLowerCase().includes(filters.title.toLowerCase());
+    const matchesStatus =
+      course.status !== "draft--"
+
     
-    return matchesGender && matchesPrice && matchesDuration && matchesActivity && matchesTitle;
+    return matchesGender && matchesPrice && matchesDuration && matchesActivity && matchesTitle && matchesStatus ;
   });
   
 
@@ -56,7 +63,6 @@ function Search_() {
   const currentItems = filteredCourses.slice(indexOfFirstItem, indexOfLastItem);
   
 
-  console.log(courses);
   return (
     <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
@@ -68,14 +74,15 @@ function Search_() {
         <div className="mt-[15px]">
           {currentItems.map((val,index) => (
             <Searchcard
-            key = {val.id}
+            key = {val._id}
               id = {val._id}
               title={val.title}
               description={val.description}
               price={val.price}
               duration={val.duration}
-              thumbnail={val.thumbnail}
-              //category={val.category.title}
+              thumbnail={val.createdBy.profileImage}
+              category={val.category?.title}
+              status={val.status}
             />
           ))}
         </div>
