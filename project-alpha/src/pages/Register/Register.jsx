@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../contexts/AuthContext";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { config } from "../../config";
 
 const Register = () => {
   const [selectTypeRole, setSelectTypeRole] = useState("trainee");
@@ -39,12 +41,11 @@ const Register = () => {
   };
 
   const test = (e) => {
-    console.log("I sus")
-  }
+    console.log("I sus");
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(details)
     try {
       const payload = {
         category: null,

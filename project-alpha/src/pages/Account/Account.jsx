@@ -43,24 +43,30 @@ export default function Account() {
     pic.append("file", uploadPic);
     pic.append("upload_preset", "Project_alpha");
     try {
-      const upload = await axios.post(
-        "https://api.cloudinary.com/v1_1/dqevqj0cc/image/upload",
-        pic
-      );
+      if (uploadPic !== undefined) {
+        const upload = await axios.post(
+          "https://api.cloudinary.com/v1_1/dqevqj0cc/image/upload",
+          pic
+        );
+        const { url } = upload.data;
 
-      const { url } = upload.data;
-      console.log(url);
+        const payloadUpdate = {
+          ...data,
+          profileImage: url,
+        };
 
-      const payloadUpdate = {
-        ...data,
-        profileImage: url,
-      };
-
-      await axios
-        .patch(`/api/user/${user._id}`, payloadUpdate, config.headers())
-        .then(() => {
-          window.location.reload();
-        });
+        await axios
+          .patch(`/api/user/${user._id}`, payloadUpdate, config.headers())
+          .then(() => {
+            window.location.reload();
+          });
+      } else {
+        await axios
+          .patch(`/api/user/${user._id}`, data, config.headers())
+          .then(() => {
+            window.location.reload();
+          });
+      }
     } catch (error) {
       throw Error(error);
     }

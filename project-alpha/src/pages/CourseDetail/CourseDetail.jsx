@@ -285,12 +285,15 @@ const sendMessage = async() => {
                     </div>
                   </div>
                 </div>
-      
                 <div>
-                <div className='lg:w-[1024px] w-[100vw] sm:h-[93px] h-auto flex sm:flex-row flex-col justify-between'>
-                  <div className='mt-[-12px]'> 
-                    <div className='text-[30px] font-montserrat font-bold'>{coursesData.price}</div> 
-                    <div className='text-[20px] font-medium font-montserrat'>30-min course</div>
+                  <div className="flex">
+                    {" "}
+                    <div className="lg:mt-[5px] mt-[2px]">
+                      <Target className="h-[20px] w-[20px]" />
+                    </div>{" "}
+                    <div className="lg:text-[20px] text-[16px] font-montserrat font-semibold ml-[8px]">
+                      Activity
+                    </div>{" "}
                   </div>
                   <div className='flex pr-5 lg:pr-0'>
                       {enroll && (
@@ -311,32 +314,79 @@ const sendMessage = async() => {
                     <div onClick={toggleMessage} className='h-[56px] sm:w-[212px] w-[300px] rounded-[12px] border-[2px] bg-lightblue border-blue flex items-center justify-center cursor-pointer hover:bg-blue '> <div><MessageSquare className='h-[20px] w-[20px] stroke-white'/></div> <div className='font-montserrat font-semibold text-[20px] ml-[10px] text-white'>Send Message</div> </div>
                   </div>
                 </div>
-                <div className='w-[1024px] h-auto border-b-[2px] border-lightblue mt-[32px] sm:mt-[0px]'></div>
-                </div>
-      
-                <div className='lg:w-[1024px] w-[95vw]'>
-                  <div className='text-[24px] font-montserrat font-bold'>Aboutme</div>
-                  <div className='break-words'>
-                    {coursesData.description}
-                  </div>
-                  <div className='w-[1024px] h-auto border-b-[2px] border-lightblue mt-[32px]'></div>
-                </div>
-      
-      
-                <div className='w-[100vw] lg:w-[1024px]'>
-                  <div className='flex justify-between'>
-                    <div className='text-[24px] font-bold font-montserrat pr-[10px]'>Resume</div>
-                    <div className='md:flex lg:mr-0 md:mr-5 hidden'>
+              </div>
+            </div>
 
-                      <div className={`mr-[16px] lg:w-[137px] w-[18vw] h-[36px] rounded-[12px] border-[2px]  flex justify-center items-center cursor-pointer ${isOpen2 ? 'bg-green border-green text-white' : 'bg-white border-green text-green'}`} onClick={toggleEducation}>
-                        <div className='font-montserrat font-semibold text-[16px]  mr-[6px]'>Education</div>
-                        <div><GraduationCap  className={`h-[18px] w-[18px] ${isOpen2 ? "stroke-white" : "stroke-green"}`}/></div> 
-                      </div>
-                      
-                      <div className={`mr-[16px] lg:w-[193px] w-[22vw] h-[36px] rounded-[12px] border-[2px]  flex justify-center items-center cursor-pointer ${isOpen3 ? 'bg-green border-green text-white' : 'bg-white border-green text-green'}`} onClick={toggleWork}>
-                         <div className='font-montserrat font-semibold text-[16px]  mr-[6px]'>Work experience</div> 
-                         <div><Briefcase className={`h-[18px] w-[18px] ${isOpen3 ? "stroke-white" : "stroke-green"}`}/></div>
-                      </div>
+            <div>
+              <div className="lg:w-[1024px] w-[100vw] sm:h-[93px] h-auto flex sm:flex-row flex-col justify-between">
+                <div className="mt-[-12px]">
+                  <div className="text-[30px] font-montserrat font-bold">
+                    {coursesData.price}
+                  </div>
+                  <div className="text-[20px] font-medium font-montserrat">
+                    30-min course
+                  </div>
+                </div>
+                <div className="flex pr-5 lg:pr-0">
+                  <div className="h-[56px] sm:w-[181px] w-[300px] rounded-[12px] border-[2px] bg-lime border-green flex items-center justify-center mr-[10px] cursor-pointer hover:bg-yellow-200">
+                    {" "}
+                    <div>
+                      <ShoppingBag className="h-[20px] w-[20px] stroke-black" />
+                    </div>{" "}
+                    <div className="font-montserrat font-semibold text-[20px] ml-[10px]">
+                      Bye course
+                    </div>{" "}
+                  </div>
+                  <div
+                    onClick={toggleMessage}
+                    className="h-[56px] sm:w-[212px] w-[300px] rounded-[12px] border-[2px] bg-lightblue border-blue flex items-center justify-center cursor-pointer hover:bg-blue "
+                  >
+                    {" "}
+                    <div>
+                      <MessageSquare className="h-[20px] w-[20px] stroke-white" />
+                    </div>{" "}
+                    <div className="font-montserrat font-semibold text-[20px] ml-[10px] text-white">
+                      Send Message
+                    </div>{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="w-[1024px] h-auto border-b-[2px] border-lightblue mt-[32px] sm:mt-[0px]"></div>
+            </div>
+
+            <div className="lg:w-[1024px] w-[95vw]">
+              <div className="text-[24px] font-montserrat font-bold">
+                Aboutme
+              </div>
+              <div className="break-words">{coursesData.description}</div>
+              <div className="w-[1024px] h-auto border-b-[2px] border-lightblue mt-[32px]"></div>
+            </div>
+
+            <div className="w-[100vw] lg:w-[1024px]">
+              <div className="flex justify-between">
+                <div className="text-[24px] font-bold font-montserrat pr-[10px]">
+                  Resume
+                </div>
+                <div className="md:flex lg:mr-0 md:mr-5 hidden">
+                  <div
+                    className={`mr-[16px] lg:w-[137px] w-[18vw] h-[36px] rounded-[12px] border-[2px]  flex justify-center items-center cursor-pointer ${
+                      isOpen2
+                        ? "bg-green border-green text-white"
+                        : "bg-white border-green text-green"
+                    }`}
+                    onClick={toggleEducation}
+                  >
+                    <div className="font-montserrat font-semibold text-[16px]  mr-[6px]">
+                      Education
+                    </div>
+                    <div>
+                      <GraduationCap
+                        className={`h-[18px] w-[18px] ${
+                          isOpen2 ? "stroke-white" : "stroke-green"
+                        }`}
+                      />
+                    </div>
+                  </div>
 
                       <div className={`lg:w-[163px] w-[22vw] h-[36px] rounded-[12px] border-[2px]  flex justify-center items-center cursor-pointer ${isOpen4 ? 'bg-green border-green text-white' : 'bg-white border-green text-green'}`} onClick={toggleCer}> 
                         <div className='font-montserrat font-semibold text-[16px]  mr-[6px]'>Certification</div> 
@@ -438,19 +488,34 @@ const sendMessage = async() => {
           </div>
           
       {isOpen5 && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-10" onClick={toggleMessage}></div>     
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-10"
+          onClick={toggleMessage}
+        ></div>
       )}
 
       {isOpen5 && (
-        <div className='fixed inset-0 flex justify-center items-center z-10'>
-          <div className='bg-white w-[400px] h-[500px] border-2 border-black rounded-[12px] p-[16px]'>
-            <div className='flex justify-end'><X className='h-[20px] w-[20px] cursor-pointer' onClick={toggleMessage}/></div>
-            <div className='flex justify-center'><div className='h-[100px] w-[100px] bg-lime rounded-[12px]'></div></div>
-            <div className='text-[20px] font-semibold font-montserrat text-center mt-[10px]'>send message to</div>
-            <div className='text-[20px] font-semibold font-montserrat text-center'>TrainerA</div>
-            <textarea className='w-[368px] h-[193px] border-[2px] rounded-[12px] border-black mt-[16px]' 
-              value={message} 
-              onChange={(e) => setMessage(e.target.value)} 
+        <div className="fixed inset-0 flex justify-center items-center z-10">
+          <div className="bg-white w-[400px] h-[500px] border-2 border-black rounded-[12px] p-[16px]">
+            <div className="flex justify-end">
+              <X
+                className="h-[20px] w-[20px] cursor-pointer"
+                onClick={toggleMessage}
+              />
+            </div>
+            <div className="flex justify-center">
+              <div className="h-[100px] w-[100px] bg-lime rounded-[12px]"></div>
+            </div>
+            <div className="text-[20px] font-semibold font-montserrat text-center mt-[10px]">
+              send message to
+            </div>
+            <div className="text-[20px] font-semibold font-montserrat text-center">
+              TrainerA
+            </div>
+            <textarea
+              className="w-[368px] h-[193px] border-[2px] rounded-[12px] border-black mt-[16px]"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message here..."
             />
             <div className='w-[368px] h-[50px] border-[2px] rounded-[12px] border-black bg-lightblue grid place-items-center mt-[10px] hover:bg-blue cursor-pointer' onClick={sendMessage}> 
@@ -460,7 +525,7 @@ const sendMessage = async() => {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default CourseDetail
+export default CourseDetail;

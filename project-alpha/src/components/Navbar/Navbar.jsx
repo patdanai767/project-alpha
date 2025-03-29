@@ -99,13 +99,14 @@ const Navbar = () => {
             >
               <MessageSquare size={20} />
             </motion.a>
-            <motion.div
+            <motion.a
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              href="/favorite"
             >
               <Heart size={20} />
-            </motion.div>
+            </motion.a>
             <motion.div
               className="cursor-pointer"
               whileHover={{ scale: 1.05 }}

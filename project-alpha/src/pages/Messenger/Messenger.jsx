@@ -65,7 +65,7 @@ export default function Messenger() {
             {filteredSearch
               ? filteredSearch.map((message, index) => (
                   <Link to={`/messenger/${message.sentToId._id}`} key={index}>
-                    <MessageCard fullname={message.sentToId.fullname} />
+                    <MessageCard fullname={message.sentToId.fullname} image={message.sentToId.profileImage} />
                   </Link>
                 ))
               : ""}
