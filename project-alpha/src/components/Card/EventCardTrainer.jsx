@@ -341,11 +341,11 @@ export default function EventCardTrainer({
               onChange={handleChange}
               className="p-[12px] rounded-xl border border-lightblue bg-transparent w-full"
             >
-              <option value={trainee._id}>{trainee.fullname}</option>
+              <option value={trainee?._id}>{trainee?.fullname}</option>
               {trainees
                 ? trainees.map((val) => (
-                    <option key={val._id} value={val._id}>
-                      {val.fullname}
+                    <option key={val?._id} value={val?._id}>
+                      {val?.fullname}
                     </option>
                   ))
                 : ""}

@@ -156,7 +156,7 @@ export default function Overviewevents() {
             <div className="flex items-center gap-1">
               <Star fill="#DDF344" className="w-[36px] h-[36px]" />
               <p className="text-[36px] font-bold">
-                {reviews ? `${average(reviews)}` : ""}
+                {average(reviews) ? `${average(reviews)}` : "0"}
               </p>
             </div>
             <p className="content-end mb-1 ml-1">
