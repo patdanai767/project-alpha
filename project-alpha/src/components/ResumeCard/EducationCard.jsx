@@ -1,14 +1,14 @@
 import React from 'react'
 import { BadgeCheck } from 'lucide-react'
 
-function ResumeCard() {
+function ResumeCard({placeEducated,description,duration}) {
   return (
     <div className='h-[108px] w-[1024px] mt-[16px] '>
       <div className='flex '>
-        <div className='font-montserrat font-semibold'>2023-2024</div>
+        <div className='font-montserrat font-semibold'>{duration}</div>
         <div className='ml-[16px]'>
-          <div className='font-montserrat font-semibold'>KMITL</div>
-          <div className='mt-[9px] font-montserrat font-normal'>IOT engineering</div>
+          <div className='font-montserrat font-semibold'>{placeEducated}</div>
+          <div className='mt-[9px] font-montserrat font-normal'>{description}</div>
           <div className='flex mt-[9px]'><BadgeCheck fill='#38A32A' stroke='white'/><div className='ml-[5px] text-green font-montserrat font-medium'>Verified</div></div>
         </div>
       </div>
