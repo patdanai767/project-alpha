@@ -1,14 +1,14 @@
 import { CalendarDays, Clock, Target } from "lucide-react";
 import React from "react";
 
-export default function TrainerCard() {
+export default function TrainerCard({thumbnail,title}) {
   return (
     <div className="border h-[408px] w-[232px] rounded-lg border-black p-[16px]">
-      <div className="w-[200px] h-[200px] bg-lime rounded-xl">
-        <img />
+      <div className="w-[200px] h-[200px] bg-lime rounded-xl ">
+        <img src={thumbnail} className="h-full w-full object-cover rounded-xl"/>
       </div>
       <div className="text-[20px] font-semibold mt-[16px]">
-        <p>Trainer A</p>
+        <p>{title}</p>
         <div className="flex items-center gap-1">
           <Target className="w-[20px] h-[20px]" />
           <p className="font-thin">Weight training</p>

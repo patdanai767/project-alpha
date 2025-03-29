@@ -47,7 +47,7 @@ function FilterBar({ filters, setFilters }) {
   };
   const selectActivity = (value) => {
     setSelectedActivity(value);
-    updateFilter('activity', value);
+    updateFilter('activity', value === "ALL" ? "All" : value );
     setIsOpen4(false);
   };
 
@@ -81,11 +81,12 @@ function FilterBar({ filters, setFilters }) {
               <div className="fixed inset-0 bg-black bg-opacity-50 z-10" onClick={toggleGender}></div>     
                 )}
             {isOpen1 && (
-              <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
+              <div className='bg-white w-[244px] h-[165px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("All") }>All</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("Male")}>Male</div>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("Female")}>Female</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectGender("LGBTQ+")}>LQBTQ+</div>
                 </div>
               </div>
             )}
