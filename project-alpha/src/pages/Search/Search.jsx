@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Search_() {
   const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
-  const [courses, setCourse] = useState([])
+  const [courses, setCourse] = useState([]);
   const itemsPerPage = 3; // จำนวนข้อมูลต่อหน้า
   const [filters, setFilters] = useState({
     gender: "All",
@@ -18,41 +18,49 @@ function Search_() {
   });
 
   useEffect(() => {
-    reData()
-  },[])
+    reData();
+  }, []);
 
   const reData = async () => {
-    const res = await axios.get("/api/course")
-    setCourse(res.data)
-  }
+    const res = await axios.get("/api/course");
+    setCourse(res.data);
+  };
 
   const filteredCourses = courses.filter((course) => {
     const matchesGender =
-      filters.gender === "All" || 
+      filters.gender === "All" ||
       (filters.gender === "Male" && course.createdBy.sex === "Male") ||
       (filters.gender === "Female" && course.createdBy.sex === "Female") ||
-      (filters.gender === "LGBTQ+" && course.createdBy.sex === "lgbtq+".toLowerCase()) 
+      (filters.gender === "LGBTQ+" &&
+        course.createdBy.sex === "lgbtq+".toLowerCase());
     const matchesPrice =
       filters.price === "All" ||
       (filters.price === "less than THB 1,000" && course.price < 1000) ||
       (filters.price === "more than THB 1,000" && course.price >= 1000);
     const matchesDuration =
       filters.duration === "All" ||
-      (filters.duration === "30-min" && course.duration === 30) ||
-      (filters.duration === "60-min" && course.duration === 60);
+      (filters.duration === "30-min" && course.duration <= 30) ||
+      (filters.duration === "60-min" && course.duration <= 60);
     const matchesActivity =
-      filters.activity === "All" || 
-      (filters.activity === "Dancing" && course.category?.title === "Dancing") ||
-      (filters.activity === "Weight Training" && course.category?.title === "Weight training");
+      filters.activity === "All" ||
+      (filters.activity === "Dancing" &&
+        course.title === "Dancing") ||
+      (filters.activity === "Weight Training" &&
+        course.title === "Weight training");
     const matchesTitle =
-      filters.title === "" || course.title.toLowerCase().includes(filters.title.toLowerCase());
-    const matchesStatus =
-      course.status !== "draft--"
+      filters.title === "" ||
+      course.title.toLowerCase().includes(filters.title.toLowerCase());
+    const matchesStatus = course.status !== "draft";
 
-    
-    return matchesGender && matchesPrice && matchesDuration && matchesActivity && matchesTitle && matchesStatus ;
+    return (
+      matchesGender &&
+      matchesPrice &&
+      matchesDuration &&
+      matchesActivity &&
+      matchesTitle &&
+      matchesStatus
+    );
   });
-  
 
   // คำนวณจำนวนหน้าทั้งหมด
   const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
@@ -61,28 +69,26 @@ function Search_() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredCourses.slice(indexOfFirstItem, indexOfLastItem);
-  
 
   return (
     <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
-      <FilterBar
-          filters={filters}
-          setFilters={setFilters}
-        />
+        <FilterBar filters={filters} setFilters={setFilters} />
 
         <div className="mt-[15px]">
-          {currentItems.map((val,index) => (
+          {currentItems.map((val) => (
             <Searchcard
-            key = {val._id}
-              id = {val._id}
-              title={val.title}
+              key={val._id}
+              id={val._id}
+              title={val.createdBy.fullname}
               description={val.description}
               price={val.price}
               duration={val.duration}
               thumbnail={val.createdBy.profileImage}
-              category={val.category?.title}
+              category={val.title}
               status={val.status}
+              date={val.DateBusiness}
+              time={val.timeBusiness}
             />
           ))}
         </div>

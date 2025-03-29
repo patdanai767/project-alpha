@@ -18,6 +18,7 @@ const Profile = () => {
     username: "",
     fullname: "",
   });
+  const [activities, setActivities] = useState([]);
   const [data, setData] = useState({
     title: "Building body for Arm-wrestling",
     description:
@@ -27,8 +28,6 @@ const Profile = () => {
     timeBusiness: "09:00 - 17:00",
     DateBusiness: "Mon - Fri",
   });
-  const [timeBusiness, setTimeBusiness] = useState("");
-  const [dateBusiness, setDateBusiness] = useState("");
 
   useEffect(() => {
     if (!Cookies.get("AUTH_KEY")) {
@@ -48,9 +47,9 @@ const Profile = () => {
     status: "",
   });
 
-  const activities = profile?.title
-    ? [profile?.title]
-    : ["Weight Training", "Running", "Cycling", "Swimming", "Yoga"];
+  // const activities = profile?.title
+  //   ? [profile?.title]
+  //   : ["Weight Training", "Running", "Cycling", "Swimming", "Yoga"];
   const selectstatus = ["draft", "available", "unavailable"];
   const [image, setImage] = useState([{}]);
 
@@ -70,6 +69,8 @@ const Profile = () => {
         `http://localhost:8080/course/mycourse`,
         config.headers()
       );
+      const cats = await axios.get("/api/category");
+      setActivities(cats.data);
 
       setData(res.data);
       console.log(res.data);
@@ -100,8 +101,6 @@ const Profile = () => {
   // const [start, end] = timeBusiness.split("-");
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
-  if (timeBusiness) {
-  }
 
   const generateTimeOptions = () => {
     const times = [];
@@ -199,7 +198,7 @@ const Profile = () => {
       console.log(user._id);
 
       const payloadUpdate = {
-        ...profile
+        ...profile,
       };
 
       await axios.patch(
@@ -551,11 +550,11 @@ const Profile = () => {
                         //   className="flex  items-center justify-between "
                         id="hs-toggle-password"
                         type="Name"
-                        name="username"
+                        name="fullname"
                         className="mt-2 mb-3  lg:w-[760px] w-[93vw] h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4  border-2 border-lightblue font-montserrat p-[16px]"
                         placeholder="Trainer A"
                         onChange={handleChangeUser}
-                        value={current.username}
+                        value={current.fullname}
                       ></input>
                       <div className="mt-2 w-[600px] text-[20px] leading-[24.38px] font-semibold">
                         Activity
@@ -568,8 +567,8 @@ const Profile = () => {
                         value={profile?.title}
                       >
                         {activities.map((activity, index) => (
-                          <option key={index} value={activity}>
-                            {activity}
+                          <option key={index} value={activity.title}>
+                            {activity.title}
                           </option>
                         ))}
                       </select>
@@ -687,7 +686,9 @@ const Profile = () => {
                   {/* About Me Section */}
                   <div className="mt-8 w-full">
                     <label className="text-2xl font-semibold block mb-2">
-                      About Me {profile?.description.length}/500
+                      About Me{" "}
+                      {profile.description ? profile.description.length : "0"}
+                      /500
                     </label>
                     <textarea
                       className="bg-[#EFFAFD] w-full h-32 min-h-[100px] resize-none rounded-xl border-2 border-lightblue px-3 py-2.5 text-sm focus:border-2 focus:border-gray-900"

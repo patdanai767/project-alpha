@@ -38,8 +38,8 @@ export default function Favorite() {
               description={val.description}
               price={val.price}
               duration={val.duration}
-              thumbnail={val.thumbnail}
-              //category={val.category.title}
+              thumbnail={val.createdBy.profileImage}
+              category={val.category?.title}
               isLike={true}
             />
           ))}
