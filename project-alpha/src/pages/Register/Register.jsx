@@ -4,9 +4,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../contexts/AuthContext";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { config } from "../../config";
 
 const Register = () => {
-  const [selectTypeRole, setSelectTypeRole] = useState("Trainee");
+  const [selectTypeRole, setSelectTypeRole] = useState("trainee");
   const [details, setDetails] = useState({
     fullname: undefined,
     username: undefined,
@@ -26,12 +28,12 @@ const Register = () => {
 
   const handleSelectTrainee = () => {
     setSelectTypeRole("Trainee");
-    setDetails((prev) => ({ ...prev, role: "Trainee" }));
+    setDetails((prev) => ({ ...prev, role: "trainee" }));
   };
 
   const handleSelectTrainer = () => {
     setSelectTypeRole("Trainer");
-    setDetails((prev) => ({ ...prev, role: "Trainer" }));
+    setDetails((prev) => ({ ...prev, role: "trainer" }));
   };
 
   const handleChange = (e) => {
@@ -39,13 +41,24 @@ const Register = () => {
   };
 
   const test = (e) => {
-    console.log("I sus")
-  }
+    console.log("I sus");
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(details)
     try {
+      const payload = {
+        category: null,
+        title: null,
+        description: null,
+        price: null,
+        duration: null,
+        thumbnail: null,
+        status: null,
+      };
+      if (details.status === "trainer") {
+        await axios.post("/api/course", payload, config.headers());
+      }
       authAction.registerAction(details);
     } catch (error) {
       console.log(error);
@@ -56,7 +69,7 @@ const Register = () => {
     <div className="bg-sky">
       <Navbar />
       <div className="md:grid grid-cols-2">
-        {selectTypeRole === "Trainee" ? (
+        {selectTypeRole === "trainee" ? (
           <div className="flex justify-center">
             <div className="bg-white rounded-2xl shadow-md w-[550px] my-[100px]">
               <div className="my-10 mx-10 grid gap-7">

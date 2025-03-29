@@ -1,5 +1,5 @@
 import MessageCard from "../../components/Card/MessageCard";
-import { Send } from "lucide-react";
+import { ChevronLeft, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -23,7 +23,6 @@ export default function MessengerDetails() {
     }
     const interval = setInterval(fetchData, 1000);
     fetchData();
-
     return () => {
       clearInterval(interval);
     };
@@ -88,17 +87,22 @@ export default function MessengerDetails() {
       : item.sentToId.fullname.toLowerCase().includes(search);
   });
 
+  const handleBack = () => {
+    navigate("/messenger");
+  };
+
   return (
     <motion.div className="w-full h-screen bg-sky flex flex-col">
       <div className="overflow-auto h-screen flex flex-grow ">
-        <div className=" w-1/4 border-r border-blue py-[16px] overflow-auto">
+        {/* left side */}
+        <div className="hidden md:block w-full md:w-1/4 border-r border-blue py-[16px] overflow-auto">
           <div className=" justify-center text-xl font-semibold pb-[16px] mb-10">
             <div className="px-[32px] text-[24px] my-4">Chat</div>
             <div className="flex px-[32px]">
               <motion.input
                 type="text"
                 placeholder="Search Messenger"
-                className="text-[16px] font-medium bg-slate-200 w-full px-6 py-2 rounded-xl"
+                className="text-[16px] font-medium bg-gray/20 focus:bg-lightblue/20 focus:placeholder:text-lightblue focus:outline-lightblue text-black w-full px-6 py-2 rounded-xl truncate"
                 onChange={(e) => setSearch(e.target.value)}
               ></motion.input>
             </div>
@@ -109,17 +113,28 @@ export default function MessengerDetails() {
                   <Link to={`/messenger/${message.sentToId._id}`} key={index}>
                     <MessageCard
                       fullname={message.sentToId.fullname}
-                      // lastMessage={messages.at(-1).content}
-                      // date={messages.at(-1).createdAt}
+                      image={message.sentToId.profileImage}
+                      messages={messages.filter(
+                        (dataMessage) => dataMessage.sentToId._id === user._id
+                      )}
                     />
                   </Link>
                 ))
               : ""}
           </div>
         </div>
-        <div className="w-3/4 flex flex-col">
-          <div className="p-[32px] bg-lightblue text-white text-[20px]">
-            {filteredName[0] ? filteredName[0].sentToId.fullname : ""}
+        {/* right side */}
+        <div className="w-full md:w-3/4 flex flex-col">
+          <div className="flex gap-8 items-center p-[32px] bg-transparent text-black border-blue border-b mb-4 md:border-b-none text-[20px] font-semibold">
+            <div
+              className="block md:hidden cursor-pointer"
+              onClick={handleBack}
+            >
+              <ChevronLeft />
+            </div>
+            <div className="flex">
+              {filteredName[0] ? filteredName[0].sentToId.fullname : ""}
+            </div>
           </div>
           <div className="min-h-[660px] overflow-x-scroll">
             <div className="px-[16px] sm:px-[32px] flex-grow">
@@ -130,6 +145,7 @@ export default function MessengerDetails() {
                       text={message.content}
                       sender={senderIdentify(message)}
                       date={message.createdAt}
+                      image={message.sentFromId.profileImage}
                     />
                   ))
                 : ""}
