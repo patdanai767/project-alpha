@@ -22,7 +22,7 @@ function Review({point,description,profileImage,username,date}) {
   return (
     <div className='sm:w-[496px] w-[90vw] h-auto mt-[32px]'>
       <div className='flex'>
-        <div className='h-[60px] w-[60px] bg-green rounded-[12px]'><img src={profileImage} alt="profileImage" className="rounded-[12px] object-cover" /></div>
+        <div className='h-[60px] w-[60px] bg-green rounded-[12px] object-cover'><img src={profileImage} alt="profileImage" className="rounded-[12px] object-cover h-[60px] w-[60px]" /></div>
         <div className='ml-[16px]'>
           <div className='font-montserrat font-semibold text-[20px]'>{username}</div>
           <div className='font-montserrat font-normal text-[16px]'>{formatData(date)}</div>
