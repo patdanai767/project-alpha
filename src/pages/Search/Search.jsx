@@ -48,7 +48,7 @@ function Search_() {
       (filters.activity === "Weight Training" && course.title === "Weight training");
     const matchesTitle =
       filters.title === "" ||
-      course.title.toLowerCase().includes(filters.title.toLowerCase());
+      course.title.toLowerCase().includes(filters?.createdBy.fullname.toLowerCase());
     const matchesStatus = course.status !== "draft";
 
     return (
