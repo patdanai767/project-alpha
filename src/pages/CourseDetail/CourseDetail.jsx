@@ -24,6 +24,7 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../config";
+import Cookies from "js-cookie";
 
 function CourseDetail() {
   const navigate = useNavigate();

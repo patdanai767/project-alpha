@@ -9,6 +9,7 @@ import { Clock, Calendar, Star, Target, X } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 const Searchcard = ({
   id,
