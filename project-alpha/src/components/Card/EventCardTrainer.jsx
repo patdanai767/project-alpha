@@ -131,6 +131,8 @@ export default function EventCardTrainer({
             title: "Meeting is ended!",
             icon: "success",
             timer: 2000,
+          }).then(() => {
+            window.location.reload();
           });
         });
     } catch (error) {
