@@ -168,9 +168,15 @@ function CourseDetail() {
   const [isOpen5, setIsOpen5] = useState(false); // State สำหรับการเปิด/ปิด messagebox
   const [message, setMessage] = useState(""); // เก็บข้อความ
   const toggleMessage = () => {
+    if (!Cookies.get("AUTH_KEY")) {
+      navigate("/login");
+    }
     setIsOpen5(!isOpen5);
   }; // ฟังก์ชันสำหรับเปิด/ปิด messagebox
   const sendMessage = async () => {
+    if (!Cookies.get("AUTH_KEY")) {
+      navigate("/login");
+    }
     const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
     const trainerId = courseRes.data.createdBy?._id;
     const payload = {
@@ -225,7 +231,10 @@ function CourseDetail() {
         showConfirmButton: "OK",
       });
     }
-    const UserProfile = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
+    const UserProfile = await axios.get(
+      `${API_BASE_URL}/user/profile`,
+      config.headers()
+    );
     try {
       Swal.fire({
         title: "Would you like to buy ?",
@@ -250,8 +259,16 @@ function CourseDetail() {
                 status: "add",
                 userId: coursesData.createdBy._id,
               };
-              await axios.post(`${API_BASE_URL}/coins`, payload, config.headers());
-              await axios.post(`${API_BASE_URL}/coins`, payload1, config.headers());
+              await axios.post(
+                `${API_BASE_URL}/coins`,
+                payload,
+                config.headers()
+              );
+              await axios.post(
+                `${API_BASE_URL}/coins`,
+                payload1,
+                config.headers()
+              );
 
               await axios.patch(
                 `${API_BASE_URL}/course/${id}/enroll`,

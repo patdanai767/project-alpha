@@ -46,6 +46,9 @@ const Searchcard = ({
   const [message, setMessage] = useState(""); // เก็บข้อความ
 
   const toggleMessage = () => {
+    if (!Cookies.get("AUTH_KEY")) {
+      navigate("/login");
+    }
     setIsOpen1(!isOpen1);
   }; // ฟังก์ชันสำหรับเปิด/ปิด messagebox
   const sendMessage = async () => {

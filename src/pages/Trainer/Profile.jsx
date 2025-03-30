@@ -67,7 +67,7 @@ const Profile = () => {
       });
 
       const res = await axios.get(
-        `http://localhost:8080/course/mycourse`,
+        `${API_BASE_URL}/course/mycourse`,
         config.headers()
       );
       const cats = await axios.get(`${API_BASE_URL}/category`);
@@ -78,9 +78,6 @@ const Profile = () => {
 
       setProfile(res.data);
 
-      // } else {
-      //   console.warn("no api data");
-      // }
       if (res.data.timeBusiness) {
         setStartTime(res.data.timeBusiness.split("-")[0].trim());
         setEndTime(res.data.timeBusiness.split("-")[1].trim());
@@ -181,7 +178,7 @@ const Profile = () => {
         };
 
         await axios.patch(
-          `http://localhost:8080/user/${user._id}`,
+          `${API_BASE_URL}/user/${user._id}`,
           payloadUpdateUser,
           config.headers()
         );
@@ -191,7 +188,7 @@ const Profile = () => {
       }
 
       await axios.patch(
-        `http://localhost:8080/user/${user._id}`,
+        `${API_BASE_URL}/user/${user._id}`,
         current,
         config.headers()
       );
@@ -203,7 +200,7 @@ const Profile = () => {
       };
 
       await axios.patch(
-        `http://localhost:8080/course/${profile?._id}`,
+        `${API_BASE_URL}/course/${profile?._id}`,
         payloadUpdate,
         config.headers()
       );
@@ -217,7 +214,7 @@ const Profile = () => {
   const fetchDataEducation = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8080/education",
+        `${API_BASE_URL}/education`,
         config.headers()
       );
 
@@ -229,7 +226,7 @@ const Profile = () => {
   const fetchDataCertifies = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8080/certifies",
+        `${API_BASE_URL}/certifies`,
         config.headers()
       );
 
@@ -241,7 +238,7 @@ const Profile = () => {
   const fetchDataexps = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8080/work-exps",
+        `${API_BASE_URL}/work-exps`,
         config.headers()
       );
 
@@ -344,7 +341,7 @@ const Profile = () => {
       };
       try {
         await axios.post(
-          "http://localhost:8080/education",
+          `${API_BASE_URL}/education`,
           newEducation,
           config.headers()
         );
@@ -365,7 +362,7 @@ const Profile = () => {
       };
       try {
         await axios.post(
-          "http://localhost:8080/work-exps",
+          `${API_BASE_URL}/work-exps`,
           newworkExperience,
           config.headers()
         );
@@ -386,7 +383,7 @@ const Profile = () => {
       };
       try {
         await axios.post(
-          "http://localhost:8080/certifies",
+          `${API_BASE_URL}/certifies`,
           newCertificates,
           config.headers()
         );
@@ -409,7 +406,7 @@ const Profile = () => {
       };
 
       await axios.patch(
-        `http://localhost:8080/education/${id}`,
+        `${API_BASE_URL}/education/${id}`,
         newDataEducation,
         config.headers()
       );
@@ -432,7 +429,7 @@ const Profile = () => {
       };
 
       await axios.patch(
-        `http://localhost:8080/work-exps/${id}`,
+        `${API_BASE_URL}/work-exps/${id}`,
         newDataExperienc,
         config.headers()
       );
@@ -457,7 +454,7 @@ const Profile = () => {
       };
 
       await axios.patch(
-        `http://localhost:8080/certifies/${id}`,
+        `${API_BASE_URL}/certifies/${id}`,
         newDataCertificates,
         config.headers()
       );
@@ -472,7 +469,7 @@ const Profile = () => {
   const removeEducation = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8080/education/${id}`,
+        `${API_BASE_URL}/education/${id}`,
         config.headers()
       );
       setDataEducation((prevData) => prevData.filter((edu) => edu._id !== id));
@@ -484,7 +481,7 @@ const Profile = () => {
   const removeWorkExperience = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8080/work-exps/${id}`,
+        `${API_BASE_URL}/work-exps/${id}`,
         config.headers()
       );
       setDataExperience((prevData) => prevData.filter((edu) => edu._id !== id));
@@ -496,7 +493,7 @@ const Profile = () => {
   const removeCertificates = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8080/certifies/${id}`,
+        `${API_BASE_URL}/certifies/${id}`,
         config.headers()
       );
       setDataCertificates((prevData) =>
@@ -565,7 +562,7 @@ const Profile = () => {
                         className="mt-2 mb-3 lg:w-[760px] w-[93vw] h-[56px] gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue font-montserrat p-[16px]"
                         name="title"
                         onChange={handleChange}
-                        value={profile?.title}
+                        value={activities[0]?.title}
                       >
                         {activities.map((activity, index) => (
                           <option key={index} value={activity.title}>

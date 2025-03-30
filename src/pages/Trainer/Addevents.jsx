@@ -60,6 +60,14 @@ export default function Addevents() {
         endAt: endDate,
         status: "continue",
       };
+      if(!data.trainee){
+        Swal.fire({
+          title: "Please select a trainee!",
+          icon: "error",
+          timer: 2000,
+        });
+        return;
+      }
       await axios.post(`${API_BASE_URL}/meeting`, payload, config.headers()).then(() => {
         Swal.fire({
           title: "Success!",
