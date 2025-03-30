@@ -182,14 +182,15 @@ const Navbar = () => {
               </div>
             </div>
             <div className="border-b-2 border-blue pb-7">
-              <a href="/token" className="mt-5 px-2 py-2 flex justify-between gap-2 text-green rounded-lg border-2 border-green hover:bg-lime cursor-pointer">
+              <a
+                href="/token"
+                className="mt-5 px-2 py-2 flex justify-between gap-2 text-green rounded-lg border-2 border-green hover:bg-lime cursor-pointer"
+              >
                 <div className="flex gap-2">
                   <Coins className="" />
                   <div>{user.coin}</div>
                 </div>
-                <div
-                  className="flex items-center cursor-pointer"
-                >
+                <div className="flex items-center cursor-pointer">
                   <Plus className="w-full h-full rounded-xl hover:bg-lime" />
                 </div>
               </a>
@@ -201,8 +202,25 @@ const Navbar = () => {
               className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
             >
+              Search
+            </a>
+            <a
+              href="/account"
+              className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
+            "
+            >
               Account
             </a>
+            {user.role === "trainer" ? (
+              <a
+                className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20"
+                href="/profile"
+              >
+                Profile
+              </a>
+            ) : (
+              ""
+            )}
             <a
               className="w-full h-full mt-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
           "
@@ -211,7 +229,7 @@ const Navbar = () => {
               Messages
             </a>
             <a
-              href="/dashboard"
+              href={user.role === "trainer" ? `/dashboard` : `/mycourse`}
               className="w-full h-full mt-4 mb-4 p-2 rounded-xl cursor-pointer hover:bg-lightblue/20
             "
             >

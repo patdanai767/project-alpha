@@ -18,6 +18,17 @@ export default function Messenger() {
       navigate("/");
     }
     fetchData();
+    console.log(
+      messages.filter((item, index, self) => {
+        return (
+          self.findIndex(
+            (i) =>
+              i.sentFromId._id === item.sentFromId._id &&
+              item.sentToId._id === user._id
+          ) === index
+        );
+      })
+    );
   }, []);
 
   const fetchData = async () => {
@@ -34,8 +45,8 @@ export default function Messenger() {
     return (
       self.findIndex(
         (i) =>
-          i.sentToId._id === item.sentToId._id &&
-          item.sentFromId._id === user._id
+          i.sentFromId._id === item.sentFromId._id &&
+          item.sentToId._id === user._id
       ) === index
     );
   });
@@ -43,7 +54,7 @@ export default function Messenger() {
   const filteredSearch = filteredData.filter((item) => {
     return search.toLowerCase === ""
       ? item
-      : item.sentToId.fullname.toLowerCase().includes(search);
+      : item.sentFromId.fullname.toLowerCase().includes(search.toLowerCase());
   });
 
   return (
@@ -64,8 +75,11 @@ export default function Messenger() {
           <div>
             {filteredSearch
               ? filteredSearch.map((message, index) => (
-                  <Link to={`/messenger/${message.sentToId._id}`} key={index}>
-                    <MessageCard fullname={message.sentToId.fullname} image={message.sentToId.profileImage} />
+                  <Link to={`/messenger/${message.sentFromId._id}`} key={index}>
+                    <MessageCard
+                      fullname={message.sentFromId.fullname}
+                      image={message.sentFromId.profileImage}
+                    />
                   </Link>
                 ))
               : ""}

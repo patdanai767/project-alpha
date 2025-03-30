@@ -27,21 +27,17 @@ const Register = () => {
   }, []);
 
   const handleSelectTrainee = () => {
-    setSelectTypeRole("Trainee");
+    setSelectTypeRole("trainee");
     setDetails((prev) => ({ ...prev, role: "trainee" }));
   };
 
   const handleSelectTrainer = () => {
-    setSelectTypeRole("Trainer");
+    setSelectTypeRole("trainer");
     setDetails((prev) => ({ ...prev, role: "trainer" }));
   };
 
   const handleChange = (e) => {
     setDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const test = (e) => {
-    console.log("I sus");
   };
 
   const handleRegister = async (e) => {
@@ -87,7 +83,7 @@ const Register = () => {
                 <div className="grid grid-cols-2 gap-10">
                   <div
                     onClick={() => handleSelectTrainee()}
-                    className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
+                    className="flex justify-center border p-2 border-black cursor-pointer bg-black text-white transition-colors"
                   >
                     Trainee account
                   </div>
@@ -173,7 +169,7 @@ const Register = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex gap-3 items-center mb-4">
+                  {/* <div className="flex gap-3 items-center mb-4">
                     <input type="radio" />
                     <div>
                       I accept the terms of use and{" "}
@@ -181,7 +177,7 @@ const Register = () => {
                         Privacy Policy
                       </a>
                     </div>
-                  </div>
+                  </div> */}
                   <div
                     className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded"
                     onClick={handleRegister}
@@ -210,7 +206,7 @@ const Register = () => {
                 <div>
                   <div className="font-semibold text-3xl">
                     <div></div>
-                    Register For <span className="text-green/80">
+                    Register For <span className="text-blue/80">
                       Trainer
                     </span>{" "}
                   </div>
@@ -227,7 +223,7 @@ const Register = () => {
                   </div>
                   <div
                     onClick={() => handleSelectTrainer()}
-                    className="flex justify-center border p-2 border-black cursor-pointer hover:bg-black hover:text-white transition-colors"
+                    className="flex justify-center border p-2 border-black cursor-pointer bg-black text-white transition-colors"
                   >
                     Trainer account
                   </div>
@@ -307,7 +303,7 @@ const Register = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex gap-3 items-center mb-4">
+                  {/* <div className="flex gap-3 items-center mb-4">
                     <input type="radio" />
                     <div>
                       I accept the terms of use and{" "}
@@ -315,7 +311,7 @@ const Register = () => {
                         Privacy Policy
                       </a>
                     </div>
-                  </div>
+                  </div> */}
                   <div
                     className="border cursor-pointer flex justify-center bg-blue text-white py-3 rounded"
                     onClick={handleRegister}
