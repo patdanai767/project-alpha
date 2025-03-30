@@ -24,6 +24,7 @@ export default function Overviewevents() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = reviews?.slice(indexOfFirstItem, indexOfLastItem);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     fetchData();

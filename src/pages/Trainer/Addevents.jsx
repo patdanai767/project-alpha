@@ -73,6 +73,8 @@ export default function Addevents() {
           title: "Success!",
           icon: "success",
           timer: 2000,
+        }).then(() => {
+          window.location.reload();
         });
       });
     } catch (error) {
