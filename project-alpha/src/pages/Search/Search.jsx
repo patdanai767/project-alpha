@@ -29,8 +29,8 @@ function Search_() {
   const filteredCourses = courses.filter((course) => {
     const matchesGender =
       filters.gender === "All" ||
-      (filters.gender === "Male" && course.createdBy.sex === "Male") ||
-      (filters.gender === "Female" && course.createdBy.sex === "Female") ||
+      (filters.gender === "Male" && course.createdBy.sex === "Male".toLowerCase()) ||
+      (filters.gender === "Female" && course.createdBy.sex === "Female".toLowerCase()) ||
       (filters.gender === "LGBTQ+" &&
         course.createdBy.sex === "lgbtq+".toLowerCase());
     const matchesPrice =
@@ -43,10 +43,8 @@ function Search_() {
       (filters.duration === "60-min" && course.duration <= 60);
     const matchesActivity =
       filters.activity === "All" ||
-      (filters.activity === "Dancing" &&
-        course.title === "Dancing") ||
-      (filters.activity === "Weight Training" &&
-        course.title === "Weight training");
+      (filters.activity === "Dancing" && course.title === "Dancing") ||
+      (filters.activity === "Weight Training" && course.title === "Weight training");
     const matchesTitle =
       filters.title === "" ||
       course.title.toLowerCase().includes(filters.title.toLowerCase());
