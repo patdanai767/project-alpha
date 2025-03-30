@@ -6,7 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import axios from "axios";
 
 function Search_() {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
   const [courses, setCourse] = useState([]);
   const itemsPerPage = 3; // จำนวนข้อมูลต่อหน้า
@@ -30,8 +30,10 @@ function Search_() {
   const filteredCourses = courses.filter((course) => {
     const matchesGender =
       filters.gender === "All" ||
-      (filters.gender === "Male" && course.createdBy.sex === "Male".toLowerCase()) ||
-      (filters.gender === "Female" && course.createdBy.sex === "Female".toLowerCase()) ||
+      (filters.gender === "Male" &&
+        course.createdBy.sex === "Male".toLowerCase()) ||
+      (filters.gender === "Female" &&
+        course.createdBy.sex === "Female".toLowerCase()) ||
       (filters.gender === "LGBTQ+" &&
         course.createdBy.sex === "lgbtq+".toLowerCase());
     const matchesPrice =
@@ -45,10 +47,13 @@ function Search_() {
     const matchesActivity =
       filters.activity === "All" ||
       (filters.activity === "Dancing" && course.title === "Dancing") ||
-      (filters.activity === "Weight Training" && course.title === "Weight training");
+      (filters.activity === "Weight Training" &&
+        course.title === "Weight training");
     const matchesTitle =
       filters.title === "" ||
-      course.title.toLowerCase().includes(filters?.createdBy.fullname.toLowerCase());
+      course?.createdBy.fullname
+        .toLowerCase()
+        .includes(filters?.title.toLowerCase());
     const matchesStatus = course.status !== "draft";
 
     return (
