@@ -4,6 +4,7 @@ import FilterBar from "../../components/FilterBar";
 import { trainers } from "../../constants/TrainerData";
 import Pagination from "../../components/Pagination/Pagination";
 import axios from "axios";
+import Footer from "../../components/Navbar/Footer";
 
 function Search_() {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -75,6 +76,8 @@ function Search_() {
   const currentItems = filteredCourses.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
+    <>
+    
     <div className="flex lg:justify-center mt-[82px] min-h-screen">
       <div className="flex-col">
         <FilterBar filters={filters} setFilters={setFilters} />
@@ -105,6 +108,8 @@ function Search_() {
         />
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
 

@@ -434,7 +434,7 @@ const Home = () => {
         {/* footer */}
         <div className="w-full bg-gray">
           <div className="max-w-[1920px] mx-auto text-sky px-8 pt-8 pb-8">
-            <p>@PROJECT_ALPHA</p>
+            <p>© 2025 TrainerNext</p>
           </div>
         </div>
       </div>

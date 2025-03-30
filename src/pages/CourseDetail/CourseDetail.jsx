@@ -25,6 +25,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../config";
 import Cookies from "js-cookie";
+import Footer from "../../components/Navbar/Footer";
 
 function CourseDetail() {
   const navigate = useNavigate();
@@ -658,6 +659,7 @@ function CourseDetail() {
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   );
 }
