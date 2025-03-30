@@ -21,24 +21,27 @@ export default function Mycourse() {
 
   useEffect(() => {
     fetchData();
+    
   }, []);
 
   const fetchData = async () => {
     try {
       const res = await axios.get("/api/meeting/myMeeting", config.headers());
       const resUser = await axios.get("/api/user/profile", config.headers());
-      const resCoruse = await axios.get("/api/course");
+      const resCourse = await axios.get("/api/course");
       setRecentData(res.data.filter((val) => val.status === "continue"));
       setData(
         res.data.filter(
           (val) => val.status === "continue" || val.status === "finish"
         )
       );
-      setCourse(
-        resCoruse.data.filter((course) =>
-          course.trainees.includes(resUser.data._id)
-        )
+      
+      const checkTrainees = resCourse.data.filter(course =>
+        course.trainees.some(trainee => trainee._id === resUser.data._id)
       );
+      setCourse(checkTrainees);
+      
+      
       setUser(resUser.data);
     } catch (error) {
       throw new Error(error);
@@ -69,8 +72,11 @@ export default function Mycourse() {
             {course.map((val) => (
               <TrainerCard
                 key={val._id}
-                title={val.title}
-                thumbnail={val.thumbnail}
+                title={val.createdBy.username}
+                thumbnail={val.createdBy.profileImage}
+                category = {val.title}
+                date = {val.DateBusiness}
+                time = {val.timeBusiness}
               />
             ))}
           </div>
