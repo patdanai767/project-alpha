@@ -1,6 +1,6 @@
 import MessageCard from "../../components/Card/MessageCard";
 import { ChevronLeft, Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -17,6 +17,7 @@ export default function MessengerDetails() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     if (!Cookies.get("AUTH_KEY")) {
@@ -34,7 +35,10 @@ export default function MessengerDetails() {
       `${API_BASE_URL}/conversation/myMessage`,
       config.headers()
     );
-    const resUser = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
+    const resUser = await axios.get(
+      `${API_BASE_URL}/user/profile`,
+      config.headers()
+    );
     setMessages(res.data);
     setUser(resUser.data);
   };
@@ -80,7 +84,9 @@ export default function MessengerDetails() {
     );
   });
 
-  const filteredName = filteredData.filter((item) => item.sentFromId._id === id);
+  const filteredName = filteredData.filter(
+    (item) => item.sentFromId._id === id
+  );
 
   const filteredSearch = filteredData.filter((item) => {
     return search.toLowerCase === ""
@@ -90,6 +96,12 @@ export default function MessengerDetails() {
 
   const handleBack = () => {
     navigate("/messenger");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      buttonRef.current.click();
+    }
   };
 
   return (
@@ -141,14 +153,14 @@ export default function MessengerDetails() {
             <div className="px-[16px] sm:px-[32px]">
               {filterMessages
                 ? filterMessages.map((message, index) => (
-                  <MessageBox
-                    key={index}
-                    text={message.content}
-                    sender={senderIdentify(message)}
-                    date={message.createdAt}
-                    image={message.sentFromId.profileImage}
-                  />
-                ))
+                    <MessageBox
+                      key={index}
+                      text={message.content}
+                      sender={senderIdentify(message)}
+                      date={message.createdAt}
+                      image={message.sentFromId.profileImage}
+                    />
+                  ))
                 : ""}
             </div>
           </div>
@@ -159,6 +171,7 @@ export default function MessengerDetails() {
                 className="h-[50px] rounded-[12px] w-full px-4"
                 placeholder="Message"
                 value={sendMessage}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setSendMessage(e.target.value)}
               />
               <motion.div
@@ -167,6 +180,7 @@ export default function MessengerDetails() {
                 }}
                 className="p-[13px] bg-sky rounded-[12px] cursor-pointer"
                 onClick={() => submitMessage()}
+                ref={buttonRef}
               >
                 <Send color="blue" />
               </motion.div>
