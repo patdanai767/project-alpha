@@ -10,7 +10,7 @@ const HeartButton = ({ courseId, isLike }) => {
   }, []);
 
   const fetchLike = async () => {
-    const res = await axios.get(`/api/course/myFavorite`, config.headers());
+    const res = await axios.get(`${API_BASE_URL}/course/myFavorite`, config.headers());
     const isLiked = res.data.find((val) => val._id === courseId);
     if (isLiked) {
       setLiked(true);
@@ -19,7 +19,7 @@ const HeartButton = ({ courseId, isLike }) => {
 
   const handleLike = async () => {
     const res = await axios.patch(
-      `/api/course/${courseId}/like`,
+      `${API_BASE_URL}/course/${courseId}/like`,
       {},
       config.headers()
     );
@@ -30,7 +30,7 @@ const HeartButton = ({ courseId, isLike }) => {
 
   const handleUnlike = async () => {
     const res = await axios.patch(
-      `/api/course/${courseId}/removeLike`,
+      `${API_BASE_URL}/course/${courseId}/removeLike`,
       {},
       config.headers()
     );
