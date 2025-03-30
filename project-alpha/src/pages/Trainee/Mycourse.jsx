@@ -17,6 +17,7 @@ export default function Mycourse() {
     endTime: "",
     user: "",
   });
+  const [course, setCourse] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -26,10 +27,16 @@ export default function Mycourse() {
     try {
       const res = await axios.get("/api/meeting/myMeeting", config.headers());
       const resUser = await axios.get("/api/user/profile", config.headers());
+      const resCoruse = await axios.get("/api/course");
       setRecentData(res.data.filter((val) => val.status === "continue"));
       setData(
         res.data.filter(
           (val) => val.status === "continue" || val.status === "finish"
+        )
+      );
+      setCourse(
+        resCoruse.data.filter((course) =>
+          course.trainees.includes(resUser.data._id)
         )
       );
       setUser(resUser.data);
@@ -59,10 +66,13 @@ export default function Mycourse() {
         <div className="mb-[32px]">
           <div className="my-[32px] text-[24px]">My trainer</div>
           <div className="grid grid-cols-4 gap-16 mx-16">
-            <TrainerCard />
-            <TrainerCard />
-            <TrainerCard />
-            <TrainerCard />
+            {course.map((val) => (
+              <TrainerCard
+                key={val._id}
+                title={val.title}
+                thumbnail={val.thumbnail}
+              />
+            ))}
           </div>
         </div>
         <div className="mb-[32px]">
