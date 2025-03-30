@@ -7,8 +7,7 @@ const Homecard = ({ name, image, category }) => {
       <div className="w-60 lg:w-80 h-full flex flex-col">
         <img
           src={image}
-          alt={name}
-          className="w-60 lg:w-80 h-60 lg:h-80 rounded-t-xl"
+          className="w-60 lg:w-80 h-60 lg:h-80 rounded-t-xl object-cover"
         />
         <div className="flex flex-col items-start px-3 py-2 w-full overflow-hidden border-t-2 border-black bg-blue/80 rounded-b-xl group-hover:bg-green transition duration-200 ease-in-out">
           <p className="text-3xl lg:text-4xl text-left font-bold pb-2 w-full truncate whitespace-nowrap">
