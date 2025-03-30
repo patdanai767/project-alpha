@@ -6,6 +6,7 @@ import { config } from "../../config";
 export default function DropdownProfile({ isDropdownOpen }) {
   const authAction = useAuth();
   const [user, setUser] = useState({});
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const toggleLogout = () => {
     try {
@@ -20,7 +21,7 @@ export default function DropdownProfile({ isDropdownOpen }) {
   }, []);
 
   const fetchData = async () => {
-    const res = await axios.get("/api/user/profile", config.headers());
+    const res = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
     setUser(res.data);
   };
 

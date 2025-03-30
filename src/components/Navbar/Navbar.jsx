@@ -30,6 +30,7 @@ const Navbar = () => {
   const [user, setUser] = useState({});
   const { token } = useAuth();
   const authAction = useAuth();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     if (!token) {
@@ -38,7 +39,7 @@ const Navbar = () => {
     } else {
       const fetchData = async () => {
         try {
-          const res = await axios.get("/api/user/profile", config.headers());
+          const res = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
           setUser(res.data);
         } catch (error) {
           throw new Error(error);

@@ -19,6 +19,7 @@ const Register = () => {
   });
   const navigate = useNavigate();
   const authAction = useAuth();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     if (Cookies.get("AUTH_KEY")) {
@@ -53,7 +54,7 @@ const Register = () => {
         status: null,
       };
       if (details.status === "trainer") {
-        await axios.post("/api/course", payload, config.headers());
+        await axios.post(`${API_BASE_URL}/course`, payload, config.headers());
       }
       authAction.registerAction(details);
     } catch (error) {

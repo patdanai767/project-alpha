@@ -6,12 +6,13 @@ import Swal from "sweetalert2";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [token, setToken] = useState(Cookies.get("AUTH_KEY") || "");
   const navigate = useNavigate();
 
   const registerAction = async (data) => {
     try {
-      const res = await axios.post("/api/auth/register", data, {
+      const res = await axios.post(`${API_BASE_URL}/auth/register`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -30,7 +31,7 @@ const AuthProvider = ({ children }) => {
 
   const loginAction = async (data) => {
     try {
-      const res = await axios.post("/api/auth/login", data, {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

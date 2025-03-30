@@ -16,6 +16,7 @@ export default function MessengerDetails() {
   const [reload, setReload] = useState(false);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     if (!Cookies.get("AUTH_KEY")) {
@@ -30,10 +31,10 @@ export default function MessengerDetails() {
 
   const fetchData = async () => {
     const res = await axios.get(
-      "/api/conversation/myMessage",
+      `${API_BASE_URL}/conversation/myMessage`,
       config.headers()
     );
-    const resUser = await axios.get("/api/user/profile", config.headers());
+    const resUser = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
     setMessages(res.data);
     setUser(resUser.data);
   };
@@ -46,7 +47,7 @@ export default function MessengerDetails() {
         mediaURL: "",
       };
       await axios.post(
-        "/api/conversation/sentMessage",
+        `${API_BASE_URL}/conversation/sentMessage`,
         payload,
         config.headers()
       );

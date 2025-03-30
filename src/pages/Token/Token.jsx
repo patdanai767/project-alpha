@@ -12,6 +12,7 @@ export default function Token() {
       navigate("/");
     }
   }, []);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleBuy = async (token) => {
     try {
@@ -32,7 +33,7 @@ export default function Token() {
               coin: token,
               status: "add",
             };
-            await axios.post("/api/coins", payload, config.headers());
+            await axios.post(`${API_BASE_URL}/coins`, payload, config.headers());
             window.location.reload();
           });
         }

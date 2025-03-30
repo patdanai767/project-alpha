@@ -5,13 +5,14 @@ import { config } from "../config";
 
 const SubNavbar = () => {
   const [user, setUser] = useState("");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     fetchUserData();
   }, []);
 
   const fetchUserData = async () => {
     try {
-      const res = await axios.get("/api/user/profile", config.headers());
+      const res = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
       setUser(res.data);
     } catch (error) {
       throw new Error(error);

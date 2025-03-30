@@ -44,6 +44,7 @@ function CourseDetail() {
       setShowReview(4);
     }
   };
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     reData_();
@@ -55,7 +56,7 @@ function CourseDetail() {
   }, []);
 
   const reData_ = async () => {
-    const res = await axios.get(`/api/course/${id}`);
+    const res = await axios.get(`${API_BASE_URL}/course/${id}`);
     setCourseDetail(res.data);
     setRating(res.data.rating);
     setIdReview(res.data.rating.map((review) => review.createdBy));
@@ -71,10 +72,10 @@ function CourseDetail() {
 
   const fetchEducation = async () => {
     try {
-      const courseRes = await axios.get(`/api/course/${id}`);
+      const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
       const trainerId = courseRes.data.createdBy?._id;
 
-      const res = await axios.get(`/api/education`);
+      const res = await axios.get(`${API_BASE_URL}/education`);
       const filteredEducation = res.data.filter(
         (edu) => edu.createdBy._id === trainerId
       );
@@ -88,10 +89,10 @@ function CourseDetail() {
 
   const fetchWorkExps = async () => {
     try {
-      const courseRes = await axios.get(`/api/course/${id}`);
+      const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
       const trainerId = courseRes.data.createdBy?._id;
 
-      const res = await axios.get(`/api/work-exps`);
+      const res = await axios.get(`${API_BASE_URL}/work-exps`);
       const filteredWorkExps = res.data.filter(
         (work) => work.createdBy._id === trainerId
       );
@@ -105,10 +106,10 @@ function CourseDetail() {
 
   const fetchCertifies = async () => {
     try {
-      const courseRes = await axios.get(`/api/course/${id}`);
+      const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
       const trainerId = courseRes.data.createdBy?._id;
 
-      const res = await axios.get(`/api/certifies`);
+      const res = await axios.get(`${API_BASE_URL}/certifies`);
       const filteredCertifies = res.data.filter(
         (cer) => cer.createdBy._id === trainerId
       );
@@ -170,7 +171,7 @@ function CourseDetail() {
     setIsOpen5(!isOpen5);
   }; // ฟังก์ชันสำหรับเปิด/ปิด messagebox
   const sendMessage = async () => {
-    const courseRes = await axios.get(`/api/course/${id}`);
+    const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
     const trainerId = courseRes.data.createdBy?._id;
     const payload = {
       content: message,
@@ -189,7 +190,7 @@ function CourseDetail() {
       return;
     }
 
-    await axios.post("/api/conversation/sentMessage", payload, {
+    await axios.post(`${API_BASE_URL}/conversation/sentMessage`, payload, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
@@ -204,10 +205,10 @@ function CourseDetail() {
   const [enroll, setEnroll] = useState();
 
   const fetchProfile = async () => {
-    const courseRes = await axios.get(`/api/course/${id}`);
+    const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
     const traineesID = courseRes.data.trainees;
     const fetchUserProfile = await axios.get(
-      "/api/user/profile",
+      `${API_BASE_URL}/user/profile`,
       config.headers()
     );
     const checkUser = traineesID
@@ -224,7 +225,7 @@ function CourseDetail() {
         showConfirmButton: "OK",
       });
     }
-    const UserProfile = await axios.get("/api/user/profile", config.headers());
+    const UserProfile = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
     try {
       Swal.fire({
         title: "Would you like to buy ?",
@@ -249,11 +250,11 @@ function CourseDetail() {
                 status: "add",
                 userId: coursesData.createdBy._id,
               };
-              await axios.post("/api/coins", payload, config.headers());
-              await axios.post("/api/coins", payload1, config.headers());
+              await axios.post(`${API_BASE_URL}/coins`, payload, config.headers());
+              await axios.post(`${API_BASE_URL}/coins`, payload1, config.headers());
 
               await axios.patch(
-                `/api/course/${id}/enroll`,
+                `${API_BASE_URL}/course/${id}/enroll`,
                 {},
                 {
                   headers: {

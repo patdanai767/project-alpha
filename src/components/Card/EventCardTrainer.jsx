@@ -32,6 +32,7 @@ export default function EventCardTrainer({
   const [endDate, setEndDate] = useState(new Date(endTime));
   const [trainees, setTrainees] = useState();
   const currentDate = new Date();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     fetchData();
@@ -40,9 +41,9 @@ export default function EventCardTrainer({
   const fetchData = async () => {
     try {
       if (id) {
-        const res = await axios.get(`/api/meeting/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/meeting/${id}`);
         const resCourse = await axios.get(
-          "/api/course/myCourse",
+          `${API_BASE_URL}/course/myCourse`,
           config.headers()
         );
         setData({
@@ -112,7 +113,7 @@ export default function EventCardTrainer({
             icon: "success",
             timer: 2000,
           }).then(async () => {
-            await axios.delete(`/api/meeting/${id}`, config.headers());
+            await axios.delete(`${API_BASE_URL}/meeting/${id}`, config.headers());
             window.location.reload();
           });
         }
@@ -125,7 +126,7 @@ export default function EventCardTrainer({
   const handleFeedback = async () => {
     try {
       await axios
-        .patch(`/api/meeting/${id}`, { status: "finish" }, config.headers())
+        .patch(`${API_BASE_URL}/meeting/${id}`, { status: "finish" }, config.headers())
         .then(() => {
           Swal.fire({
             title: "Meeting is ended!",
@@ -152,7 +153,7 @@ export default function EventCardTrainer({
         endAt: endDate,
       };
       await axios
-        .patch(`/api/meeting/${id}`, payload, config.headers())
+        .patch(`${API_BASE_URL}/meeting/${id}`, payload, config.headers())
         .then(() => {
           Swal.fire({
             title: "Already updated!",

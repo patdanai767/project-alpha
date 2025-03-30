@@ -24,6 +24,7 @@ function Dashboard() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     fetchData();
@@ -31,10 +32,10 @@ function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("/api/meeting/myMeeting", config.headers());
-      const resUser = await axios.get("/api/user/profile", config.headers());
+      const res = await axios.get(`${API_BASE_URL}/meeting/myMeeting`, config.headers());
+      const resUser = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
       const resCourse = await axios.get(
-        "/api/course/myCourse",
+        `${API_BASE_URL}/course/myCourse`,
         config.headers()
       );
       setUser(resUser.data);

@@ -23,6 +23,7 @@ export default function EventCard({
   const [review, setReview] = useState();
   const [totalStars] = useState(5);
   const [course, setCourse] = useState();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     fetchData();
@@ -30,7 +31,7 @@ export default function EventCard({
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("/api/course");
+      const res = await axios.get(`${API_BASE_URL}/course`);
       setCourse(res.data.find((val) => val.createdBy._id === trainerData?._id));
     } catch (error) {
       throw new Error(error);
@@ -71,12 +72,12 @@ export default function EventCard({
     try {
       const payload = { ...review, point: rating };
       await axios.patch(
-        `/api/meeting/${id}`,
+        `${API_BASE_URL}/meeting/${id}`,
         { status: "end" },
         config.headers()
       );
       await axios
-        .patch(`/api/course/${course._id}/review`, payload, config.headers())
+        .patch(`${API_BASE_URL}/course/${course._id}/review`, payload, config.headers())
         .then(() => {
           Swal.fire({
             title: "Success!",

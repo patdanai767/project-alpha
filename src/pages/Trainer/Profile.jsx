@@ -28,6 +28,7 @@ const Profile = () => {
     timeBusiness: "09:00 - 17:00",
     DateBusiness: "Mon - Fri",
   });
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     if (!Cookies.get("AUTH_KEY")) {
@@ -55,7 +56,7 @@ const Profile = () => {
 
   const fetchDataProfile = async () => {
     try {
-      await axios.get("/api/user/profile", config.headers()).then((current) => {
+      await axios.get(`${API_BASE_URL}/user/profile`, config.headers()).then((current) => {
         setUser(current.data);
         setCurrent({
           username: current.data.username,
@@ -69,7 +70,7 @@ const Profile = () => {
         `http://localhost:8080/course/mycourse`,
         config.headers()
       );
-      const cats = await axios.get("/api/category");
+      const cats = await axios.get(`${API_BASE_URL}/category`);
       setActivities(cats.data);
 
       setData(res.data);

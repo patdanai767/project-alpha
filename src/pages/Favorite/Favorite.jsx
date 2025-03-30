@@ -7,6 +7,7 @@ import { config } from "../../config";
 export default function Favorite() {
   const [currentPage, setCurrentPage] = useState(1);
   const [courses, setCourse] = useState([]);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const itemsPerPage = 3;
 
   useEffect(() => {
@@ -14,7 +15,7 @@ export default function Favorite() {
   }, []);
 
   const reData = async () => {
-    const res = await axios.get("/api/course/myFavorite", config.headers());
+    const res = await axios.get(`${API_BASE_URL}/course/myFavorite`, config.headers());
     setCourse(res.data);
   };
 

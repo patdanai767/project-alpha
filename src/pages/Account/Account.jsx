@@ -15,6 +15,7 @@ export default function Account() {
   const [uploadPic, setUploadPic] = useState();
   const [coinData, setCoinData] = useState([]);
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   useEffect(() => {
     if (!Cookies.get("AUTH_KEY")) {
@@ -25,12 +26,12 @@ export default function Account() {
 
   const fetchData = async () => {
     try {
-      await axios.get("/api/user/profile", config.headers()).then((res) => {
+      await axios.get(`${API_BASE_URL}/user/profile`, config.headers()).then((res) => {
         setUser(res.data);
         setData({ username: res.data.username, fullname: res.data.fullname });
         setImage(res.data.profileImage);
       });
-      await axios.get("/api/coins/myCoins", config.headers()).then((res) => {
+      await axios.get(`${API_BASE_URL}/coins/myCoins`, config.headers()).then((res) => {
         setCoinData(res.data);
       });
     } catch (error) {
@@ -56,13 +57,13 @@ export default function Account() {
         };
 
         await axios
-          .patch(`/api/user/${user._id}`, payloadUpdate, config.headers())
+          .patch(`${API_BASE_URL}/user/${user._id}`, payloadUpdate, config.headers())
           .then(() => {
             window.location.reload();
           });
       } else {
         await axios
-          .patch(`/api/user/${user._id}`, data, config.headers())
+          .patch(`${API_BASE_URL}/user/${user._id}`, data, config.headers())
           .then(() => {
             window.location.reload();
           });

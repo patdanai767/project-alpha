@@ -32,14 +32,14 @@ export default function Overviewevents() {
   const fetchData = async () => {
     try {
       const resEvent = await axios.get(
-        "/api/meeting/myMeeting",
+        `${API_BASE_URL}/meeting/myMeeting`,
         config.headers()
       );
       const resCourse = await axios.get(
-        "/api/course/myCourse",
+        `${API_BASE_URL}/course/myCourse`,
         config.headers()
       );
-      const resUser = await axios.get("/api/user/profile", config.headers());
+      const resUser = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
       setMyCourse(resCourse.data);
       setUser(resUser.data);
       setReviews(resCourse.data.rating);

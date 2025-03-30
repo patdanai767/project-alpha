@@ -20,6 +20,7 @@ export default function Addevents() {
   const [trainees, setTrainees] = useState([]);
   const [user, setUser] = useState();
   const [filterData, setFilterData] = useState();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     fetchData();
@@ -27,12 +28,12 @@ export default function Addevents() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("/api/course/mycourse", config.headers());
+      const res = await axios.get(`${API_BASE_URL}/course/mycourse`, config.headers());
       const resEvent = await axios.get(
-        "/api/meeting/myMeeting",
+        `${API_BASE_URL}/meeting/myMeeting`,
         config.headers()
       );
-      const resUser = await axios.get("/api/user/profile", config.headers());
+      const resUser = await axios.get(`${API_BASE_URL}/user/profile`, config.headers());
       setUser(resUser.data);
       setFilterData(resEvent.data.filter((val) => val.status === "continue"));
       setTrainees(res.data.trainees);
@@ -59,7 +60,7 @@ export default function Addevents() {
         endAt: endDate,
         status: "continue",
       };
-      await axios.post("/api/meeting", payload, config.headers()).then(() => {
+      await axios.post(`${API_BASE_URL}/meeting`, payload, config.headers()).then(() => {
         Swal.fire({
           title: "Success!",
           icon: "success",
