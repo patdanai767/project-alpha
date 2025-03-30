@@ -82,7 +82,11 @@ export default function EventCard({
             title: "Success!",
             icon: "success",
             timer: 2000,
+
+          }).then(() => {
+            window.location.reload()
           });
+          
         });
     } catch (error) {
       throw new Error(error);
