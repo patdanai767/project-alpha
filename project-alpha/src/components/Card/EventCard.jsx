@@ -95,52 +95,57 @@ export default function EventCard({
 
   return (
     <>
-      <div className="p-3 flex border mx-14 border-black rounded-lg">
-        <div className="flex items-center w-full justify-between">
-          <div className="flex">
-            <img
-              src={trainerData?.profileImage}
-              className="w-[50px] h-[50px] object-cover bg-lime mr-4 rounded-lg border-none"
-            />
-            <div>
-              <div className="font-semibold text-[20px]">
-                {trainerData?.fullname}
+      {trainerData?._id ? (
+        <div className="p-3 flex border mx-14 border-black rounded-lg">
+          <div className="flex items-center w-full justify-between">
+            <div className="flex">
+              <img
+                src={trainerData?.profileImage}
+                className="w-[50px] h-[50px] object-cover bg-lime mr-4 rounded-lg border-none"
+              />
+              <div>
+                <div className="font-semibold text-[20px]">
+                  {trainerData?.fullname}
+                </div>
+                <div>{title}</div>
               </div>
-              <div>{title}</div>
             </div>
+            <div>{formatData(startedTime)}</div>
+            <div>
+              {formatDate(startedTime)} - {formatDate(endTime)}
+            </div>
+            {statusFeed === "continue" && statusFeed ? (
+              <motion.div
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                className="items-center gap-1 flex cursor-pointer rounded-lg border p-1 px-6 border-slate-500 text-slate-500"
+              >
+                <div>Cancel reminder</div>{" "}
+                <Bell className="w-[20px] h-[20px]" />
+              </motion.div>
+            ) : (
+              <motion.div
+                onClick={handleReview}
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                className="items-center gap-1 flex cursor-pointer rounded-lg border p-1 px-6 border-green text-green"
+              >
+                <div>Review</div> <Star className="w-[20px] h-[20px]" />
+              </motion.div>
+            )}
           </div>
-          <div>{formatData(startedTime)}</div>
-          <div>
-            {formatDate(startedTime)} - {formatDate(endTime)}
-          </div>
-          {statusFeed === "continue" && statusFeed ? (
-            <motion.div
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-              className="items-center gap-1 flex cursor-pointer rounded-lg border p-1 px-6 border-slate-500 text-slate-500"
-            >
-              <div>Cancel reminder</div> <Bell className="w-[20px] h-[20px]" />
-            </motion.div>
-          ) : (
-            <motion.div
-              onClick={handleReview}
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-              className="items-center gap-1 flex cursor-pointer rounded-lg border p-1 px-6 border-green text-green"
-            >
-              <div>Review</div> <Star className="w-[20px] h-[20px]" />
-            </motion.div>
-          )}
         </div>
-      </div>
+      ) : (
+        ""
+      )}
 
       <Modal open={openModal}>
         <div className="justify-items-end mt-3 mr-3">

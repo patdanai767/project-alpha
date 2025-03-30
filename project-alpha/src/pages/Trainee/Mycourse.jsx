@@ -52,7 +52,7 @@ export default function Mycourse() {
         <div className="text-[36px] font-semibold">Welcome, Trainee</div>
         <div className="my-[32px]">
           <div className="text-[24px] my-[32px]">Upcoming course</div>
-          {recentData ? (
+          {recentData? (
             <EventCard
               key={recentData[0]?._id}
               id={recentData[0]?._id}
