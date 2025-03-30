@@ -136,22 +136,22 @@ export default function MessengerDetails() {
               {filteredName[0] ? filteredName[0].sentFromId.fullname : ""}
             </div>
           </div>
-          <div className="min-h-[660px] overflow-x-scroll">
-            <div className="px-[16px] sm:px-[32px] flex-grow">
+          <div className="overflow-auto flex-grow">
+            <div className="px-[16px] sm:px-[32px]">
               {filterMessages
                 ? filterMessages.map((message, index) => (
-                    <MessageBox
-                      key={index}
-                      text={message.content}
-                      sender={senderIdentify(message)}
-                      date={message.createdAt}
-                      image={message.sentFromId.profileImage}
-                    />
-                  ))
+                  <MessageBox
+                    key={index}
+                    text={message.content}
+                    sender={senderIdentify(message)}
+                    date={message.createdAt}
+                    image={message.sentFromId.profileImage}
+                  />
+                ))
                 : ""}
             </div>
           </div>
-          <div className="bg-lightblue">
+          <div className="bg-lightblue sticky bottom-0">
             <div className="flex p-[32px] gap-[8px] items-center">
               <input
                 type="text"
