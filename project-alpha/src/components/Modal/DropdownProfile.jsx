@@ -46,7 +46,7 @@ export default function DropdownProfile({ isDropdownOpen }) {
           </a>
           <a
             className="flex flex-col p-2 cursor-pointer border-b border-lightblue hover:bg-lightblue hover:text-sky"
-            href="/dashboard"
+            href={user.role === "trainer" ? `/dashboard` : `/mycourse`}
           >
             My course
           </a>
