@@ -30,16 +30,19 @@ export default function Favorite() {
         </div>
 
         <div className="mt-[15px]">
-          {currentItems.map((val, index) => (
+          {currentItems.map((val) => (
             <Searchcard
-              key={index}
+              key={val._id}
               id={val._id}
-              title={val.title}
+              title={val.createdBy.fullname}
               description={val.description}
               price={val.price}
               duration={val.duration}
-              thumbnail={val.thumbnail}
-              //category={val.category.title}
+              thumbnail={val.createdBy.profileImage}
+              category={val.title}
+              status={val.status}
+              date={val.DateBusiness}
+              time={val.timeBusiness}
               isLike={true}
             />
           ))}

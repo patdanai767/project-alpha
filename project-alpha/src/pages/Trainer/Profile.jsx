@@ -14,11 +14,11 @@ const Profile = () => {
   const [uploadPic, setUploadPic] = useState();
   const [user, setUser] = useState({ email: "" });
   const [id, setID] = useState("");
-
   const [current, setCurrent] = useState({
     username: "",
     fullname: "",
   });
+  const [activities, setActivities] = useState([]);
   const [data, setData] = useState({
     title: "Building body for Arm-wrestling",
     description:
@@ -29,32 +29,28 @@ const Profile = () => {
     DateBusiness: "Mon - Fri",
   });
 
-  const [profile, setProfile] = useState({
-    // category: "",
-    // rating: "",
-    // title: "Building body for Arm-wrestling",
-    description: "",
-    DateBusiness: "",
-    timeBusiness: "",
-    status: "",
-    //   "Arm-wrestling is one of the most powerful competetive in the world where every single country wants to compete how strong they are.",
-    // price: 800,
-    // duration: 30,
-    // thumbnail: "Thumbnail.jpg",
-    // status: "draft",
+  useEffect(() => {
+    if (!Cookies.get("AUTH_KEY")) {
+      navigate("/");
+    }
 
-    // dateBusiness: "Mon - Fri",
-    // _id: "",
-    // username: "",
+    fetchDataProfile();
+    fetchDataEducation();
+    fetchDataCertifies();
+    fetchDataexps();
+  }, []);
+
+  const [profile, setProfile] = useState({
+    description: "",
+    DateBusiness: "Mon - Fri",
+    timeBusiness: "09:00 - 17:00",
+    status: "",
   });
 
-  const activities = profile.title
-    ? [profile.title]
-    : ["Weight Training", "Running", "Cycling", "Swimming", "Yoga"];
+  // const activities = profile?.title
+  //   ? [profile?.title]
+  //   : ["Weight Training", "Running", "Cycling", "Swimming", "Yoga"];
   const selectstatus = ["draft", "available", "unavailable"];
-
-  //dateTime
-
   const [image, setImage] = useState([{}]);
 
   const fetchDataProfile = async () => {
@@ -73,23 +69,25 @@ const Profile = () => {
         `http://localhost:8080/course/mycourse`,
         config.headers()
       );
+      const cats = await axios.get("/api/category");
+      setActivities(cats.data);
 
       setData(res.data);
       console.log(res.data);
 
       setProfile(res.data);
+
       // } else {
       //   console.warn("no api data");
       // }
       if (res.data.timeBusiness) {
-        const [start, end] = res.data.timeBusiness.split("-");
-        setStartTime(start.trim());
-        setEndTime(end.trim());
+        setStartTime(res.data.timeBusiness.split("-")[0].trim());
+        setEndTime(res.data.timeBusiness.split("-")[1].trim());
       }
       if (res.data.DateBusiness) {
         const daysArray = res.data.DateBusiness.split(", ").map((day) =>
           day.trim()
-        ); 
+        );
         setSelectedDays(daysArray);
       }
     } catch (error) {
@@ -97,17 +95,12 @@ const Profile = () => {
     }
   };
 
-  const [dateTime, setDateTime] = useState({
-    DateBusiness: "",
-    timeBusiness: "",
-  });
-
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const [selectedDays, setSelectedDays] = useState([]);
-  const [start, end] = profile.timeBusiness.split("-");
-  const [startTime, setStartTime] = useState(start);
-  const [endTime, setEndTime] = useState(end);
+  // const [start, end] = timeBusiness.split("-");
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
 
   const generateTimeOptions = () => {
     const times = [];
@@ -206,28 +199,13 @@ const Profile = () => {
 
       const payloadUpdate = {
         ...profile,
-        timeBusiness: dateTime.timeBusiness,
-        DateBusiness: dateTime.DateBusiness,
       };
 
       await axios.patch(
-        `http://localhost:8080/course/${profile._id}`,
-        profile,
+        `http://localhost:8080/course/${profile?._id}`,
+        payloadUpdate,
         config.headers()
       );
-      console.log("dateTime", profile);
-
-      // try {
-      // const payloadUpdate = {
-      //       ...profile,
-      //       timeBusiness: dateTime.timeBusiness,
-      //     };
-      // await axios.patch(
-      //   `http://localhost:8080/course/${profile._id}`,
-      //   profile,
-      //   config.headers()
-      // );
-      //   // console.log("profile", profile);
 
       location.reload();
     } catch (error) {
@@ -271,17 +249,6 @@ const Profile = () => {
       console.log("fetchDataCertifies error: " + error);
     }
   };
-
-  useEffect(() => {
-    if (!Cookies.get("AUTH_KEY")) {
-      navigate("/");
-    }
-
-    fetchDataProfile();
-    fetchDataEducation();
-    fetchDataCertifies();
-    fetchDataexps();
-  }, []);
 
   const [dataEducation, setDataEducation] = useState([
     {
@@ -583,11 +550,11 @@ const Profile = () => {
                         //   className="flex  items-center justify-between "
                         id="hs-toggle-password"
                         type="Name"
-                        name="username"
+                        name="fullname"
                         className="mt-2 mb-3  lg:w-[760px] w-[93vw] h-[56px]  gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4  border-2 border-lightblue font-montserrat p-[16px]"
                         placeholder="Trainer A"
                         onChange={handleChangeUser}
-                        value={current.username}
+                        value={current.fullname}
                       ></input>
                       <div className="mt-2 w-[600px] text-[20px] leading-[24.38px] font-semibold">
                         Activity
@@ -597,11 +564,11 @@ const Profile = () => {
                         className="mt-2 mb-3 lg:w-[760px] w-[93vw] h-[56px] gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue font-montserrat p-[16px]"
                         name="title"
                         onChange={handleChange}
-                        value={profile.title}
+                        value={profile?.title}
                       >
                         {activities.map((activity, index) => (
-                          <option key={index} value={activity}>
-                            {activity}
+                          <option key={index} value={activity.title}>
+                            {activity.title}
                           </option>
                         ))}
                       </select>
@@ -620,7 +587,7 @@ const Profile = () => {
                       placeholder="750 THB"
                       name="price"
                       onChange={handleChange}
-                      value={profile.price}
+                      value={profile?.price}
                     ></input>
                   </div>
                   <div className="w-[508px] h-[24px] gap-[8px] mt-[90px] lg:mt-0">
@@ -633,17 +600,16 @@ const Profile = () => {
                       placeholder="30-min course"
                       name="duration"
                       onChange={handleChange}
-                      value={profile.duration}
+                      value={profile?.duration}
                     ></input>
                   </div>
                 </div>
                 <div className="mt-8 w-full max-w-6xl">
                   <div className="flex flex-col lg:flex-row gap-8">
                     {/* Days selection */}
-                    <div className="w-full lg:w-3/5">
+                    <div className="w-full lg:w-3/5 lg:mt-8 mt-12">
                       <div className="text-2xl font-semibold mb-2">
                         Business hours
-                        <p>Day</p>
                       </div>
                       <div className="p-4 border-2 border-lightblue rounded-xl pl-5">
                         <div className="flex flex-wrap gap-5">
@@ -666,7 +632,7 @@ const Profile = () => {
                       <input
                         type="hidden"
                         name="DateBusiness"
-                        value={profile.DateBusiness}
+                        value={profile?.DateBusiness}
                       />
                     </div>
 
@@ -711,7 +677,7 @@ const Profile = () => {
                       <input
                         type="hidden"
                         name="timeBusiness"
-                        value={profile.timeBusiness}
+                        value={profile?.timeBusiness}
                       />
                     </div>
                   </div>
@@ -719,14 +685,16 @@ const Profile = () => {
                   {/* About Me Section */}
                   <div className="mt-8 w-full">
                     <label className="text-2xl font-semibold block mb-2">
-                      About Me {profile.description.length}/500
+                      About Me{" "}
+                      {profile.description ? profile.description.length : "0"}
+                      /500
                     </label>
                     <textarea
                       className="bg-[#EFFAFD] w-full h-32 min-h-[100px] resize-none rounded-xl border-2 border-lightblue px-3 py-2.5 text-sm focus:border-2 focus:border-gray-900"
                       placeholder="Write something about yourself... "
                       rows="3"
                       name="description"
-                      value={profile.description}
+                      value={profile?.description}
                       onChange={handleAboutMechange}
                     ></textarea>
                     {/* {isLimitReached && (
@@ -744,7 +712,7 @@ const Profile = () => {
                           className="mt-2 mb-3 w-[300px] gap-[10px] ml-[0.5vh] rounded-[12px] bg-transparent outline-black py-3 ps-4 border-2 border-lightblue font-montserrat p-[16px]"
                           name="status"
                           onChange={handleChange}
-                          value={profile.status}
+                          value={profile?.status}
                         >
                           {selectstatus.map((status, index) => (
                             <option key={index} value={status}>
@@ -768,7 +736,7 @@ const Profile = () => {
                 {/* Resume part */}
               </div>
             </div>
-            <div className="mt-[190px] gap-8 lg:mt-[40px]">
+            <div className="mt-[10px] gap-8 lg:mt-[40px]">
               <div className="text-[24px] leading-{29.26} font-semibold">
                 Resume
               </div>

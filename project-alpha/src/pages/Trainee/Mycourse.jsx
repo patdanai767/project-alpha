@@ -17,6 +17,7 @@ export default function Mycourse() {
     endTime: "",
     user: "",
   });
+  const [course, setCourse] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -26,8 +27,19 @@ export default function Mycourse() {
     try {
       const res = await axios.get("/api/meeting/myMeeting", config.headers());
       const resUser = await axios.get("/api/user/profile", config.headers());
+      const resCourse = await axios.get("/api/course");
       setRecentData(res.data.filter((val) => val.status === "continue"));
-      setData(res.data.filter((val) => val.status === "continue" || val.status === "finish"));
+      setData(
+        res.data.filter(
+          (val) => val.status === "continue" || val.status === "finish"
+        )
+      );
+
+      const checkTrainees = resCourse.data.filter((course) =>
+        course.trainees.some((trainee) => trainee._id === resUser.data._id)
+      );
+      setCourse(checkTrainees);
+
       setUser(resUser.data);
     } catch (error) {
       throw new Error(error);
@@ -35,11 +47,12 @@ export default function Mycourse() {
   };
 
   return (
-      <div className="flex justify-center mt-[74px]">
-        <div className="min-h-screen md:w-[85%]">
-          <div className="text-[36px] font-semibold">Welcome, Trainee</div>
-          <div className="my-[32px]">
-            <div className="text-[24px] my-[32px]">Upcoming course</div>
+    <div className="flex justify-center mt-[74px]">
+      <div className="min-h-screen md:w-[85%]">
+        <div className="text-[36px] font-semibold">Welcome, Trainee</div>
+        <div className="my-[32px]">
+          <div className="text-[24px] my-[32px]">Upcoming course</div>
+          {recentData? (
             <EventCard
               key={recentData[0]?._id}
               id={recentData[0]?._id}
@@ -51,37 +64,48 @@ export default function Mycourse() {
               status={recentData[0]?.status}
               user={user}
             />
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="mb-[32px]">
+          <div className="my-[32px] text-[24px]">My trainer</div>
+          <div className="grid grid-cols-4 gap-16 mx-16">
+            {course
+              ? course.map((val) => (
+                  <TrainerCard
+                    key={val._id}
+                    title={val.createdBy.username}
+                    thumbnail={val.createdBy.profileImage}
+                    category={val.title}
+                    date={val.DateBusiness}
+                    time={val.timeBusiness}
+                  />
+                ))
+              : ""}
           </div>
-          <div className="mb-[32px]">
-            <div className="my-[32px] text-[24px]">My trainer</div>
-            <div className="grid grid-cols-4 gap-16 mx-16">
-              <TrainerCard />
-              <TrainerCard />
-              <TrainerCard />
-              <TrainerCard />
-            </div>
-          </div>
-          <div className="mb-[32px]">
-            <div className="text-[24px] my-[32px]">My events</div>
-            <div className="grid gap-[32px]">
-              {data
-                ? data.map((val) => (
-                    <EventCard
-                      key={val._id}
-                      id={val._id}
-                      title={val.title}
-                      trainer={val.createdBy}
-                      trainee={val.trainee}
-                      startedTime={val.startedAt}
-                      endTime={val.endAt}
-                      status={val.status}
-                      user={user}
-                    />
-                  ))
-                : ""}
-            </div>
+        </div>
+        <div className="mb-[32px]">
+          <div className="text-[24px] my-[32px]">My events</div>
+          <div className="grid gap-[32px]">
+            {data
+              ? data.map((val) => (
+                  <EventCard
+                    key={val._id}
+                    id={val._id}
+                    title={val.title}
+                    trainer={val.createdBy}
+                    trainee={val.trainee}
+                    startedTime={val.startedAt}
+                    endTime={val.endAt}
+                    status={val.status}
+                    user={user}
+                  />
+                ))
+              : ""}
           </div>
         </div>
       </div>
+    </div>
   );
 }

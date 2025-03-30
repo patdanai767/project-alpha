@@ -70,13 +70,13 @@ const Login = () => {
                 Sign in
               </div>
               <div className="grid justify-center gap-1">
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
                   Forgot{" "}
                   <a className="text-lightblue/70 underline mx-1" href="#">
                     password
                   </a>{" "}
                   ?
-                </div>
+                </div> */}
                 <div className="flex justify-center">
                   Don't you have an account?
                   <a

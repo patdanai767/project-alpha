@@ -43,8 +43,8 @@ export default function MessageCard({
       }}
       className="flex gap-[16px] items-center px-[32px] cursor-pointer p-2"
     >
-      <div className="h-[55px] w-[55px] bg-lime rounded-full">
-        <img src={image} className="rounded-full" />
+      <div className="h-[55px] w-[55px] bg-lime rounded-full object-cover">
+        <img src={image} className="h-[55px] w-[55px] rounded-full object-cover" />
       </div>
       <div className="flex-1 gap-[8px] mb-[8px]">
         <div className="justify-between flex">

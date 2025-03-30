@@ -73,18 +73,18 @@ export default function MessengerDetails() {
     return (
       self.findIndex(
         (i) =>
-          i.sentToId._id === item.sentToId._id &&
-          item.sentFromId._id === user._id
+          i.sentFromId._id === item.sentFromId._id &&
+          item.sentToId._id === user._id
       ) === index
     );
   });
 
-  const filteredName = filteredData.filter((item) => item.sentToId._id === id);
+  const filteredName = filteredData.filter((item) => item.sentFromId._id === id);
 
   const filteredSearch = filteredData.filter((item) => {
     return search.toLowerCase === ""
       ? item
-      : item.sentToId.fullname.toLowerCase().includes(search);
+      : item.sentFromId.fullname.toLowerCase().includes(search.toLowerCase());
   });
 
   const handleBack = () => {
@@ -110,12 +110,12 @@ export default function MessengerDetails() {
           <div>
             {filteredSearch
               ? filteredSearch.map((message, index) => (
-                  <Link to={`/messenger/${message.sentToId._id}`} key={index}>
+                  <Link to={`/messenger/${message.sentFromId._id}`} key={index}>
                     <MessageCard
-                      fullname={message.sentToId.fullname}
-                      image={message.sentToId.profileImage}
+                      fullname={message.sentFromId.fullname}
+                      image={message.sentFromId.profileImage}
                       messages={messages.filter(
-                        (dataMessage) => dataMessage.sentToId._id === user._id
+                        (dataMessage) => dataMessage.sentFromId._id === user._id
                       )}
                     />
                   </Link>
@@ -133,25 +133,25 @@ export default function MessengerDetails() {
               <ChevronLeft />
             </div>
             <div className="flex">
-              {filteredName[0] ? filteredName[0].sentToId.fullname : ""}
+              {filteredName[0] ? filteredName[0].sentFromId.fullname : ""}
             </div>
           </div>
-          <div className="min-h-[660px] overflow-x-scroll">
-            <div className="px-[16px] sm:px-[32px] flex-grow">
+          <div className="overflow-auto flex-grow">
+            <div className="px-[16px] sm:px-[32px]">
               {filterMessages
                 ? filterMessages.map((message, index) => (
-                    <MessageBox
-                      key={index}
-                      text={message.content}
-                      sender={senderIdentify(message)}
-                      date={message.createdAt}
-                      image={message.sentFromId.profileImage}
-                    />
-                  ))
+                  <MessageBox
+                    key={index}
+                    text={message.content}
+                    sender={senderIdentify(message)}
+                    date={message.createdAt}
+                    image={message.sentFromId.profileImage}
+                  />
+                ))
                 : ""}
             </div>
           </div>
-          <div className="bg-lightblue">
+          <div className="bg-lightblue sticky bottom-0">
             <div className="flex p-[32px] gap-[8px] items-center">
               <input
                 type="text"

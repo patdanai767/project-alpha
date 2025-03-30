@@ -128,25 +128,25 @@ export default function Overviewevents() {
               <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">
                 Trainee Numbers
               </p>
-              <p className="text-[24px] font-bold">127</p>
+              <p className="text-[24px] font-bold">{myCourse ? myCourse?.trainees.length: 0}</p>
             </div>
             <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
               <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">
                 Training hours
               </p>
-              <p className="text-[24px] font-bold">127</p>
+              <p className="text-[24px] font-bold">{myCourse ? (myCourse?.trainees.length * myCourse?.duration): 0}</p>
             </div>
             <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
               <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">
                 Received tokens
               </p>
-              <p className="text-[24px] font-bold">127</p>
+              <p className="text-[24px] font-bold">{myCourse ? (myCourse?.trainees.length * myCourse?.price): 0}</p>
             </div>
             <div className="border-2 border-gray rounded-xl h-32 p-4 grid justify-between">
               <p className="font-semibold text-[20px] md:text-[16px] lg:text-[20px]">
                 Rating Numbers
               </p>
-              <p className="text-[24px] font-bold">127</p>
+              <p className="text-[24px] font-bold">{average(reviews) ? `${average(reviews)}` : "0"}</p>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function Overviewevents() {
             <div className="flex items-center gap-1">
               <Star fill="#DDF344" className="w-[36px] h-[36px]" />
               <p className="text-[36px] font-bold">
-                {reviews ? `${average(reviews)}` : ""}
+                {average(reviews) ? `${average(reviews)}` : "0"}
               </p>
             </div>
             <p className="content-end mb-1 ml-1">

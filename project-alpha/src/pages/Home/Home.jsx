@@ -22,10 +22,12 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [index, setIndex] = useState(0);
   const [isNext, setIsNext] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const duration = setInterval(next, 3000);
@@ -40,10 +42,6 @@ const Home = () => {
   };
 
   const { scrollY } = useScroll();
-
-  // background motion
-  const textTransform = useTransform(scrollY, [0, 350], [0, 250]);
-  const imgTransform = useTransform(scrollY, [0, 350], [0, 228]);
 
   const fadeInAnimation = {
     initial: { opacity: 0, y: 50 },
@@ -109,11 +107,15 @@ const Home = () => {
               <p className="text-blue font-bold text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4">
                 Do you have a Trainer ?
               </p>
-              <p className="text-lightblue font-semibold text-left text-2xl sm:text-3xl lg:text-4xl mb-8">
-                Let's started from here
+              <p className="text-lightblue font-medium text-left text-xl lg:text-2xl mb-8">
+                Get healthier with the right trainer by your side.
+                <br className="hidden sm:block"></br> Let's started from here
               </p>
               <div>
-                <button className="flex mx-auto items-center gap-4 bg-blue text-lime text-2xl font-semibold border-none rounded-xl px-20 sm:px-28 lg:px-36 py-4 cursor-pointer hover:bg-blue/20 hover:text-blue transition duration-200 ease-in-out">
+                <button
+                  onClick={() => navigate("/search")}
+                  className="flex mx-auto items-center gap-4 bg-blue text-lime text-2xl font-semibold border-none rounded-xl px-20 sm:px-28 lg:px-36 py-4 cursor-pointer hover:bg-blue/20 hover:text-blue transition duration-200 ease-in-out"
+                >
                   <p className="mb-1">Start</p>
                   <ArrowRight />
                 </button>
@@ -133,13 +135,14 @@ const Home = () => {
               <p className="text-lime text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
                 Find the right trainer for you
               </p>
-              <p className="text-xl sm:text-2xl font-semibold mb-8">
+              <p className="text-[16px] sm:text-2xl font-medium mb-8">
                 Personal trainer will ensure you for performing exercises
-                correctly and efficiently
+                correctly and efficiently. we offer powerful features to help
+                you train smarter and reach your goals faster.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-2 md:flex items-center justify-center text-xl lg:text-2xl font-bold">
+            <div className="grid grid-cols-2 md:flex items-start justify-center text-xl lg:text-2xl font-bold">
               <motion.div
                 className="group flex flex-col items-center mx-16 my-8"
                 variants={fadeInAnimation}
@@ -151,12 +154,16 @@ const Home = () => {
                   size={48}
                   className=" group-hover:text-lime group-hover:scale-110 transition duration-200 ease-in-out mb-4"
                 />
-                <p className=" group-hover:text-lime transition duration-200 ease-in-out">
+                <p className=" group-hover:text-lime transition duration-200 ease-in-out mb-4">
                   Exercise
+                </p>
+                <p className="text-[18px] font-medium group-hover:text-lime transition duration-200 ease-in-out">
+                  Work out with expert trainers who guide you every step of the
+                  way.
                 </p>
               </motion.div>
               <motion.div
-                className="group flex flex-col items-center mx-16 my-8"
+                className="group flex flex-col items-center mx-16 my-8 "
                 variants={fadeInAnimation}
                 initial="initial"
                 whileInView="animate"
@@ -166,8 +173,11 @@ const Home = () => {
                   size={48}
                   className=" group-hover:text-lime group-hover:scale-110 transition duration-200 ease-in-out mb-4"
                 />
-                <p className=" group-hover:text-lime transition duration-200 ease-in-out">
+                <p className=" group-hover:text-lime transition duration-200 ease-in-out mb-4">
                   Effective
+                </p>
+                <p className="text-[18px] font-medium group-hover:text-lime transition duration-200 ease-in-out">
+                  Follow proven programs designed to deliver real results.
                 </p>
               </motion.div>
               <motion.div
@@ -181,8 +191,12 @@ const Home = () => {
                   size={48}
                   className=" group-hover:text-lime group-hover:scale-110 transition duration-200 ease-in-out mb-4"
                 />
-                <p className=" group-hover:text-lime transition duration-200 ease-in-out">
+                <p className=" group-hover:text-lime transition duration-200 ease-in-out mb-4">
                   Planning
+                </p>
+                <p className="text-[18px] font-medium group-hover:text-lime transition duration-200 ease-in-out">
+                  Get a personalized training plan that fits your schedule and
+                  goals.
                 </p>
               </motion.div>
               <motion.div
@@ -196,8 +210,11 @@ const Home = () => {
                   size={48}
                   className=" group-hover:text-lime group-hover:scale-110 transition duration-200 ease-in-out mb-4"
                 />
-                <p className=" group-hover:text-lime transition duration-200 ease-in-out">
+                <p className=" group-hover:text-lime transition duration-200 ease-in-out mb-4">
                   Online
+                </p>
+                <p className="text-[18px] font-medium group-hover:text-lime transition duration-200 ease-in-out">
+                  Train anytime, anywhere with easy access to your workouts.
                 </p>
               </motion.div>
             </div>
@@ -212,29 +229,117 @@ const Home = () => {
               whileInView="animate"
               viewport={{ once: true }}
             >
+              {/* <div className="flex lg:hidden justify-center mb-16">
+                <motion.div
+                  className="flex cursor-pointer translate transition duration-300 ease-in-out"
+                  key={trainersData[index].id}
+                  initial={{ opacity: 0, rotateY: -90, x: -100 }}
+                  animate={{ opacity: 1, rotateY: 0, x: 0 }}
+                  exit={{ opacity: 0, rotateY: 90, x: 100 }}
+                  transition={{ duration: 0.05, ease: "easeOut" }}
+                >
+                  <Homecard
+                    name={trainersData[index].name}
+                    image={trainersData[index].image}
+                    category={trainersData[index].category}
+                  />
+                </motion.div>
+              </div> */}
               <p className="text-blue text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
                 Trainers for you are here
               </p>
-              <p className="text-green text-xl sm:text-2xl font-semibold mb-16">
-                choose me ! we are waiting for you
+              <p className="text-lightblue text-xl sm:text-2xl font-medium mb-16">
+                Looking for the perfect trainer? quick and easy! Just 3 simple
+                steps
               </p>
+              {/* 3 step using */}
+
+              <div className="flex gap-8">
+                <div className="flex gap-8">
+                  <div className="flex flex-col md:flex-row text-start justify-between w-full">
+                    <div className="w-full mr-8 flex flex-col mb-8 md:mb-0">
+                      <div className="group flex md:flex-col justify-between border-2 rounded-xl border-gray flex-1 h-full hover:border-lightblue hover:scale-105 transition duration-200 ease-in-out">
+                        <div>
+                          <p className="text-gray text-2xl sm:text-5xl font-bold pl-4 pt-4 group-hover:text-blue transition duration-200 ease-in-out">
+                            1
+                          </p>
+                          <p className="text-gray text-base sm:text-lg md:text-xl font-medium p-4 group-hover:text-lightblue transition duration-200 ease-in-out">
+                            Choose a trainer that fits your goals perfectly
+                            based on categories, experience, and real user
+                            reviews.
+                          </p>
+                        </div>
+                        <div className="flex">
+                          <img
+                            src="choose_image.png"
+                            alt="choose-image"
+                            className="max-w-[150px] md:max-w-full md:min-w-[150px]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full mr-8 flex flex-col mb-8 md:mb-0">
+                      <div className="group flex md:flex-col justify-between border-2 rounded-xl border-gray flex-1 h-full hover:border-lightblue hover:scale-105 transition duration-200 ease-in-out">
+                        <div>
+                          <p className="text-gray text-2xl sm:text-5xl font-bold pl-4 pt-4 group-hover:text-blue transition duration-200 ease-in-out">
+                            2
+                          </p>
+                          <p className="text-gray text-base sm:text-lg md:text-xl font-medium p-4 group-hover:text-lightblue transition duration-200 ease-in-out">
+                            Use tokens through our secure in system to buy
+                            training course.
+                          </p>
+                        </div>
+                        <div className="flex">
+                          <img
+                            src="pay_image.png"
+                            alt="pay-image"
+                            className="max-w-[150px] md:max-w-full md:min-w-[150px]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col mb-8 md:mb-0">
+                      <div className="group flex md:flex-col justify-between border-2 rounded-xl border-gray flex-1 h-full hover:border-lightblue hover:scale-105 transition duration-200 ease-in-out">
+                        <div>
+                          <p className="text-gray text-2xl sm:text-5xl font-bold pl-4 pt-4 group-hover:text-blue transition duration-200 ease-in-out">
+                            3
+                          </p>
+                          <p className="text-gray text-base sm:text-lg md:text-xl font-medium p-4 group-hover:text-lightblue transition duration-200 ease-in-out">
+                            Chat with your trainer via in messaging to discuss
+                            your goals, schedule, and get personalized guidance.
+                          </p>
+                        </div>
+                        <div className="flex">
+                          <img
+                            src="train_image.png"
+                            alt="train-image"
+                            className="max-w-[150px] md:max-w-full md:min-w-[150px]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* trainer card */}
+                {/* <div className="hidden lg:flex items-start justify-center gap-8">
+                  <motion.div
+                    className="flex cursor-pointer translate transition duration-300 ease-in-out"
+                    key={trainersData[index].id}
+                    initial={{ opacity: 0, rotateY: -90, x: -100 }}
+                    animate={{ opacity: 1, rotateY: 0, x: 0 }}
+                    exit={{ opacity: 0, rotateY: 90, x: 100 }}
+                    transition={{ duration: 0.05, ease: "easeOut" }}
+                  >
+                    <Homecard
+                      name={trainersData[index].name}
+                      image={trainersData[index].image}
+                      category={trainersData[index].category}
+                    />
+                  </motion.div>
+                </div> */}
+              </div>
             </motion.div>
-            <div className="flex items-center justify-center gap-8">
-              <motion.div
-                className="flex cursor-pointer translate transition duration-300 ease-in-out"
-                key={trainersData[index].id}
-                initial={{ opacity: 0, rotateY: -90, x: -100 }}
-                animate={{ opacity: 1, rotateY: 0, x: 0 }}
-                exit={{ opacity: 0, rotateY: 90, x: 100 }}
-                transition={{ duration: 0.05, ease: "easeOut" }}
-              >
-                <Homecard
-                  name={trainersData[index].name}
-                  image={trainersData[index].image}
-                  category={trainersData[index].category}
-                />
-              </motion.div>
-            </div>
           </div>
         </div>
         {/* become a trainer */}
@@ -263,11 +368,18 @@ const Home = () => {
                 <p className="cursor-pointer text-lime text-left text-4xl sm:text-5xl lg:text-6xl mt-8 lg:mt-0 mb-4 font-bold">
                   Are you a Trainer ?
                 </p>
+                <p className="text-xl text-left font-medium mb-4">
+                  Partner with us to connect with clients and grow your training
+                  career. Quick and easy registration!
+                </p>
                 <p className="text-xl text-left sm:text-2xl font-semibold mb-8">
-                  Sign up to start training online with Project Alpha
+                  Sign up to start training online with TrainerNext
                 </p>
                 <div>
-                  <button className="flex mx-auto items-center gap-4 bg-sky text-blue text-2xl font-semibold border-none rounded-xl px-12 sm:px-24 py-4 cursor-pointer hover:bg-lime transition duration-200 ease-in-out">
+                  <button
+                    onClick={() => navigate("/register")}
+                    className="flex mx-auto items-center gap-4 bg-sky text-blue text-2xl font-semibold border-none rounded-xl px-12 sm:px-24 py-4 cursor-pointer hover:bg-lime transition duration-200 ease-in-out"
+                  >
                     <p className="mb-1">Become a trainer</p>
                     <ArrowRight />
                   </button>
@@ -320,7 +432,7 @@ const Home = () => {
         </div>
 
         {/* footer */}
-        <div className="w-full bg-green">
+        <div className="w-full bg-gray">
           <div className="max-w-[1920px] mx-auto text-sky px-8 pt-8 pb-8">
             <p>@PROJECT_ALPHA</p>
           </div>

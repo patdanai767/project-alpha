@@ -39,21 +39,23 @@ export default function EventCardTrainer({
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`/api/meeting/${id}`);
-      const resCourse = await axios.get(
-        "/api/course/myCourse",
-        config.headers()
-      );
-      setData({
-        title: res.data.title,
-        startedAt: res.data.startedAt,
-        endAt: res.data.endAt,
-        trainee: res.data.trainee._id,
-        description: res.data.description,
-      });
-      setTrainees(
-        resCourse.data.trainees.filter((val) => val._id !== trainee._id)
-      );
+      if (id) {
+        const res = await axios.get(`/api/meeting/${id}`);
+        const resCourse = await axios.get(
+          "/api/course/myCourse",
+          config.headers()
+        );
+        setData({
+          title: res.data.title,
+          startedAt: res.data.startedAt,
+          endAt: res.data.endAt,
+          trainee: res.data.trainee._id,
+          description: res.data.description,
+        });
+        setTrainees(
+          resCourse.data.trainees.filter((val) => val._id !== trainee._id)
+        );
+      }
     } catch (error) {
       throw new Error(error);
     }
@@ -129,6 +131,8 @@ export default function EventCardTrainer({
             title: "Meeting is ended!",
             icon: "success",
             timer: 2000,
+          }).then(() => {
+            window.location.reload();
           });
         });
     } catch (error) {
@@ -151,7 +155,7 @@ export default function EventCardTrainer({
         .patch(`/api/meeting/${id}`, payload, config.headers())
         .then(() => {
           Swal.fire({
-            title: "Meeting is ended!",
+            title: "Already updated!",
             icon: "success",
             timer: 2000,
           }).then(() => {
@@ -165,62 +169,47 @@ export default function EventCardTrainer({
 
   return (
     <>
-      <div className="p-3 flex border border-black rounded-lg">
-        <div className="flex flex-col md:flex-row items-start md:items-center w-full justify-between">
-          <div className="flex w-full justify-between">
-            {/* text + image */}
-            <div className="flex justify-center items-center md:flex-row">
-              {userData?._id === trainerData?._id ? (
-                <img
-                  src={traineeData?.profileImage}
-                  className="size-[50px] object-cover bg-lime mr-4 rounded-lg border-none"
-                />
-              ) : (
-                <img
-                  src={trainerData?.profileImage}
-                  className="size-[50px] object-cover bg-lime mr-4 rounded-lg border-none"
-                />
-              )}
+      {userData?._id === trainerData?._id ? (
+        <div className="p-3 flex border border-black rounded-lg">
+          <div className="flex flex-col md:flex-row items-start md:items-center w-full justify-between">
+            <div className="flex w-full justify-between">
+              {/* text + image */}
+              <div className="flex justify-center items-center md:flex-row">
+                {userData?._id === trainerData?._id ? (
+                  <img
+                    src={traineeData?.profileImage}
+                    className="size-[50px] object-cover bg-lime mr-4 rounded-lg border-none"
+                  />
+                ) : (
+                  <Skeleton />
+                )}
 
-              <div className="flex flex-col">
                 <div className="flex flex-col">
-                  {userData?._id === trainerData?._id ? (
-                    <div className="font-semibold text-[20px]">
-                      {traineeData?.fullname}
-                    </div>
-                  ) : (
-                    <div className="font-semibold text-[20px]">
-                      {trainerData?.fullname}
-                    </div>
-                  )}
+                  <div className="flex flex-col">
+                    {userData?._id === trainerData?._id ? (
+                      <div className="font-semibold text-[20px]">
+                        {traineeData?.fullname}
+                      </div>
+                    ) : (
+                      <div className="font-semibold text-[20px]">
+                        {trainerData?.fullname}
+                      </div>
+                    )}
 
-                  <div>{title}</div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="block md:hidden">
-                    {formatData(startedTime)}
+                    <div>{title}</div>
                   </div>
-                  <div className="block md:hidden">
-                    {formatDate(startedTime)} - {formatDate(endTime)}
+                  <div className="flex gap-4">
+                    <div className="block md:hidden">
+                      {formatData(startedTime)}
+                    </div>
+                    <div className="block md:hidden">
+                      {formatDate(startedTime)} - {formatDate(endTime)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* icons */}
-            {new Date(endTime) < currentDate ? (
-              <motion.div
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
-                className=" md:hidden items-center gap-1 flex cursor-pointer rounded-lg border my-3 p-1 px-6 border-green text-green"
-              >
-                <div>Feedback</div>
-              </motion.div>
-            ) : (
-              <div className="flex flex-col-reverse gap-2">
+              {/* icons */}
+              {new Date(endTime) < currentDate ? (
                 <motion.div
                   whileHover={{
                     scale: 1.05,
@@ -228,9 +217,83 @@ export default function EventCardTrainer({
                   whileTap={{
                     scale: 0.95,
                   }}
-                  className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 px-0 md:px-3 border-gray text-gray"
+                  className=" md:hidden items-center gap-1 flex cursor-pointer rounded-lg border my-3 p-1 px-6 border-green text-green"
                 >
-                  <Bell size={16} />
+                  <div>Feedback</div>
+                </motion.div>
+              ) : (
+                <div className="flex flex-col-reverse gap-2">
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 px-0 md:px-3 border-gray text-gray"
+                  >
+                    <Bell size={16} />
+                  </motion.div>
+                  <motion.div
+                    onClick={() => setOpenModal(!openModal)}
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 text-white bg-lightblue"
+                  >
+                    <Pencil size={16} />
+                  </motion.div>
+                  <motion.div
+                    onClick={handleDelete}
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
+                  >
+                    <X size={16} />
+                  </motion.div>
+                </div>
+              )}
+            </div>
+            <div className="flex w-full">
+              <div className="hidden md:block w-full">
+                {formatData(startedTime)}
+              </div>
+              <div className="hidden md:block w-full">
+                {formatDate(startedTime)} - {formatDate(endTime)}
+              </div>
+            </div>
+            {new Date(endTime) < currentDate ? (
+              <motion.div
+                onClick={handleFeedback}
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                className="hidden md:block items-center gap-1 cursor-pointer rounded-lg border my-3 p-1 px-8 border-green text-green"
+              >
+                <div className="flex">Finish</div>
+              </motion.div>
+            ) : (
+              <div className="flex gap-3 justify-end">
+                <motion.div
+                  whileHover={{
+                    scale: 1.05,
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                  }}
+                  className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 md:px-3 border-gray text-gray"
+                >
+                  <Bell className="w-[20px] h-[20px]" />
                 </motion.div>
                 <motion.div
                   onClick={() => setOpenModal(!openModal)}
@@ -240,9 +303,9 @@ export default function EventCardTrainer({
                   whileTap={{
                     scale: 0.95,
                   }}
-                  className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 text-white bg-lightblue"
+                  className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-lightblue"
                 >
-                  <Pencil size={16} />
+                  <Pencil className="w-[20px] h-[20px]" />
                 </motion.div>
                 <motion.div
                   onClick={handleDelete}
@@ -252,75 +315,17 @@ export default function EventCardTrainer({
                   whileTap={{
                     scale: 0.95,
                   }}
-                  className="block md:hidden justify-items-center items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
+                  className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
                 >
-                  <X size={16} />
+                  <X className="w-[20px] h-[20px]" />
                 </motion.div>
               </div>
             )}
           </div>
-          <div className="flex w-full">
-            <div className="hidden md:block w-full">
-              {formatData(startedTime)}
-            </div>
-            <div className="hidden md:block w-full">
-              {formatDate(startedTime)} - {formatDate(endTime)}
-            </div>
-          </div>
-          {new Date(endTime) < currentDate ? (
-            <motion.div
-              onClick={handleFeedback}
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-              className="hidden md:block items-center gap-1 cursor-pointer rounded-lg border my-3 p-1 px-8 border-green text-green"
-            >
-              <div className="flex">Finish</div>
-            </motion.div>
-          ) : (
-            <div className="flex gap-3 justify-end">
-              <motion.div
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
-                className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 md:p-1 md:px-3 border-gray text-gray"
-              >
-                <Bell className="w-[20px] h-[20px]" />
-              </motion.div>
-              <motion.div
-                onClick={() => setOpenModal(!openModal)}
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
-                className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-lightblue"
-              >
-                <Pencil className="w-[20px] h-[20px]" />
-              </motion.div>
-              <motion.div
-                onClick={handleDelete}
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
-                className="hidden md:block items-center content-center gap-1 cursor-pointer rounded-lg border p-2 text-white bg-red"
-              >
-                <X className="w-[20px] h-[20px]" />
-              </motion.div>
-            </div>
-          )}
         </div>
-      </div>
+      ) : (
+        ""
+      )}
 
       <Modal open={openModal}>
         <div className="justify-items-end mt-3 mr-3 w-[400px] md:w-[600px]">
@@ -341,11 +346,11 @@ export default function EventCardTrainer({
               onChange={handleChange}
               className="p-[12px] rounded-xl border border-lightblue bg-transparent w-full"
             >
-              <option value={trainee._id}>{trainee.fullname}</option>
+              <option value={trainee?._id}>{trainee?.fullname}</option>
               {trainees
                 ? trainees.map((val) => (
-                    <option key={val._id} value={val._id}>
-                      {val.fullname}
+                    <option key={val?._id} value={val?._id}>
+                      {val?.fullname}
                     </option>
                   ))
                 : ""}

@@ -2,6 +2,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -43,9 +44,24 @@ const AuthProvider = ({ children }) => {
         }
         setToken(res.data.accessToken);
         Cookies.set("AUTH_KEY", res.data.accessToken);
-        navigate("/");
+        Swal.fire({
+          icon: "success",
+          title: "Login Success",
+          text: res.data.message,
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.response?.data?.message || "Something went wrong",
+        timer: 2000,
+        timerProgressBar: true,
+      });
       throw new Error(error);
     }
   };
