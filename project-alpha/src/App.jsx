@@ -20,6 +20,7 @@ import Overviewevents from "./pages/Trainer/Overviewevents";
 import Token from "./pages/Token/Token";
 import Favorite from "./pages/Favorite/Favorite";
 import TrainerLayOut from "./layout/TrainerLayout";
+import TraineeLayOut from "./layout/TraineeLaout";
 
 function App() {
   return (
@@ -36,7 +37,9 @@ function App() {
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/messenger/:id" element={<MessengerDetails />} />
               <Route path="/account" element={<Account />} />
-              <Route path="/mycourse" element={<Mycourse />} />
+              <Route element={<TraineeLayOut/>}>
+                <Route path="/mycourse" element={<Mycourse />} />
+              </Route>
               <Route element={<TrainerLayOut />}>
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/dashboard" element={<Dashboard />} />

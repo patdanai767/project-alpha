@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet,useNavigate } from "react-router-dom";
 import { config } from "../config";
 import axios from "axios";
 import { useEffect } from "react";
@@ -10,7 +10,7 @@ export default function TrainerLayOut() {
       await axios
         .get("/api/user/profile", config.headers())
         .then((res) => {
-          if (res.data.role !== "trainer") {
+          if (res.data.role !== "trainee") {
             navigate("/");
           }
         })
