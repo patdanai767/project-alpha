@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import axios from "axios";
 
 function Search_() {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   const [currentPage, setCurrentPage] = useState(1); //หน้าปัจจุบัน
   const [courses, setCourse] = useState([]);
   const itemsPerPage = 3; // จำนวนข้อมูลต่อหน้า
@@ -22,7 +23,7 @@ function Search_() {
   }, []);
 
   const reData = async () => {
-    const res = await axios.get("/api/course");
+    const res = await axios.get(`${API_BASE_URL}/course`);
     setCourse(res.data);
   };
 

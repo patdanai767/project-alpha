@@ -27,12 +27,13 @@ const Searchcard = ({
   const token = authAction?.token;
   const [point, setPoint] = useState();
   const [reviewer, setReviewer] = useState();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     calpoint();
   }, []);
   const calpoint = async () => {
-    const courseRes = await axios.get(`/api/course/${id}`);
+    const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
     const fetchRating = courseRes.data.rating;
     const fetchpoint = fetchRating.map((a) => a?.point ?? 0);
     const sumPoint = fetchpoint.reduce((total, num) => total + num, 0);
@@ -48,7 +49,7 @@ const Searchcard = ({
     setIsOpen1(!isOpen1);
   }; // ฟังก์ชันสำหรับเปิด/ปิด messagebox
   const sendMessage = async () => {
-    const courseRes = await axios.get(`/api/course/${id}`);
+    const courseRes = await axios.get(`${API_BASE_URL}/course/${id}`);
     const trainerId = courseRes.data.createdBy?._id;
     const payload = {
       content: message,
@@ -67,7 +68,7 @@ const Searchcard = ({
     }
 
     await axios
-      .post("/api/conversation/sentMessage", payload, {
+      .post(`${API_BASE_URL}/conversation/sentMessage`, payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // ใส่ token สำหรับ auth
