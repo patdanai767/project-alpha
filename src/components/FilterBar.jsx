@@ -103,8 +103,8 @@ function FilterBar({ filters, setFilters }) {
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("All")}>All</div>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("less than 1,000 token")}>less than THB 1,000</div>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("more than 1,000 token")}>more than THB 1,000</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("less than 1,000 token")}>less than 1,000 token</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("more than 1,000 token")}>more than 1,000 token</div>
                 </div>
               </div>
             )}
