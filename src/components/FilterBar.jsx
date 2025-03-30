@@ -68,7 +68,7 @@ function FilterBar({ filters, setFilters }) {
   return (
     <div className='mt-[-50px] ml-[10px] lg:ml-0'>
       <div className="text-5xl text-blue font-montserrat font-semibold">Choose Trainer</div>
-        <div className="font-medium">catagory : Female, more than THB1,000, more than 60-min, Weight Training</div>
+        <div className="font-medium">catagory : You can should a category from filter bar below.</div>
 
         <div className='lg:w-[1024px] w-[97vw]'>
         <div className="md:flex md:justify-between md:mt-[5px] hidden">
@@ -103,8 +103,8 @@ function FilterBar({ filters, setFilters }) {
               <div className='bg-white w-[244px] h-[124px] border-2 border-black rounded-lg flex z-20 absolute'>
                 <div className='flex flex-col justify-between'>
                   <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("All")}>All</div>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("less than THB 1,000")}>less than THB 1,000</div>
-                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("more than THB 1,000")}>more than THB 1,000</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("less than 1,000 token")}>less than 1,000 token</div>
+                  <div className='cursor-pointer hover:bg-gray-300 p-2 font-semibold rounded-lg w-[240px]'onClick={() => selectPrice("more than 1,000 token")}>more than 1,000 token</div>
                 </div>
               </div>
             )}

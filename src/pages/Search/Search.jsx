@@ -39,8 +39,8 @@ function Search_() {
         course.createdBy.sex === "lgbtq+".toLowerCase());
     const matchesPrice =
       filters.price === "All" ||
-      (filters.price === "less than THB 1,000" && course.price < 1000) ||
-      (filters.price === "more than THB 1,000" && course.price >= 1000);
+      (filters.price === "less than 1,000 token" && course.price < 1000) ||
+      (filters.price === "more than 1,000 token" && course.price >= 1000);
     const matchesDuration =
       filters.duration === "All" ||
       (filters.duration === "30-min" && course.duration <= 30) ||
