@@ -197,7 +197,6 @@ const Profile = () => {
 
       const payloadUpdate = {
         ...profile,
-        title: activities[0].title,
       };
 
       await axios.patch(
