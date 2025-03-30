@@ -607,10 +607,9 @@ const Profile = () => {
                 <div className="mt-8 w-full max-w-6xl">
                   <div className="flex flex-col lg:flex-row gap-8">
                     {/* Days selection */}
-                    <div className="w-full lg:w-3/5">
+                    <div className="w-full lg:w-3/5 lg:mt-8 mt-12">
                       <div className="text-2xl font-semibold mb-2">
                         Business hours
-                        <p>Day</p>
                       </div>
                       <div className="p-4 border-2 border-lightblue rounded-xl pl-5">
                         <div className="flex flex-wrap gap-5">
@@ -737,7 +736,7 @@ const Profile = () => {
                 {/* Resume part */}
               </div>
             </div>
-            <div className="mt-[190px] gap-8 lg:mt-[40px]">
+            <div className="mt-[10px] gap-8 lg:mt-[40px]">
               <div className="text-[24px] leading-{29.26} font-semibold">
                 Resume
               </div>
