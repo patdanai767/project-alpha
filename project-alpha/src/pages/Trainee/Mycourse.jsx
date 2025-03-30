@@ -21,7 +21,6 @@ export default function Mycourse() {
 
   useEffect(() => {
     fetchData();
-    
   }, []);
 
   const fetchData = async () => {
@@ -35,13 +34,12 @@ export default function Mycourse() {
           (val) => val.status === "continue" || val.status === "finish"
         )
       );
-      
-      const checkTrainees = resCourse.data.filter(course =>
-        course.trainees.some(trainee => trainee._id === resUser.data._id)
+
+      const checkTrainees = resCourse.data.filter((course) =>
+        course.trainees.some((trainee) => trainee._id === resUser.data._id)
       );
       setCourse(checkTrainees);
-      
-      
+
       setUser(resUser.data);
     } catch (error) {
       throw new Error(error);
@@ -54,31 +52,37 @@ export default function Mycourse() {
         <div className="text-[36px] font-semibold">Welcome, Trainee</div>
         <div className="my-[32px]">
           <div className="text-[24px] my-[32px]">Upcoming course</div>
-          <EventCard
-            key={recentData[0]?._id}
-            id={recentData[0]?._id}
-            title={recentData[0]?.title}
-            trainer={recentData[0]?.createdBy}
-            trainee={recentData[0]?.trainee}
-            startedTime={recentData[0]?.startedAt}
-            endTime={recentData[0]?.endAt}
-            status={recentData[0]?.status}
-            user={user}
-          />
+          {recentData ? (
+            <EventCard
+              key={recentData[0]?._id}
+              id={recentData[0]?._id}
+              title={recentData[0]?.title}
+              trainer={recentData[0]?.createdBy}
+              trainee={recentData[0]?.trainee}
+              startedTime={recentData[0]?.startedAt}
+              endTime={recentData[0]?.endAt}
+              status={recentData[0]?.status}
+              user={user}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <div className="mb-[32px]">
           <div className="my-[32px] text-[24px]">My trainer</div>
           <div className="grid grid-cols-4 gap-16 mx-16">
-            {course.map((val) => (
-              <TrainerCard
-                key={val._id}
-                title={val.createdBy.username}
-                thumbnail={val.createdBy.profileImage}
-                category = {val.title}
-                date = {val.DateBusiness}
-                time = {val.timeBusiness}
-              />
-            ))}
+            {course
+              ? course.map((val) => (
+                  <TrainerCard
+                    key={val._id}
+                    title={val.createdBy.username}
+                    thumbnail={val.createdBy.profileImage}
+                    category={val.title}
+                    date={val.DateBusiness}
+                    time={val.timeBusiness}
+                  />
+                ))
+              : ""}
           </div>
         </div>
         <div className="mb-[32px]">
